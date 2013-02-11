@@ -10,10 +10,18 @@ namespace TryOut.Grid
     class GridCell
     {
        public Rectangle rectangle;
+       private int amount;
        public bool isWall; 
 
         public GridCell(int side,int x, int y)
         {
+            amount = 0;
+            rectangle = new Rectangle(x, y, side, side);
+        }
+
+        public GridCell(int side, int x, int y, int amount)
+        {
+            this.amount = amount;
             rectangle = new Rectangle(x, y, side, side);
         }
 

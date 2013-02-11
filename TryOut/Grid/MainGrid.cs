@@ -9,7 +9,7 @@ namespace TryOut.Grid
 {
     class MainGrid
     {
-        int gridWidth, gridHeigth;
+        //int gridWidth, gridHeigth;
         int gridCellSide;
         int gridCellX, gridCellY;
         int xCells, yCells;
@@ -27,11 +27,11 @@ namespace TryOut.Grid
             gridCellX = 0;
             gridCellY = 0;
 
-            gridWidth = 300; //width;
-            gridHeigth = 300; //heigth;
+            //gridWidth = 311; //width;
+            //gridHeigth = 3; //heigth;
 
-            xCells = gridWidth / gridCellSide;
-            yCells = gridHeigth / gridCellSide;
+            xCells = 10;
+            yCells = 10;
             
             grid = new GridCell[xCells,yCells];
 
@@ -39,15 +39,15 @@ namespace TryOut.Grid
             {
                 for (int j = 0; j < yCells; j++)
                 {
-                    grid[i, j] = new GridCell(gridCellSide,gridCellX, gridCellY);
+                    grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
                     if ((i >= 4 && j >= 4) && (i <= 5 && j <= 5))
                     {
-                        grid[i, j] = new WallCell(gridCellSide, gridCellX, gridCellY);
+                        grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
                     }
 
-                    gridCellY += gridCellSide;
+                    gridCellY += gridCellSide +1;
                 }
-                gridCellX += gridCellSide;
+                gridCellX += gridCellSide +1;
                 gridCellY = 0;
             }
 
@@ -55,17 +55,13 @@ namespace TryOut.Grid
 
         public void Draw()
         {
-            int i = 0;
-            Console.WriteLine("Drawing Grid");
+            //int i = 0;
+            //Console.WriteLine("Drawing Grid");
             foreach (GridCell cell in grid)
             {
-                if (cell.isWall)
-                {
-                    cell.DrawCell(graphics, Color.Black);
-                }
-                Console.WriteLine("Drawing Cell" + i);
+                //Console.WriteLine("Drawing Cell" + i);
                 cell.DrawCell(graphics, Color.White);
-                i++;
+              //  i++;
             }
         }
 

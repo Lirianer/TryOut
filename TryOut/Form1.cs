@@ -9,6 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TryOut.Grid;
 
+/*
+ * UpperKEES Assignment:
+ * in each cell you store a value between 0 and 1000, 0 is default
+    in the gameloop every time you calculate the average of cell and its 8 neighbors (edge counts for 0)
+    then display the values during rendering (can be in numbers, but also in colors if you prefer that)
+    then put 1000 in one of the cells and run the program
+*/
+
+
+
 namespace TryOut
 {
     partial class Form1 : Form
@@ -38,7 +48,7 @@ namespace TryOut
             this.DoubleBuffered = true;
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.ClientSize = new Size(300, 300);
+            this.ClientSize = new Size(350, 350);
 
             clientWidth = this.ClientRectangle.Width;
             clientHeight = this.ClientRectangle.Height;
