@@ -10,7 +10,7 @@ namespace TryOut.Grid
     
     class WallCell : GridCell
     {
-        Rectangle rect;
+        Rectangle rect, imageRectangle;
         Image image;
         Bitmap texture;
         string location = "C:/Users/Gabriel/Documents/Visual Studio 2012/Projects/TryOut/TryOut/resources/wall.bmp";
@@ -24,14 +24,15 @@ namespace TryOut.Grid
                 texture = new Bitmap(location);
                 textureBrush = new TextureBrush(texture);
 
-            rect = new Rectangle(x, y, size, size);
+            rect = new Rectangle(x, y, size+1, size);
+            imageRectangle = new Rectangle(x, y , size +1, size +1);
         }
         
 
         public override void DrawCell(Graphics g, Color c)
         {
-                g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
-                g.FillRectangle(textureBrush, rectangle);
+                g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), base.rectangle);
+                g.FillRectangle(textureBrush, imageRectangle);
         }
     }
 
