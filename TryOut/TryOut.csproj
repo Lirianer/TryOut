@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="Grid\MainGrid.cs" />
     <Compile Include="Grid\GridCell.cs" />
+    <Compile Include="Grid\WallCell.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Timer.cs" />

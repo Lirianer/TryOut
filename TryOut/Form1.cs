@@ -24,7 +24,7 @@ namespace TryOut
         Graphics imageGraphics;
 
         Image backBuffer;
-        //Image blackScreen;
+        Image blackScreen;
 
         int clientWidth, clientHeight;
 
@@ -47,11 +47,14 @@ namespace TryOut
 
             graphics = this.CreateGraphics();
             imageGraphics = Graphics.FromImage(backBuffer);
+
+            grid = new MainGrid(imageGraphics);
         }
 
         public void GameLoop()
         {
             timer.Start();
+
             while (this.Created)
             {
                 startTime = timer.ElapsedMilliseconds;
@@ -97,9 +100,8 @@ namespace TryOut
         {
             imageGraphics.FillRectangle(new SolidBrush(Color.White),
                 this.ClientRectangle);
-           // imageGraphics.FillRectangle(new SolidBrush(Color.Green), image);
-            
-            grid = new MainGrid(imageGraphics);
+
+            grid.Draw();
            
             this.BackgroundImage = backBuffer;
             this.Invalidate();

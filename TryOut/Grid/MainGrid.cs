@@ -15,9 +15,14 @@ namespace TryOut.Grid
         int xCells, yCells;
         GridCell[,] grid;
 
+        public Graphics graphics;
+
         public MainGrid(Graphics g/*int width, int heigth*/)
         {
-            
+            Console.WriteLine("Initializin Grid");
+
+            graphics = g;
+
             gridCellSide = 30;
             gridCellX = 0;
             gridCellY = 0;
@@ -41,11 +46,26 @@ namespace TryOut.Grid
                 gridCellY = 0;
             }
 
+            grid[4, 4] = new WallCell(gridCellSide, gridCellX + (gridCellSide * 5), gridCellY + (gridCellSide * 5));
+            grid[4, 5] = new WallCell(gridCellSide, gridCellX + (gridCellSide * 5), gridCellY + (gridCellSide * 6));
+            grid[5, 4] = new WallCell(gridCellSide, gridCellX + (gridCellSide * 6), gridCellY + (gridCellSide * 5));
+            grid[5, 5] = new WallCell(gridCellSide, gridCellX + (gridCellSide * 6), gridCellY + (gridCellSide * 6));
+        }
+
+        public void Draw()
+        {
+            int i = 0;
+            Console.WriteLine("Drawing Grid");
             foreach (GridCell cell in grid)
             {
-                cell.DrawCell(g);
+                if (cell.isWall)
+                {
+                    cell.DrawCell(graphics, Color.Black);
+                }
+                Console.WriteLine("Drawing Cell" + i);
+                cell.DrawCell(graphics, Color.White);
+                i++;
             }
-
         }
 
     }

@@ -9,24 +9,19 @@ namespace TryOut.Grid
 {
     class GridCell
     {
-       private int side;
-       private int x, y;
+       public Rectangle rectangle;
+       public bool isWall; 
 
         public GridCell(int side,int x, int y)
         {
-            this.side = side;
-            this.x = x;
-            this.y = y;
+            rectangle = new Rectangle(x, y, side, side);
         }
 
-        public virtual void DrawCell(Graphics g)
+        public virtual void DrawCell(Graphics g, Color c)
         {
-            g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), x,y,side,side);
-        }
-
-        public int getSide
-        {
-            get { return side; }
+            
+            g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
+            
         }
         
     }
