@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TryOut.Grid
 {
@@ -13,11 +14,11 @@ namespace TryOut.Grid
         int gridCellSide;
         int gridCellX, gridCellY;
         int xCells, yCells;
-        GridCell[,] grid;
+        GridCell[] grid;
 
         public Graphics graphics;
 
-        public MainGrid(Graphics g/*int width, int heigth*/)
+        public MainGrid(Graphics g, Form form/*int width, int heigth*/)
         {
             Console.WriteLine("Initializin Grid");
 
@@ -33,25 +34,39 @@ namespace TryOut.Grid
             xCells = 10;
             yCells = 10;
             
-            grid = new GridCell[xCells,yCells];
+            grid = new GridCell[xCells*yCells];
 
-            for (int i = 0; i < xCells; i++)
+            for (int i = 0; i < grid.Length; i++)
             {
-                for (int j = 0; j < yCells; j++)
+                if( gridCellX + gridCellSide + 1 > 10+gridCellSide*xCells)
                 {
-                    grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    if ((i >= 4 && j >= 4) && (i <= 5 && j <= 5))
-                    {
-                        grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }
+                    gridCellX = 0;
+                    gridCellY += gridCellSide + 1;
 
-                    gridCellY += gridCellSide +1;
+                    if(gridCellY > gridCellY*yCells)
+                    {
+                        break;
+                    }
                 }
+
+                grid[i] = new GridCell(gridCellSide, gridCellX + 2, gridCellY +2);
+
+                if(i == 44 || i == 45 || i == 54 || i ==55)
+                {
+                    grid[i] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                }
+
                 gridCellX += gridCellSide +1;
-                gridCellY = 0;
+                //gridCellY = 0;
+
+                
             }
 
+            Console.WriteLine(grid.GetLowerBound(0));
+            Console.WriteLine();
+
         }
+
 
         public void Draw()
         {

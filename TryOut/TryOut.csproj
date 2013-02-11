@@ -50,6 +50,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grid\GridHelper.cs" />
     <Compile Include="Grid\MainGrid.cs" />
     <Compile Include="Grid\GridCell.cs" />
     <Compile Include="Grid\WallCell.cs" />
@@ -80,6 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="To-Do.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

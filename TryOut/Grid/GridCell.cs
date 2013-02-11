@@ -31,6 +31,27 @@ namespace TryOut.Grid
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
             
         }
+
+        public int Amount
+        {
+            get { return amount; }
+            set { amount = value; }
+        }
+
+        public int X
+        {
+            get { return rectangle.X; }
+        }
+
+        public int Y
+        {
+            get { return rectangle.Y; }
+        }
+
+        public int SideSize
+        {
+            get { return rectangle.Width; }
+        }
         
     }
 }
