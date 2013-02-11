@@ -48,7 +48,7 @@ namespace TryOut
             graphics = this.CreateGraphics();
             imageGraphics = Graphics.FromImage(backBuffer);
 
-            grid = new MainGrid(imageGraphics, this);
+            grid = new MainGrid(imageGraphics);
         }
 
         public void GameLoop()
