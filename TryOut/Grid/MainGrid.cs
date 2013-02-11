@@ -40,16 +40,17 @@ namespace TryOut.Grid
                 for (int j = 0; j < yCells; j++)
                 {
                     grid[i, j] = new GridCell(gridCellSide,gridCellX, gridCellY);
+                    if ((i >= 4 && j >= 4) && (i <= 5 && j <= 5))
+                    {
+                        grid[i, j] = new WallCell(gridCellSide, gridCellX, gridCellY);
+                    }
+
                     gridCellY += gridCellSide;
                 }
                 gridCellX += gridCellSide;
                 gridCellY = 0;
             }
 
-            grid[4, 4] = new WallCell(gridCellSide, gridCellX + (gridCellSide * 5), gridCellY + (gridCellSide * 5));
-            grid[4, 5] = new WallCell(gridCellSide, gridCellX + (gridCellSide * 5), gridCellY + (gridCellSide * 6));
-            grid[5, 4] = new WallCell(gridCellSide, gridCellX + (gridCellSide * 6), gridCellY + (gridCellSide * 5));
-            grid[5, 5] = new WallCell(gridCellSide, gridCellX + (gridCellSide * 6), gridCellY + (gridCellSide * 6));
         }
 
         public void Draw()
