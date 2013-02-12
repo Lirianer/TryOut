@@ -27,7 +27,7 @@ namespace TryOut.Grid
 
         public Graphics graphics;
 
-        public MainGrid(Graphics g/*int width, int heigth*/)
+        public MainGrid(Graphics g/*int width, int heigth*/, int selector)
         {
             Console.WriteLine("Initializin Grid");
             random = new Random();
@@ -49,76 +49,89 @@ namespace TryOut.Grid
             randomCellX = 0;
             randomCellY = 0;
 
-            bool isWallCreated = false;
-            for (int i = 0; i < xCells; i++)
+            switch (selector)
             {
-                isWallCreated = false;
+                //BlankGrid
+                case 1:
 
-                for (int j = 0; j < yCells; j++)
-                {
+                    for (int i = 0; i < xCells; i++)
+                            {
+                                for (int j = 0; j < yCells; j++)
+                                    {
+                                        grid[i,j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
 
-                    if (!isWallCreated && randomCellY < j)
-                    {
-                        randomCellY = random.Next(j, yCells - 1);
+                                    gridCellY += gridCellSide +1;
+                                    }
+                                    gridCellX += gridCellSide +1;
+                                gridCellY = 0;
+                            }
+                    CreateRandomCell();
+                         
+                    break;
 
+                //MapGrid
+                case 2:
+                    for (int i = 0; i < xCells; i++)
+                            {
+                                
+
+                                for (int j = 0; j < yCells; j++)
+                                    {
+                                        if ((i == 1 && j != 0) && (i == 1 && j != 9) || (j == 1 && i != 0) && (j == 1 && i != 9) || (j == 8 && i != 0) && (j == 8 && i != 9))
+                                        {
+                                            grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                        }
+                                        else if ((i == 8 && j != 0) && (i == 8 && j != 9) && (i == 8 && j != yCells / 2))
+                                        {
+                                            grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                        }
+                                        else
+                                        {
+                                            grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                        }
+                                    gridCellY += gridCellSide +1;
+                                    }
+                                    gridCellX += gridCellSide +1;
+                                gridCellY = 0;
+                            }
+                    CreateRandomCell();
+                    break;
+
+
+                //RandomGrid
+                case 3:
+                        bool isWallCreated = false;
+                         for (int i = 0; i < xCells; i++)
+                            {
+                                isWallCreated = false;
+
+                                for (int j = 0; j < yCells; j++)
+                                    {
+
+                                        if (!isWallCreated && randomCellY < j)
+                                            {
+                                                randomCellY = random.Next(j, yCells - 1);
+                                                
                         
-                    }
-                    if (j == randomCellY)
-                    {
-                        grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                        randomCellY = -1;
-                        isWallCreated = true;
-                    }
-                    else
-                    {
-                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }
-                    
-                    /*if ((i == 1 && j != 0) && (i == 1 && j != 9) || (j == 1 && i != 0) && (j == 1 && i != 9) || (j == 8 && i != 0) && (j == 8 && i != 9))
-                    {
-                        grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }
-                    else if ((i == 8 && j != 0) && (i == 8 && j != 9) && (i == 8 && j != yCells / 2))
-                    {
-                        grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }
-                    else if ((i == xCells / 2) && (j == xCells / 2))
-                    {
-                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 1000F);
-                    }
-                    else
-                    {
-                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }*/
-
-
-
-
-
-
-                   /* if (randomCellX == i && randomCellY == j)
-                    {
-                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 100.0F);
-                    }
-                    /*else
-                    {
-
-                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }
-                        /* if ((i >= 4 && j >= 4) && (i <= 5 && j <= 5))
-                    {
-                        grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }*/
-
-                    gridCellY += gridCellSide +1;
-                }
-                gridCellX += gridCellSide +1;
-                gridCellY = 0;
-
-                
+                                            }
+                                        if (j == randomCellY)
+                                            {
+                                                grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                                randomCellY = -1;
+                                                isWallCreated = true;
+                                            }
+                                            else
+                                            {   
+                                                grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                            }
+                                    gridCellY += gridCellSide +1;
+                                    }
+                                gridCellX += gridCellSide +1;
+                                gridCellY = 0;
+                                }
+                    CreateRandomCell();
+                    break;
             }
-
-            CreateRandomCell();
         }
 
         private void CreateRandomCell()

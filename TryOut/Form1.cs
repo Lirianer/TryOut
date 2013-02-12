@@ -40,6 +40,7 @@ namespace TryOut
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.ClientSize = new Size(400, 400);
+            this.blankSelector.Checked = true;
 
             clientWidth = this.ClientRectangle.Width;
             clientHeight = this.ClientRectangle.Height;
@@ -49,7 +50,7 @@ namespace TryOut
             graphics = this.CreateGraphics();
             imageGraphics = Graphics.FromImage(backBuffer);
 
-            grid = new MainGrid(imageGraphics);
+            grid = new MainGrid(imageGraphics, 1);
         }
 
         public void GameLoop()
@@ -109,7 +110,18 @@ namespace TryOut
 
         private void restartAction_Click(object sender, EventArgs e)
         {
-            grid = new MainGrid(imageGraphics);
+            if (blankSelector.Checked)
+            {
+                grid = new MainGrid(imageGraphics, 1);
+            }
+            else if (mapSelector.Checked)
+            {
+                grid = new MainGrid(imageGraphics, 2);
+            }
+            else if (randomSelector.Checked)
+            {
+                grid = new MainGrid(imageGraphics, 3);
+            }
 
             pause = true;
             pauseAction.Text = "Unpause";

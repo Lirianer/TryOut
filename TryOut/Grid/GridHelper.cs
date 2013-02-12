@@ -8,13 +8,15 @@ namespace TryOut.Grid
 {
     class GridHelper
     {
+        Random random;
 
 
-        public void ProcessFlow()
+        public GridHelper()
         {
         }
-        
 
+
+         
     }
 
     

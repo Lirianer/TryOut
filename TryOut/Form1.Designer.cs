@@ -33,6 +33,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.restartAction = new System.Windows.Forms.Button();
             this.oneStepAction = new System.Windows.Forms.Button();
+            this.blankSelector = new System.Windows.Forms.RadioButton();
+            this.mapSelector = new System.Windows.Forms.RadioButton();
+            this.randomSelector = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // pauseAction
@@ -83,18 +86,54 @@
             this.oneStepAction.UseVisualStyleBackColor = true;
             this.oneStepAction.Click += new System.EventHandler(this.oneStepAction_Click);
             // 
+            // blankSelector
+            // 
+            this.blankSelector.AutoSize = true;
+            this.blankSelector.Location = new System.Drawing.Point(12, 356);
+            this.blankSelector.Name = "blankSelector";
+            this.blankSelector.Size = new System.Drawing.Size(52, 17);
+            this.blankSelector.TabIndex = 5;
+            this.blankSelector.TabStop = true;
+            this.blankSelector.Text = "Blank";
+            this.blankSelector.UseVisualStyleBackColor = true;
+            // 
+            // mapSelector
+            // 
+            this.mapSelector.AutoSize = true;
+            this.mapSelector.Location = new System.Drawing.Point(71, 357);
+            this.mapSelector.Name = "mapSelector";
+            this.mapSelector.Size = new System.Drawing.Size(46, 17);
+            this.mapSelector.TabIndex = 6;
+            this.mapSelector.TabStop = true;
+            this.mapSelector.Text = "Map";
+            this.mapSelector.UseVisualStyleBackColor = true;
+            // 
+            // randomSelector
+            // 
+            this.randomSelector.AutoSize = true;
+            this.randomSelector.Location = new System.Drawing.Point(124, 356);
+            this.randomSelector.Name = "randomSelector";
+            this.randomSelector.Size = new System.Drawing.Size(65, 17);
+            this.randomSelector.TabIndex = 7;
+            this.randomSelector.TabStop = true;
+            this.randomSelector.Text = "Random";
+            this.randomSelector.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(429, 390);
+            this.Controls.Add(this.randomSelector);
+            this.Controls.Add(this.mapSelector);
+            this.Controls.Add(this.blankSelector);
             this.Controls.Add(this.oneStepAction);
             this.Controls.Add(this.restartAction);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pauseAction);
             this.Name = "Form1";
-            this.Text = "TryOut";
+            this.Text = "Cosa Amorfa";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,6 +146,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button restartAction;
         private System.Windows.Forms.Button oneStepAction;
+        private System.Windows.Forms.RadioButton blankSelector;
+        private System.Windows.Forms.RadioButton mapSelector;
+        private System.Windows.Forms.RadioButton randomSelector;
 
     }
 }
