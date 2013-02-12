@@ -13,12 +13,15 @@ namespace TryOut.Grid
        public Rectangle rectangle;
        public float oldAmount, newAmount;
        public bool isWall;
-       private int counter = 0;
        float red = 0;//(255 - color.R) * this.oldAmount + color.R;
        float blue = 255F;//(255 - color.R) * this.oldAmount + color.B;
+       public int X, Y;
 
-        public GridCell(int side,int x, int y)
+        public GridCell(int side,int x, int y, int locationX, int locationY)
         {
+            X = locationX;
+            Y = locationY;
+
             isWall = false;
             oldAmount = 0;
             newAmount = 0;
@@ -52,7 +55,7 @@ namespace TryOut.Grid
             stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
 
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
-            if (this.oldAmount > 0F)
+            if (this.oldAmount > 0.8F)
             {
                 
                 g.FillRectangle(new SolidBrush(color), rectangle);

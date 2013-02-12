@@ -16,9 +16,12 @@ namespace TryOut.Grid
        TextureBrush textureBrush ;
 
        int size;
-        public WallCell(int side, int x, int y) : base(side, x, y)
+        public WallCell(int side, int x, int y, int locationX, int locationY) : base(side, x, y, locationX, locationY)
         {
-            
+            base.X = locationX;
+            base.Y = locationY;
+
+
             base.isWall = true;
             size = side;
                 texture = new Bitmap(Resources.wall);

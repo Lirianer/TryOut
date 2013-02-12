@@ -39,7 +39,7 @@ namespace TryOut
             this.DoubleBuffered = true;
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.ClientSize = new Size(400, 400);
+            //this.ClientSize = new Size(400, 400);
             this.blankSelector.Checked = true;
 
             clientWidth = this.ClientRectangle.Width;

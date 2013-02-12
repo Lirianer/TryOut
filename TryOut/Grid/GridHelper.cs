@@ -8,7 +8,6 @@ namespace TryOut.Grid
 {
     class GridHelper
     {
-        Random random;
 
 
         public GridHelper()
