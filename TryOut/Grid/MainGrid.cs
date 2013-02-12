@@ -52,9 +52,12 @@ namespace TryOut.Grid
                     {
                         grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 64.0F);
                     }
+                    else
+                    {
 
-                    grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                   /* if ((i >= 4 && j >= 4) && (i <= 5 && j <= 5))
+                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                    }
+                        /* if ((i >= 4 && j >= 4) && (i <= 5 && j <= 5))
                     {
                         grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
                     }*/
