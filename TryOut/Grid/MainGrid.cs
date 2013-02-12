@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace TryOut.Grid
 {
+
+
     class MainGrid
     {
         //int gridWidth, gridHeigth;
@@ -14,6 +16,8 @@ namespace TryOut.Grid
         int gridCellX, gridCellY;
         int xCells, yCells;
         GridCell[,] grid;
+
+        Random random;
 
         public Graphics graphics;
 
@@ -53,8 +57,6 @@ namespace TryOut.Grid
                 
             }
 
-            Console.WriteLine(grid.GetLowerBound(0));
-
 
         }
 
@@ -66,7 +68,7 @@ namespace TryOut.Grid
             foreach (GridCell cell in grid)
             {
                 //Console.WriteLine("Drawing Cell" + i);
-                cell.DrawCell(graphics, Color.White);
+                cell.DrawCell(graphics);
               //  i++;
             }
         }
