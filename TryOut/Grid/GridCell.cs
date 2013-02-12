@@ -9,10 +9,14 @@ namespace TryOut.Grid
 {
     class GridCell
     {
+        private Color color;
        public Rectangle rectangle;
        public float oldAmount, newAmount;
        public bool isWall;
        private int counter = 0;
+       float red = 0;//(255 - color.R) * this.oldAmount + color.R;
+       float green = 0;// (255 - color.R) * this.oldAmount + color.G;
+       float blue = 255F;//(255 - color.R) * this.oldAmount + color.B;
 
         public GridCell(int side,int x, int y)
         {
@@ -20,6 +24,7 @@ namespace TryOut.Grid
             oldAmount = 0;
             newAmount = 0;
             rectangle = new Rectangle(x, y, side, side);
+            color = new Color();
         }
 
         public GridCell(int side, int x, int y, float amount)
@@ -28,12 +33,25 @@ namespace TryOut.Grid
             this.oldAmount = amount;
             newAmount = 0;
             rectangle = new Rectangle(x, y, side, side);
+            color = new Color();
         }
 
 
         public virtual void DrawCell(Graphics g)
         {
+
             
+
+            
+
+
+            red = ((this.oldAmount - 255F)*(-1F));
+            red = green;
+
+            //if (red > 255F) { red = 255F; }
+            //if(green>255F){green = 255F;}
+                
+            color = Color.FromArgb(1, (int)red, (int)green, (int)blue);
 
             StringFormat stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Center;      // Horizontal Alignment
@@ -42,7 +60,10 @@ namespace TryOut.Grid
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
             if (this.oldAmount > 0F)
             {
-                if (this.oldAmount > 9)
+                
+                g.FillRectangle(new SolidBrush(color), rectangle);
+                
+                /*if (this.oldAmount > 9)
                 {
                     g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#08088A")), rectangle);
                 }
@@ -81,8 +102,8 @@ namespace TryOut.Grid
                 else if (0 < this.oldAmount && this.oldAmount < 1)
                 {
                     g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#EFEFFB")), rectangle);
-                }
-                g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 8), new SolidBrush(Color.Blue), rectangle, stringFormat);
+                }*/
+                g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 8), new SolidBrush(Color.Black), rectangle, stringFormat);
             }
             else
             {
