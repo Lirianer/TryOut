@@ -29,7 +29,7 @@ namespace TryOut.Grid
         }
         
 
-        public override void DrawCell(Graphics g, Color c)
+        public override void DrawCell(Graphics g)
         {
                 g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), base.rectangle);
                 g.FillRectangle(textureBrush, imageRectangle);

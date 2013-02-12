@@ -10,7 +10,7 @@ namespace TryOut.Grid
     class GridCell
     {
        public Rectangle rectangle;
-       private int amount;
+       private float amount;
        public bool isWall; 
 
         public GridCell(int side,int x, int y)
@@ -19,13 +19,13 @@ namespace TryOut.Grid
             rectangle = new Rectangle(x, y, side, side);
         }
 
-        public GridCell(int side, int x, int y, int amount)
+        public GridCell(int side, int x, int y, float amount)
         {
             this.amount = amount;
             rectangle = new Rectangle(x, y, side, side);
         }
 
-        public virtual void DrawCell(Graphics g, Color c)
+        public virtual void DrawCell(Graphics g)
         {
 
 
@@ -34,10 +34,10 @@ namespace TryOut.Grid
             stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
 
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
-            g.DrawString(amount.ToString(), new Font("Arial", 16), new SolidBrush(Color.Blue), rectangle, stringFormat);
+            g.DrawString(this.Amount.ToString(".#"), new Font("Arial", 12), new SolidBrush(Color.Blue), rectangle, stringFormat);
         }
 
-        public int Amount
+        public float Amount
         {
             get { return amount; }
             set { amount = value; }
