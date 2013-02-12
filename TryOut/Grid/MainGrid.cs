@@ -48,11 +48,34 @@ namespace TryOut.Grid
                 for (int j = 0; j < yCells; j++)
                 {
 
-                    if (randomCellX == i && randomCellY == j)
+
+                    if ((i == 1 && j != 0) && (i == 1 && j != 9) || (j == 1 && i != 0) && (j == 1 && i != 9) || (j == 8 && i != 0) && (j == 8 && i != 9))
+                    {
+                        grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                    }
+                    else if ((i == 8 && j != 0) && (i == 8 && j != 9) && (i == 8 && j != yCells / 2))
+                    {
+                        grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                    }
+                    else if ((i == xCells / 2) && (j == xCells / 2))
+                    {
+                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 100F);
+                    }
+                    else
+                    {
+                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                    }
+
+
+
+
+
+
+                   /* if (randomCellX == i && randomCellY == j)
                     {
                         grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 100.0F);
                     }
-                    else
+                    /*else
                     {
 
                         grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);

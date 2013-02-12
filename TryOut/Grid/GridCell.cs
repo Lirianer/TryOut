@@ -16,6 +16,7 @@ namespace TryOut.Grid
 
         public GridCell(int side,int x, int y)
         {
+            isWall = false;
             oldAmount = 0;
             newAmount = 0;
             rectangle = new Rectangle(x, y, side, side);
@@ -23,6 +24,7 @@ namespace TryOut.Grid
 
         public GridCell(int side, int x, int y, float amount)
         {
+            isWall = false;
             this.oldAmount = amount;
             newAmount = 0;
             rectangle = new Rectangle(x, y, side, side);
