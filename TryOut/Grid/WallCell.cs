@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
+using TryOut.Properties;
 namespace TryOut.Grid
 {
     
@@ -12,7 +13,7 @@ namespace TryOut.Grid
     {
         Rectangle rect, imageRectangle;
         Bitmap texture;
-        string location = "C:/Users/Gabriel/Documents/Visual Studio 2012/Projects/TryOut/TryOut/resources/wall.bmp";
+        string path = "//resources/wall.bmp";
        TextureBrush textureBrush ;
 
        int size;
@@ -20,7 +21,7 @@ namespace TryOut.Grid
         {
             base.isWall = true;
             size = side;
-                texture = new Bitmap(location);
+                texture = new Bitmap(path);
                 textureBrush = new TextureBrush(texture);
 
             rect = new Rectangle(x, y, size+1, size);
