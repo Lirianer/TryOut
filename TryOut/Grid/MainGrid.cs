@@ -97,31 +97,15 @@ namespace TryOut.Grid
                 for (int y= 1; y < yCells-1; y++)
                 {
                     int neighbourCounter = 0;
-                    int xAux = 0;
-                    int yAux = 0;
 
-                    
-                        
-
-                        for(int neighBourX = x -1; neighBourX < x+1; neighBourX++)
+                        for(int neighBourX = x -1; neighBourX < x+2; neighBourX++)
                         {
-                            if(xAux > 3)
+                            for(int neighBourY = y-1; neighBourY < y+2; neighBourY++)
                             {
-                                xAux = 0;
-                            }
-                          
-                            for(int neighBourY = y-1; neighBourY < y+1; neighBourY++)
-                            {
-                                if (yAux > 3)
-                                {
-                                    yAux = 0;
-                                }
-
                                 tempFloat += grid[neighBourX, neighBourY].oldAmount;
-                                yAux++;
+                                neighbourCounter++;
                             }
-                            xAux++;
-                            neighbourCounter++;
+                            
                         }
 
                         newAverage = tempFloat/neighbourCounter;
