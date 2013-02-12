@@ -68,33 +68,6 @@ namespace TryOut
         {
             grid.ProcessFlow();   
 
-           /* image.X += direction.X;
-            image.Y += direction.Y;
-
-            if (image.X < 0)
-            {
-                image.X = 0;
-                direction.X *= -1;
-            }
-
-            if (image.Y < 0)
-            {
-                image.Y = 0;
-                direction.Y *= -1;
-            }
-
-            if (image.X + image.Width > clientWidth)
-            {
-                image.X = clientWidth - image.Width;
-                direction.X *= -1;
-            }
-
-            if (image.Y + image.Height > clientHeight)
-            {
-                image.Y = clientHeight - image.Height;
-                direction.Y *= -1;
-            }
-            */
         }
 
         private void RenderScene()

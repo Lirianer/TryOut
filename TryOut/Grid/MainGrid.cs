@@ -50,7 +50,7 @@ namespace TryOut.Grid
 
                     if (randomCellX == i && randomCellY == j)
                     {
-                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 64.0F);
+                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 100.0F);
                     }
                     else
                     {
@@ -92,25 +92,33 @@ namespace TryOut.Grid
             float tempFloat = 0F;
             float newAverage = 0F;
 
-            for (int x = 1; x < xCells-1; x++)
+            for (int x = 0; x < xCells; x++)
             {
-                for (int y= 1; y < yCells-1; y++)
+                for (int y = 0; y < yCells; y++)
                 {
                     int neighbourCounter = 0;
-
-                        for(int neighBourX = x -1; neighBourX < x+2; neighBourX++)
+                    if (!grid[x, y].isWall)
+                    {
+                        for (int neighBourX = x - 1; neighBourX < x + 2; neighBourX++)
                         {
-                            for(int neighBourY = y-1; neighBourY < y+2; neighBourY++)
+                            if (neighBourX >= 0 && neighBourX < xCells)
                             {
-                                tempFloat += grid[neighBourX, neighBourY].oldAmount;
-                                neighbourCounter++;
+                                for (int neighBourY = y - 1; neighBourY < y + 2; neighBourY++)
+                                {
+                                    if (neighBourY >= 0 && neighBourY < yCells && !grid[neighBourX, neighBourY].isWall) 
+                                    {
+                                        tempFloat += grid[neighBourX, neighBourY].oldAmount;
+                                        neighbourCounter++;
+                                    }
+                                }
                             }
-                            
+
                         }
 
-                        newAverage = tempFloat/neighbourCounter;
+                        newAverage = tempFloat / neighbourCounter;
                         grid[x, y].newAmount = newAverage;
                         tempFloat = 0F;
+                    }
                 }
             }
 
