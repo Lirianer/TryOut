@@ -110,6 +110,7 @@ namespace TryOut.Grid
 
                         newAverage = tempFloat/neighbourCounter;
                         grid[x, y].newAmount = newAverage;
+                        tempFloat = 0F;
                 }
             }
 
