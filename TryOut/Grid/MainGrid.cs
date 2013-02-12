@@ -76,7 +76,7 @@ namespace TryOut.Grid
                     }
                     else if ((i == xCells / 2) && (j == xCells / 2))
                     {
-                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 100F);
+                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 1000F);
                     }
                     else
                     {

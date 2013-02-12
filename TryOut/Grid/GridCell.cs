@@ -15,7 +15,6 @@ namespace TryOut.Grid
        public bool isWall;
        private int counter = 0;
        float red = 0;//(255 - color.R) * this.oldAmount + color.R;
-       float green = 0;// (255 - color.R) * this.oldAmount + color.G;
        float blue = 255F;//(255 - color.R) * this.oldAmount + color.B;
 
         public GridCell(int side,int x, int y)
@@ -40,12 +39,13 @@ namespace TryOut.Grid
         public virtual void DrawCell(Graphics g)
         {
             red = 255-(this.oldAmount*2.55F);
-            green = red;
 
-            //if (red > 255F) { red = 255F; }
+
+            if (red > 255F) { red = 255F; }
+            if (red < 0F) { red = 0F; }
             //if(green>255F){green = 255F;}
                 
-            color = Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
+            color = Color.FromArgb((int)red, (int)red, (int)blue);
 
             StringFormat stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Center;      // Horizontal Alignment
