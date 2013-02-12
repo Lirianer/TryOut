@@ -89,7 +89,9 @@ namespace TryOut.Grid
         public void ProcessFlow()
         {
             GridCell[,] neighbourCells = new GridCell[3,3];
-            
+            float tempFloat = 0F;
+            float newAverage = 0F;
+
             for (int x = 1; x < xCells-1; x++)
             {
                 for (int y= 1; y < yCells-1; y++)
@@ -98,8 +100,7 @@ namespace TryOut.Grid
                     int xAux = 0;
                     int yAux = 0;
 
-                    if (grid[x, y].Amount > 0)
-                    {
+                    
                         
 
                         for(int neighBourX = x -1; neighBourX < x+1; neighBourX++)
@@ -116,54 +117,22 @@ namespace TryOut.Grid
                                     yAux = 0;
                                 }
 
-                                neighbourCells[xAux, yAux] = grid[neighBourX, neighBourY];
+                                tempFloat += grid[neighBourX, neighBourY].oldAmount;
                                 yAux++;
                             }
                             xAux++;
                             neighbourCounter++;
                         }
 
-                        
-
-
-                    }
-                    grid[x, y].Amount = GetAverageAmount(neighbourCells, neighbourCounter);
+                        newAverage = tempFloat/neighbourCounter;
+                        grid[x, y].newAmount = newAverage;
                 }
             }
 
-        }
+            foreach (GridCell cell in grid)
+            { cell.oldAmount = cell.newAmount; }
 
-        private float GetAverageAmount(GridCell[,] cell, int counter)
-        {
-            int cellLength = cell.GetLength(0);
 
-            float[] cellValue = new float[counter];
-
-            float average;
-
-            int auxCounter = 0;
-
-            for (int x = 0; x < cellLength; x++ )
-            {
-
-                for (int y = 0; y < cellLength; y++)
-                {
-                    cellValue[auxCounter] = cell[x,y].Amount;
-                }
-                auxCounter++;
-            }
-
-            float auxFloat = 0F;
-
-            foreach (float value in cellValue)
-            {
-                
-                auxFloat += value;
-            }
-
-            average = (float)auxFloat / counter;
-
-            return average;
         }
 
 

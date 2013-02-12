@@ -16,7 +16,7 @@ namespace TryOut
         Timer timer = new Timer();
 
         long startTime;
-        long interval = (long)TimeSpan.FromSeconds(1 / 30).TotalMilliseconds;
+        long interval = (long)TimeSpan.FromSeconds(1 / 1).TotalMilliseconds;
 
         MainGrid grid;
 

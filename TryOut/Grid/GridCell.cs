@@ -10,18 +10,20 @@ namespace TryOut.Grid
     class GridCell
     {
        public Rectangle rectangle;
-       private float amount;
+       public float oldAmount, newAmount;
        public bool isWall; 
 
         public GridCell(int side,int x, int y)
         {
-            amount = 0;
+            oldAmount = 0;
+            newAmount = 0;
             rectangle = new Rectangle(x, y, side, side);
         }
 
         public GridCell(int side, int x, int y, float amount)
         {
-            this.amount = amount;
+            this.oldAmount = amount;
+            newAmount = 0;
             rectangle = new Rectangle(x, y, side, side);
         }
 
@@ -34,31 +36,10 @@ namespace TryOut.Grid
             stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
 
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
-            if (this.amount > 0F)
+            if (this.oldAmount > 0F)
             {
-                g.DrawString(this.amount.ToString("#.#"), new Font("Arial", 12), new SolidBrush(Color.Blue), rectangle, stringFormat);
+                g.DrawString(this.oldAmount.ToString("#.#"), new Font("Arial", 12), new SolidBrush(Color.Blue), rectangle, stringFormat);
             }
-        }
-
-        public float Amount
-        {
-            get { return amount; }
-            set { amount = value; }
-        }
-
-        public int X
-        {
-            get { return rectangle.X; }
-        }
-
-        public int Y
-        {
-            get { return rectangle.Y; }
-        }
-
-        public int SideSize
-        {
-            get { return rectangle.Width; }
         }
         
     }
