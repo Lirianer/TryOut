@@ -188,7 +188,6 @@ namespace TryOut.Grid
                                 {
                                     if (neighBourY >= 0 && neighBourY < yCells && !grid[neighBourX, neighBourY].isWall) 
                                     {
-                                        tempFloat += grid[neighBourX, neighBourY].oldAmount;
                                         neighbours.Add(grid[neighBourX, neighBourY]);
                                     }
                                 }
@@ -199,8 +198,10 @@ namespace TryOut.Grid
 
                         foreach (GridCell cell in neighbours)
                         {
-                            cell.newAmount = grid[x, y].oldAmount / (neighbours.Count() + 1);
+                            cell.newAmount += amount;
                         }
+
+
                         tempFloat = 0F;
                     }
                 }
