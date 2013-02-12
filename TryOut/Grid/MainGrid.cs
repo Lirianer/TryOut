@@ -167,7 +167,10 @@ namespace TryOut.Grid
         {
             GridCell[,] neighbourCells = new GridCell[3,3];
             float tempFloat = 0F;
-            float newAverage = 0F;
+            float amount = 0F;
+            List <GridCell> neighbours = new List<GridCell>();
+
+
 
             for (int x = 0; x < xCells; x++)
             {
@@ -186,15 +189,18 @@ namespace TryOut.Grid
                                     if (neighBourY >= 0 && neighBourY < yCells && !grid[neighBourX, neighBourY].isWall) 
                                     {
                                         tempFloat += grid[neighBourX, neighBourY].oldAmount;
-                                        neighbourCounter++;
+                                        neighbours.Add(grid[neighBourX, neighBourY]);
                                     }
                                 }
                             }
 
                         }
+                        amount = grid[x, y].oldAmount / neighbours.Count;
 
-                        newAverage = tempFloat / neighbourCounter;
-                        grid[x, y].newAmount = newAverage;
+                        foreach (GridCell cell in neighbours)
+                        {
+                            cell.newAmount = grid[x, y].oldAmount / (neighbours.Count() + 1);
+                        }
                         tempFloat = 0F;
                     }
                 }

@@ -57,46 +57,6 @@ namespace TryOut.Grid
                 
                 g.FillRectangle(new SolidBrush(color), rectangle);
                 
-                /*if (this.oldAmount > 9)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#08088A")), rectangle);
-                }
-                else if (8 < this.oldAmount && this.oldAmount < 9)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#0101DF")), rectangle);
-                }
-                else if (7 < this.oldAmount && this.oldAmount < 8)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#0000FF")), rectangle);
-                }
-                else if (6 < this.oldAmount && this.oldAmount < 7)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#2E2EFE")), rectangle);
-                }
-                else if (5 < this.oldAmount && this.oldAmount < 6)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#5858FA")), rectangle);
-                }
-                else if (4 < this.oldAmount && this.oldAmount < 5)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#8181F7")), rectangle);
-                }
-                else if (3 < this.oldAmount && this.oldAmount < 4)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#A9A9F5")), rectangle);
-                }
-                else if (2 < this.oldAmount && this.oldAmount < 3)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#CECEF6")), rectangle);
-                }
-                else if (1 < this.oldAmount && this.oldAmount < 2)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#E0E0F8")), rectangle);
-                }
-                else if (0 < this.oldAmount && this.oldAmount < 1)
-                {
-                    g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#EFEFFB")), rectangle);
-                }*/
                 g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 8), new SolidBrush(Color.Black), rectangle, stringFormat);
             }
             else
