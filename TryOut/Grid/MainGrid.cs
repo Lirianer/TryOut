@@ -40,10 +40,10 @@ namespace TryOut.Grid
                 for (int j = 0; j < yCells; j++)
                 {
                     grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    if ((i >= 4 && j >= 4) && (i <= 5 && j <= 5))
+                   /* if ((i >= 4 && j >= 4) && (i <= 5 && j <= 5))
                     {
                         grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }
+                    }*/
 
                     gridCellY += gridCellSide +1;
                 }
@@ -69,6 +69,19 @@ namespace TryOut.Grid
                 cell.DrawCell(graphics, Color.White);
               //  i++;
             }
+        }
+
+        public void ProcessFlow()
+        {
+            for (int x = 1; x < xCells-1; x++)
+            {
+                for (int y= 1; y < yCells-1; y++)
+                {
+                    
+
+                }
+            }
+
         }
 
     }
