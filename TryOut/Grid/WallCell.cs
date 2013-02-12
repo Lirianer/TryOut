@@ -18,6 +18,7 @@ namespace TryOut.Grid
        int size;
         public WallCell(int side, int x, int y) : base(side, x, y)
         {
+            
             base.isWall = true;
             size = side;
                 texture = new Bitmap(Resources.wall);

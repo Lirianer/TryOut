@@ -27,7 +27,7 @@ namespace TryOut
 
         int clientWidth, clientHeight;
 
-        bool pause = false;
+        bool pause = true;
 
         //Rectangle image = new Rectangle(0, 0, 40, 50);
         //Point direction = new Point(1, 2);
@@ -55,21 +55,22 @@ namespace TryOut
         public void GameLoop()
         {
             timer.Start();
+            RenderScene();
 
             while (this.Created)
             {
 
                 startTime = timer.ElapsedMilliseconds;
 
+                
                 if (!pause)
                 {
                     GameLogic();
                     RenderScene();
+                    while (timer.ElapsedMilliseconds - startTime < interval) ;
                 }
-                
                 Application.DoEvents();
                 
-                while (timer.ElapsedMilliseconds - startTime < interval) ;
             }
         }
 
@@ -85,6 +86,8 @@ namespace TryOut
                 this.ClientRectangle);
 
             grid.Draw();
+            label1.Text = grid.Total.ToString("0.###");
+
            
             this.BackgroundImage = backBuffer;
             this.Invalidate();
@@ -102,6 +105,25 @@ namespace TryOut
                 pause = true;
                 pauseAction.Text = "Unpause";
             }
+        }
+
+        private void restartAction_Click(object sender, EventArgs e)
+        {
+            grid = new MainGrid(imageGraphics);
+
+            pause = true;
+            pauseAction.Text = "Unpause";
+
+            RenderScene();
+        }
+
+        private void oneStepAction_Click(object sender, EventArgs e)
+        {
+            pause = true;
+            pauseAction.Text = "Unpause";
+
+            GameLogic();
+            RenderScene();
         }
     }
 }

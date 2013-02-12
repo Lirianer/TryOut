@@ -17,6 +17,9 @@ namespace TryOut.Grid
         int xCells, yCells;
         int randomCellX;
         int randomCellY;
+        public float Total;
+
+        bool isEmitterCreated = false;
 
         GridCell[,] grid;
 
@@ -120,12 +123,16 @@ namespace TryOut.Grid
 
         private void CreateRandomCell()
         {
-            randomCellX = random.Next(0, 9);
-            randomCellY = random.Next(0, 9);
-
-            if (!grid[randomCellX, randomCellY].isWall)
+            while (!isEmitterCreated)
             {
-                grid[randomCellX, randomCellY].oldAmount = 1000F;
+                randomCellX = random.Next(0, 9);
+                randomCellY = random.Next(0, 9);
+
+                if (!grid[randomCellX, randomCellY].isWall)
+                {
+                    grid[randomCellX, randomCellY].oldAmount = 900F;
+                    isEmitterCreated = true;
+                }
             }
 
         }
@@ -184,7 +191,8 @@ namespace TryOut.Grid
                     {
                         cell.oldAmount = cell.newAmount; 
                         tempFloat += cell.newAmount;
-                    }      Console.WriteLine(tempFloat.ToString("0.###"));     
+                    } Total = tempFloat;     
+            Console.WriteLine(tempFloat.ToString("0.###"));     
             }
 
 
