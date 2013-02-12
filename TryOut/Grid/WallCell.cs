@@ -13,7 +13,6 @@ namespace TryOut.Grid
     {
         Rectangle rect, imageRectangle;
         Bitmap texture;
-        string path = "//resources/wall.bmp";
        TextureBrush textureBrush ;
 
        int size;
@@ -21,7 +20,7 @@ namespace TryOut.Grid
         {
             base.isWall = true;
             size = side;
-                texture = new Bitmap(path);
+                texture = new Bitmap(Resources.wall);
                 textureBrush = new TextureBrush(texture);
 
             rect = new Rectangle(x, y, size+1, size);
