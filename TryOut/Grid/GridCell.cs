@@ -11,7 +11,8 @@ namespace TryOut.Grid
     {
        public Rectangle rectangle;
        public float oldAmount, newAmount;
-       public bool isWall; 
+       public bool isWall;
+       private int counter = 0;
 
         public GridCell(int side,int x, int y)
         {
@@ -27,9 +28,10 @@ namespace TryOut.Grid
             rectangle = new Rectangle(x, y, side, side);
         }
 
+
         public virtual void DrawCell(Graphics g)
         {
-
+            
 
             StringFormat stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Center;      // Horizontal Alignment
@@ -38,6 +40,16 @@ namespace TryOut.Grid
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
             if (this.oldAmount > 0F)
             {
+                if (counter % 2 == 0)
+                {
+                    g.FillRectangle(new SolidBrush(Color.Red), rectangle);
+                    counter++;
+                }
+                else
+                {
+                    g.FillRectangle(new SolidBrush(Color.Green), rectangle);
+                    counter++;
+                }
                 g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 8), new SolidBrush(Color.Blue), rectangle, stringFormat);
             }
         }
