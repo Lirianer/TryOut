@@ -40,16 +40,33 @@ namespace TryOut.Grid
             
             grid = new GridCell[xCells,yCells];
 
-            int randomCellX = random.Next(1, 8);
-            int randomCellY = random.Next(1, 8);
-
+            int randomCellX = random.Next(0, 9);
+            int randomCellY = 0;
+            bool isWallCreated = false;
             for (int i = 0; i < xCells; i++)
             {
+                isWallCreated = false;
+
                 for (int j = 0; j < yCells; j++)
                 {
 
+                    if (!isWallCreated && randomCellY < j)
+                    {
+                        randomCellY = random.Next(j, yCells - 1);
 
-                    if ((i == 1 && j != 0) && (i == 1 && j != 9) || (j == 1 && i != 0) && (j == 1 && i != 9) || (j == 8 && i != 0) && (j == 8 && i != 9))
+                        
+                    }
+                    if (j == randomCellY)
+                    {
+                        grid[i, j] = new WallCell(gridCellSide, gridCellX+2, gridCellY+2);
+                        randomCellY = -1;
+                        isWallCreated = true;
+                    }
+
+                    grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                    
+                    
+                    /*if ((i == 1 && j != 0) && (i == 1 && j != 9) || (j == 1 && i != 0) && (j == 1 && i != 9) || (j == 8 && i != 0) && (j == 8 && i != 9))
                     {
                         grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
                     }
@@ -64,7 +81,7 @@ namespace TryOut.Grid
                     else
                     {
                         grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }
+                    }*/
 
 
 
@@ -146,11 +163,16 @@ namespace TryOut.Grid
             }
 
             foreach (GridCell cell in grid)
-            { cell.oldAmount = cell.newAmount; }
+                    {
+                        cell.oldAmount = cell.newAmount; 
+                        tempFloat += cell.newAmount;
+                    }      Console.WriteLine(tempFloat.ToString("0.###"));     
+            }
 
 
         }
 
 
     }
-}
+
+
