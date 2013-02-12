@@ -15,6 +15,9 @@ namespace TryOut.Grid
         int gridCellSide;
         int gridCellX, gridCellY;
         int xCells, yCells;
+        int randomCellX;
+        int randomCellY;
+
         GridCell[,] grid;
 
         Random random;
@@ -40,8 +43,9 @@ namespace TryOut.Grid
             
             grid = new GridCell[xCells,yCells];
 
-            int randomCellX = random.Next(0, 9);
-            int randomCellY = 0;
+            randomCellX = 0;
+            randomCellY = 0;
+
             bool isWallCreated = false;
             for (int i = 0; i < xCells; i++)
             {
@@ -50,7 +54,7 @@ namespace TryOut.Grid
                 for (int j = 0; j < yCells; j++)
                 {
 
-                   /* if (!isWallCreated && randomCellY < j)
+                    if (!isWallCreated && randomCellY < j)
                     {
                         randomCellY = random.Next(j, yCells - 1);
 
@@ -58,15 +62,16 @@ namespace TryOut.Grid
                     }
                     if (j == randomCellY)
                     {
-                        grid[i, j] = new WallCell(gridCellSide, gridCellX+2, gridCellY+2);
+                        grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
                         randomCellY = -1;
                         isWallCreated = true;
                     }
-
-                    grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    */
+                    else
+                    {
+                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                    }
                     
-                    if ((i == 1 && j != 0) && (i == 1 && j != 9) || (j == 1 && i != 0) && (j == 1 && i != 9) || (j == 8 && i != 0) && (j == 8 && i != 9))
+                    /*if ((i == 1 && j != 0) && (i == 1 && j != 9) || (j == 1 && i != 0) && (j == 1 && i != 9) || (j == 8 && i != 0) && (j == 8 && i != 9))
                     {
                         grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
                     }
@@ -81,7 +86,7 @@ namespace TryOut.Grid
                     else
                     {
                         grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
-                    }
+                    }*/
 
 
 
@@ -110,6 +115,18 @@ namespace TryOut.Grid
                 
             }
 
+            CreateRandomCell();
+        }
+
+        private void CreateRandomCell()
+        {
+            randomCellX = random.Next(0, 9);
+            randomCellY = random.Next(0, 9);
+
+            if (!grid[randomCellX, randomCellY].isWall)
+            {
+                grid[randomCellX, randomCellY].oldAmount = 1000F;
+            }
 
         }
 
