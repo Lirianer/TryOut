@@ -166,7 +166,6 @@ namespace TryOut.Grid
         public void ProcessFlow()
         {
             GridCell[,] neighbourCells = new GridCell[3,3];
-            float tempFloat = 0F;
             float amount = 0F;
             List <GridCell> neighbours = new List<GridCell>();
 
@@ -176,7 +175,6 @@ namespace TryOut.Grid
             {
                 for (int y = 0; y < yCells; y++)
                 {
-                    int neighbourCounter = 0;
                     if (!grid[x, y].isWall)
                     {
 
@@ -200,9 +198,6 @@ namespace TryOut.Grid
                         {
                             cell.newAmount += amount;
                         }
-
-
-                        tempFloat = 0F;
                     }
                 }
             }
@@ -210,9 +205,10 @@ namespace TryOut.Grid
             foreach (GridCell cell in grid)
                     {
                         cell.oldAmount = cell.newAmount; 
-                        tempFloat += cell.newAmount;
-                    } Total = tempFloat;     
-            Console.WriteLine(tempFloat.ToString("0.###"));     
+                        Total= cell.newAmount;
+                        cell.newAmount = 0;
+                    }     
+            Console.WriteLine(Total.ToString("0.###"));     
             }
 
 
