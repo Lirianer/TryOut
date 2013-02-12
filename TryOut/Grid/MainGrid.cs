@@ -58,7 +58,7 @@ namespace TryOut.Grid
                             {
                                 for (int j = 0; j < yCells; j++)
                                     {
-                                        grid[i,j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, i, j);
 
                                     gridCellY += gridCellSide +1;
                                     }
@@ -79,15 +79,15 @@ namespace TryOut.Grid
                                     {
                                         if ((i == 1 && j != 0) && (i == 1 && j != 9) || (j == 1 && i != 0) && (j == 1 && i != 9) || (j == 8 && i != 0) && (j == 8 && i != 9))
                                         {
-                                            grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                            grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2, i, j);
                                         }
                                         else if ((i == 8 && j != 0) && (i == 8 && j != 9) && (i == 8 && j != yCells / 2))
                                         {
-                                            grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                            grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2, i, j);
                                         }
                                         else
                                         {
-                                            grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                            grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, i, j);
                                         }
                                     gridCellY += gridCellSide +1;
                                     }
@@ -116,13 +116,13 @@ namespace TryOut.Grid
                                             }
                                         if (j == randomCellY)
                                             {
-                                                grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                                grid[i, j] = new WallCell(gridCellSide, gridCellX + 2, gridCellY + 2, i, j);
                                                 randomCellY = -1;
                                                 isWallCreated = true;
                                             }
                                             else
-                                            {   
-                                                grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
+                                            {
+                                                grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, i, j);
                                             }
                                     gridCellY += gridCellSide +1;
                                     }
@@ -175,7 +175,7 @@ namespace TryOut.Grid
             {
                 for (int y = 0; y < yCells; y++)
                 {
-                    if (!grid[x, y].isWall)
+                    if (!grid[x, y].isWall && grid[x,y].oldAmount != 0)
                     {
 
                         for (int neighBourX = x - 1; neighBourX < x + 2; neighBourX++)
@@ -202,10 +202,12 @@ namespace TryOut.Grid
                 }
             }
 
+            Total = 0;
+
             foreach (GridCell cell in grid)
                     {
                         cell.oldAmount = cell.newAmount; 
-                        Total= cell.newAmount;
+                        Total+= cell.newAmount;
                         cell.newAmount = 0;
                     }     
             Console.WriteLine(Total.ToString("0.###"));     
