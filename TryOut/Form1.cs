@@ -24,7 +24,6 @@ namespace TryOut
         Graphics imageGraphics;
 
         Image backBuffer;
-        Image blackScreen;
 
         int clientWidth, clientHeight;
 

@@ -34,7 +34,10 @@ namespace TryOut.Grid
             stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
 
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
-            g.DrawString(this.Amount.ToString(".#"), new Font("Arial", 12), new SolidBrush(Color.Blue), rectangle, stringFormat);
+            if (this.amount > 0F)
+            {
+                g.DrawString(this.amount.ToString("#.#"), new Font("Arial", 12), new SolidBrush(Color.Blue), rectangle, stringFormat);
+            }
         }
 
         public float Amount

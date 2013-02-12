@@ -24,6 +24,7 @@ namespace TryOut.Grid
         public MainGrid(Graphics g/*int width, int heigth*/)
         {
             Console.WriteLine("Initializin Grid");
+            random = new Random();
 
             graphics = g;
 
@@ -39,10 +40,19 @@ namespace TryOut.Grid
             
             grid = new GridCell[xCells,yCells];
 
+            int randomCellX = random.Next(1, 8);
+            int randomCellY = random.Next(1, 8);
+
             for (int i = 0; i < xCells; i++)
             {
                 for (int j = 0; j < yCells; j++)
                 {
+
+                    if (randomCellX == i && randomCellY == j)
+                    {
+                        grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2, 64.0F);
+                    }
+
                     grid[i, j] = new GridCell(gridCellSide, gridCellX + 2, gridCellY + 2);
                    /* if ((i >= 4 && j >= 4) && (i <= 5 && j <= 5))
                     {

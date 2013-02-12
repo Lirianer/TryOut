@@ -11,7 +11,6 @@ namespace TryOut.Grid
     class WallCell : GridCell
     {
         Rectangle rect, imageRectangle;
-        Image image;
         Bitmap texture;
         string location = "C:/Users/Gabriel/Documents/Visual Studio 2012/Projects/TryOut/TryOut/resources/wall.bmp";
        TextureBrush textureBrush ;
