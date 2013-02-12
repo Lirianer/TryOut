@@ -39,19 +39,13 @@ namespace TryOut.Grid
 
         public virtual void DrawCell(Graphics g)
         {
-
-            
-
-            
-
-
-            red = ((this.oldAmount - 255F)*(-1F));
-            red = green;
+            red = 255-(this.oldAmount*2.55F);
+            green = red;
 
             //if (red > 255F) { red = 255F; }
             //if(green>255F){green = 255F;}
                 
-            color = Color.FromArgb(1, (int)red, (int)green, (int)blue);
+            color = Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
 
             StringFormat stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Center;      // Horizontal Alignment
@@ -107,7 +101,7 @@ namespace TryOut.Grid
             }
             else
             {
-                g.FillRectangle(new SolidBrush(Color.White), rectangle);
+               // g.FillRectangle(new SolidBrush(Color.White), rectangle);
             }
         }
         
