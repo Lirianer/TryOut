@@ -27,6 +27,8 @@ namespace TryOut
 
         int clientWidth, clientHeight;
 
+        bool pause = false;
+
         //Rectangle image = new Rectangle(0, 0, 40, 50);
         //Point direction = new Point(1, 2);
 
@@ -37,7 +39,7 @@ namespace TryOut
             this.DoubleBuffered = true;
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.ClientSize = new Size(350, 350);
+            this.ClientSize = new Size(400, 400);
 
             clientWidth = this.ClientRectangle.Width;
             clientHeight = this.ClientRectangle.Height;
@@ -56,10 +58,17 @@ namespace TryOut
 
             while (this.Created)
             {
+
                 startTime = timer.ElapsedMilliseconds;
-                GameLogic();
-                RenderScene();
+
+                if (!pause)
+                {
+                    GameLogic();
+                    RenderScene();
+                }
+                
                 Application.DoEvents();
+                
                 while (timer.ElapsedMilliseconds - startTime < interval) ;
             }
         }
@@ -79,6 +88,20 @@ namespace TryOut
            
             this.BackgroundImage = backBuffer;
             this.Invalidate();
+        }
+
+        private void pauseAction_Click(object sender, EventArgs e)
+        {
+            if (pause)
+            {
+                pause = false;
+                pauseAction.Text = "Pause";
+            }
+            else if (!pause)
+            {
+                pause = true;
+                pauseAction.Text = "Unpause";
+            }
         }
     }
 }
