@@ -66,6 +66,8 @@ namespace TryOut
 
         private void GameLogic()
         {
+            grid.ProcessFlow();   
+
            /* image.X += direction.X;
             image.Y += direction.Y;
 
