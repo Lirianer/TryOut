@@ -38,7 +38,7 @@ namespace TryOut.Grid
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
             if (this.oldAmount > 0F)
             {
-                g.DrawString(this.oldAmount.ToString("#.#"), new Font("Arial", 12), new SolidBrush(Color.Blue), rectangle, stringFormat);
+                g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 8), new SolidBrush(Color.Blue), rectangle, stringFormat);
             }
         }
         
