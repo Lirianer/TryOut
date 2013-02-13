@@ -15,13 +15,15 @@ namespace TryOut.Grid
         int gridCellSide;
         int gridCellX, gridCellY;
         int xCells, yCells;
+        public decimal amountMultiplier = 1;
         public float percentage = 5; // max: 100/max neighbors = 12.5
         public double Total;
 
         public GridCell[,] grid;
 
         Random random;
-        double emitAmount;
+        public double emitAmount;
+        double tempEmitAmount;
 
         public Graphics graphics;
 
@@ -110,17 +112,20 @@ namespace TryOut.Grid
                     break;
             }
 
+            tempEmitAmount = (emitAmount * (double) amountMultiplier);
+
             Emit();
         }
 
         public void Emit()
         {
-            EmitRandom(emitAmount);
+            EmitRandom(tempEmitAmount);
         }
 
-        public void Emit(int x, int y, double emitAmount)
+        public void Emit(int x, int y)
         {
-
+            UpdateEmitAmount();
+            grid[x, y].oldAmount += tempEmitAmount;
         }
 
         private void EmitRandom(double amount)
@@ -201,7 +206,16 @@ namespace TryOut.Grid
                     }     
             Console.WriteLine(Total.ToString("0.##"));     
             }
+
+        internal void UpdateEmitAmount()
+        {
+            
+
+            tempEmitAmount = (emitAmount * (double) amountMultiplier);
+            
+
         }
+    }
     }
 
 

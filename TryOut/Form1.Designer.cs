@@ -42,7 +42,11 @@
             this.flowSpeed = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
             this.displaySpeed = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.multiplierSelector = new System.Windows.Forms.NumericUpDown();
+            this.labelDisplayMultiplier = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.flowSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.multiplierSelector)).BeginInit();
             this.SuspendLayout();
             // 
             // pauseAction
@@ -191,11 +195,45 @@
             this.displaySpeed.TabIndex = 14;
             this.displaySpeed.Text = "Speed : 40";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(341, 189);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Emit Amount:";
+            // 
+            // multiplierSelector
+            // 
+            this.multiplierSelector.Location = new System.Drawing.Point(409, 189);
+            this.multiplierSelector.Name = "multiplierSelector";
+            this.multiplierSelector.Size = new System.Drawing.Size(46, 20);
+            this.multiplierSelector.TabIndex = 16;
+            this.multiplierSelector.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.multiplierSelector.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // labelDisplayMultiplier
+            // 
+            this.labelDisplayMultiplier.AutoSize = true;
+            this.labelDisplayMultiplier.Location = new System.Drawing.Point(461, 191);
+            this.labelDisplayMultiplier.Name = "labelDisplayMultiplier";
+            this.labelDisplayMultiplier.Size = new System.Drawing.Size(32, 13);
+            this.labelDisplayMultiplier.TabIndex = 17;
+            this.labelDisplayMultiplier.Text = "* 100";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 390);
+            this.Controls.Add(this.labelDisplayMultiplier);
+            this.Controls.Add(this.multiplierSelector);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.displaySpeed);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.flowSpeed);
@@ -213,6 +251,7 @@
             this.Name = "Form1";
             this.Text = "Cosa Amorfa";
             ((System.ComponentModel.ISupportInitialize)(this.flowSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.multiplierSelector)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -234,6 +273,9 @@
         private System.Windows.Forms.TrackBar flowSpeed;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label displaySpeed;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown multiplierSelector;
+        private System.Windows.Forms.Label labelDisplayMultiplier;
 
     }
 }

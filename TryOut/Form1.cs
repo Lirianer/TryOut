@@ -125,10 +125,13 @@ namespace TryOut
                 grid = new MainGrid(imageGraphics, 3);
             }
 
-            grid.percentage = flowSpeed.Value;
+            grid.percentage = flowSpeed.Value/8;
+
+            multiplierSelector.Value = 1;
             pause = true;
             checkDisplayAmount.Checked = true;
             pauseAction.Text = "Unpause";
+            labelDisplayMultiplier.Text = "* "+grid.emitAmount;
 
             RenderScene();
         }
@@ -162,18 +165,39 @@ namespace TryOut
 
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            foreach (GridCell cell in grid.grid)
-            {
-                if ((cell.rectangle.X < e.X && cell.rectangle.X + cell.rectangle.Width > e.X) && (cell.rectangle.Y < e.Y && cell.rectangle.Y + cell.rectangle.Width > e.Y))
-                {
-                    grid.grid[cell.X, cell.Y].isSelected = true;
-                }
-                else if (grid.grid[cell.X, cell.Y].isSelected)
-                {
-                    grid.grid[cell.X, cell.Y].isSelected = false;
-                }
-            }
+            Console.WriteLine(e.Button);
 
+            switch (e.Button.ToString())
+            {
+                case "Left":
+                    foreach (GridCell cell in grid.grid)
+                    {
+                        if ((cell.rectangle.X < e.X && cell.rectangle.X + cell.rectangle.Width > e.X) && (cell.rectangle.Y < e.Y && cell.rectangle.Y + cell.rectangle.Width > e.Y))
+                        {
+                            grid.grid[cell.X, cell.Y].isSelected = true;
+                        }
+                        else if (grid.grid[cell.X, cell.Y].isSelected)
+                        {
+                            grid.grid[cell.X, cell.Y].isSelected = false;
+                        }
+                    }
+                    break;
+                     
+                case "Right":
+                    foreach (GridCell cell in grid.grid)
+                    {
+                        if ((cell.rectangle.X < e.X && cell.rectangle.X + cell.rectangle.Width > e.X) && (cell.rectangle.Y < e.Y && cell.rectangle.Y + cell.rectangle.Width > e.Y))
+                        {
+                            if (!grid.grid[cell.X, cell.Y].isWall)
+                            {
+                                grid.Emit(cell.X, cell.Y);
+                            }
+                        }
+                        
+                    }
+                    break;
+                    
+            }
             RenderScene();
         }
 
@@ -208,6 +232,12 @@ namespace TryOut
         {
             grid.percentage = flowSpeed.Value / 8;
             displaySpeed.Text = "Speed: " + flowSpeed.Value;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            grid.amountMultiplier = multiplierSelector.Value;
+            grid.UpdateEmitAmount();
         }
 
 
