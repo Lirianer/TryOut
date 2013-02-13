@@ -125,6 +125,7 @@ namespace TryOut
                 grid = new MainGrid(imageGraphics, 3);
             }
 
+            grid.percentage = flowSpeed.Value;
             pause = true;
             checkDisplayAmount.Checked = true;
             pauseAction.Text = "Unpause";
