@@ -1,6 +1,6 @@
-﻿To-Do list:
-1) Upper Assignment for A+: Make the amount equals a shade of Blue in the cell.
-	
-2) Algorithm for a Wall Cell to detect Neighbor Wall Cells and join with them. (Can that be called and algorithm)
+﻿To-Do list:	
+1) Algorithm for a Wall Cell to detect Neighbor Wall Cells and join with them. (Can that be called and algorithm)
 
-3) Try the Dijkstra's algorithm with something (http://en.wikipedia.org/wiki/Dijkstra%E2%80%99s_Algorithm)
+2) Try the Dijkstra's algorithm with something (http://en.wikipedia.org/wiki/Dijkstra%E2%80%99s_Algorithm)
+
+3) Add some more GUI controls ?
