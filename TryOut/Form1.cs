@@ -125,6 +125,7 @@ namespace TryOut
             }
 
             pause = true;
+            checkDisplayAmount.Checked = true;
             pauseAction.Text = "Unpause";
 
             RenderScene();
@@ -180,6 +181,8 @@ namespace TryOut
                     cell.displayAmount = false;
                 }
             }
+
+            RenderScene();
         }
 
 

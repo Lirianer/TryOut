@@ -15,7 +15,7 @@ namespace TryOut.Grid
         int gridCellSide;
         int gridCellX, gridCellY;
         int xCells, yCells;
-        int percentage = 5; // max: 100/max neighbors = 12.5
+        public float percentage = 5; // max: 100/max neighbors = 12.5
         public double Total;
 
         public GridCell[,] grid;
@@ -134,7 +134,7 @@ namespace TryOut.Grid
                 freeCell.X = random.Next(0, 9);
                 freeCell.Y = random.Next(0, 9);
             }
-            while (grid[freeCell.X, freeCell.Y].isWall == true);
+            while (grid[freeCell.X, freeCell.Y].isWall);
 
             return freeCell;
         }

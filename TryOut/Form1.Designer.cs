@@ -136,7 +136,7 @@
             // 
             // buttonEmit
             // 
-            this.buttonEmit.Location = new System.Drawing.Point(391, 327);
+            this.buttonEmit.Location = new System.Drawing.Point(396, 327);
             this.buttonEmit.Name = "buttonEmit";
             this.buttonEmit.Size = new System.Drawing.Size(75, 23);
             this.buttonEmit.TabIndex = 10;
