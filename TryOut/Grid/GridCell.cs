@@ -16,6 +16,7 @@ namespace TryOut.Grid
        double shade = 0;//(255 - color.R) * this.oldAmount + color.R;
        double blue = 255;//(255 - color.R) * this.oldAmount + color.B;
        public int X, Y;
+       public bool displayAmount = true;
 
         public GridCell(int side,int x, int y, int locationX, int locationY)
         {
@@ -60,7 +61,11 @@ namespace TryOut.Grid
                 stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
 
                 g.FillRectangle(new SolidBrush(color), rectangle);
-                g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 7), new SolidBrush(Color.Black), rectangle, stringFormat);
+
+                if (displayAmount)
+                {
+                    g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 7), new SolidBrush(Color.Black), rectangle, stringFormat);
+                }
             }
 
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);

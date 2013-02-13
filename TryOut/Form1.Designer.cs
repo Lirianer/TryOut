@@ -38,6 +38,7 @@
             this.randomSelector = new System.Windows.Forms.RadioButton();
             this.labelCell = new System.Windows.Forms.Label();
             this.buttonEmit = new System.Windows.Forms.Button();
+            this.checkDisplayAmount = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // pauseAction
@@ -143,11 +144,25 @@
             this.buttonEmit.UseVisualStyleBackColor = true;
             this.buttonEmit.Click += new System.EventHandler(this.buttonEmit_Click);
             // 
+            // checkDisplayAmount
+            // 
+            this.checkDisplayAmount.AutoSize = true;
+            this.checkDisplayAmount.Checked = true;
+            this.checkDisplayAmount.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkDisplayAmount.Location = new System.Drawing.Point(347, 71);
+            this.checkDisplayAmount.Name = "checkDisplayAmount";
+            this.checkDisplayAmount.Size = new System.Drawing.Size(124, 17);
+            this.checkDisplayAmount.TabIndex = 11;
+            this.checkDisplayAmount.Text = "Display Cells Amount";
+            this.checkDisplayAmount.UseVisualStyleBackColor = true;
+            this.checkDisplayAmount.CheckedChanged += new System.EventHandler(this.checkDisplayAmount_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 390);
+            this.Controls.Add(this.checkDisplayAmount);
             this.Controls.Add(this.buttonEmit);
             this.Controls.Add(this.labelCell);
             this.Controls.Add(this.randomSelector);
@@ -177,6 +192,7 @@
         private System.Windows.Forms.RadioButton randomSelector;
         private System.Windows.Forms.Label labelCell;
         private System.Windows.Forms.Button buttonEmit;
+        private System.Windows.Forms.CheckBox checkDisplayAmount;
 
     }
 }
