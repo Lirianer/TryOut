@@ -101,6 +101,9 @@ namespace TryOut.Grid
                 //RandomGrid
                 case 3:
                         bool isWallCreated = false;
+
+                        randomCellY = random.Next(0, 9);
+
                          for (int i = 0; i < xCells; i++)
                             {
                                 isWallCreated = false;
@@ -195,7 +198,7 @@ namespace TryOut.Grid
                             }
 
                         }
-                        amount = (grid[x, y].oldAmount / (neighbours.Count)) * 2 / 3;
+                        amount = (grid[x, y].oldAmount / 8) * 2 / 3;
                         //Console.WriteLine(amount.ToString("0.###") + " " + neighbours.Count.ToString());
                         foreach (GridCell cell in neighbours)
                         {
@@ -203,6 +206,7 @@ namespace TryOut.Grid
                         }
 
                         grid[x, y].newAmount += grid[x, y].oldAmount / 3;
+                        grid[x, y].newAmount += grid[x, y].oldAmount * (8 - (neighbours.Count)) / 12;
                         neighbours.Clear();
                         
                     }
