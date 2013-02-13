@@ -124,6 +124,7 @@ namespace TryOut
                 grid = new MainGrid(imageGraphics, 3);
             }
 
+            checkAmountDisplay.Checked = false;
             pause = true;
             pauseAction.Text = "Unpause";
 

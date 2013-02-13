@@ -38,6 +38,10 @@
             this.randomSelector = new System.Windows.Forms.RadioButton();
             this.labelCell = new System.Windows.Forms.Label();
             this.checkAmountDisplay = new System.Windows.Forms.CheckBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // pauseAction
@@ -70,7 +74,7 @@
             // 
             // restartAction
             // 
-            this.restartAction.Location = new System.Drawing.Point(12, 327);
+            this.restartAction.Location = new System.Drawing.Point(347, 96);
             this.restartAction.Name = "restartAction";
             this.restartAction.Size = new System.Drawing.Size(75, 23);
             this.restartAction.TabIndex = 3;
@@ -91,7 +95,7 @@
             // blankSelector
             // 
             this.blankSelector.AutoSize = true;
-            this.blankSelector.Location = new System.Drawing.Point(12, 356);
+            this.blankSelector.Location = new System.Drawing.Point(428, 125);
             this.blankSelector.Name = "blankSelector";
             this.blankSelector.Size = new System.Drawing.Size(52, 17);
             this.blankSelector.TabIndex = 5;
@@ -102,7 +106,7 @@
             // mapSelector
             // 
             this.mapSelector.AutoSize = true;
-            this.mapSelector.Location = new System.Drawing.Point(71, 357);
+            this.mapSelector.Location = new System.Drawing.Point(428, 148);
             this.mapSelector.Name = "mapSelector";
             this.mapSelector.Size = new System.Drawing.Size(46, 17);
             this.mapSelector.TabIndex = 6;
@@ -113,7 +117,7 @@
             // randomSelector
             // 
             this.randomSelector.AutoSize = true;
-            this.randomSelector.Location = new System.Drawing.Point(124, 356);
+            this.randomSelector.Location = new System.Drawing.Point(428, 171);
             this.randomSelector.Name = "randomSelector";
             this.randomSelector.Size = new System.Drawing.Size(65, 17);
             this.randomSelector.TabIndex = 7;
@@ -144,11 +148,40 @@
             this.checkAmountDisplay.UseVisualStyleBackColor = true;
             this.checkAmountDisplay.CheckedChanged += new System.EventHandler(this.checkAmountDisplay_CheckedChanged);
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(428, 194);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(59, 20);
+            this.numericUpDown1.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(366, 125);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Grid Type:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(351, 194);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Start Amount:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 390);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.checkAmountDisplay);
             this.Controls.Add(this.labelCell);
             this.Controls.Add(this.randomSelector);
@@ -161,6 +194,7 @@
             this.Controls.Add(this.pauseAction);
             this.Name = "Form1";
             this.Text = "Cosa Amorfa";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,6 +211,9 @@
         private System.Windows.Forms.RadioButton mapSelector;
         private System.Windows.Forms.RadioButton randomSelector;
         private System.Windows.Forms.Label labelCell;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkAmountDisplay;
 
     }
