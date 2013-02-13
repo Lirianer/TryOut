@@ -186,20 +186,23 @@ namespace TryOut.Grid
                                 {
                                     if (neighBourY >= 0 && neighBourY < yCells && !grid[neighBourX, neighBourY].isWall) 
                                     {
+                                        if((neighBourY != x) && (neighBourY != y))
+                                        {
                                         neighbours.Add(grid[neighBourX, neighBourY]);
+                                        }
                                     }
                                 }
                             }
 
                         }
-                        amount = (grid[x, y].oldAmount / (neighbours.Count)) / 2;
+                        amount = (grid[x, y].oldAmount / (neighbours.Count - 1)) * 2 / 3;
                         //Console.WriteLine(amount.ToString("0.###") + " " + neighbours.Count.ToString());
                         foreach (GridCell cell in neighbours)
                         {
                             cell.newAmount += amount;
                         }
 
-                        grid[x, y].newAmount = grid[x, y].oldAmount / 2;
+                        grid[x, y].newAmount = grid[x, y].oldAmount / 3;
                         neighbours.Clear();
                         
                     }

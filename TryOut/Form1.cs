@@ -141,10 +141,7 @@ namespace TryOut
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            float x, y;
             string info;
-            
-            
 
             foreach (GridCell cell in grid.grid)
             {
@@ -154,9 +151,10 @@ namespace TryOut
        Creeper= " + cell.oldAmount;
 
                     labelCell.Text = info;
-
                 }
             }
+
+
         }
     }
 }
