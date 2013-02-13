@@ -186,7 +186,7 @@ namespace TryOut.Grid
                                 {
                                     if (neighBourY >= 0 && neighBourY < yCells && !grid[neighBourX, neighBourY].isWall) 
                                     {
-                                        if((neighBourY != x) && (neighBourY != y))
+                                        if((neighBourX != x ) && (neighBourY != y))
                                         {
                                         neighbours.Add(grid[neighBourX, neighBourY]);
                                         }
@@ -195,7 +195,7 @@ namespace TryOut.Grid
                             }
 
                         }
-                        amount = (grid[x, y].oldAmount / (neighbours.Count - 1)) * 2 / 3;
+                        amount = (grid[x, y].oldAmount / (neighbours.Count)) * 2 / 3;
                         //Console.WriteLine(amount.ToString("0.###") + " " + neighbours.Count.ToString());
                         foreach (GridCell cell in neighbours)
                         {
