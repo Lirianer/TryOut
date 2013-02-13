@@ -39,6 +39,10 @@
             this.labelCell = new System.Windows.Forms.Label();
             this.buttonEmit = new System.Windows.Forms.Button();
             this.checkDisplayAmount = new System.Windows.Forms.CheckBox();
+            this.flowSpeed = new System.Windows.Forms.TrackBar();
+            this.label3 = new System.Windows.Forms.Label();
+            this.displaySpeed = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.flowSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // pauseAction
@@ -157,11 +161,44 @@
             this.checkDisplayAmount.UseVisualStyleBackColor = true;
             this.checkDisplayAmount.CheckedChanged += new System.EventHandler(this.checkDisplayAmount_CheckedChanged);
             // 
+            // flowSpeed
+            // 
+            this.flowSpeed.LargeChange = 20;
+            this.flowSpeed.Location = new System.Drawing.Point(347, 120);
+            this.flowSpeed.Maximum = 100;
+            this.flowSpeed.Name = "flowSpeed";
+            this.flowSpeed.Size = new System.Drawing.Size(171, 45);
+            this.flowSpeed.SmallChange = 10;
+            this.flowSpeed.TabIndex = 12;
+            this.flowSpeed.Value = 40;
+            this.flowSpeed.Scroll += new System.EventHandler(this.flowSpeed_Scroll);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(344, 104);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(66, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Flow Speed:";
+            // 
+            // displaySpeed
+            // 
+            this.displaySpeed.AutoSize = true;
+            this.displaySpeed.Location = new System.Drawing.Point(363, 152);
+            this.displaySpeed.Name = "displaySpeed";
+            this.displaySpeed.Size = new System.Drawing.Size(59, 13);
+            this.displaySpeed.TabIndex = 14;
+            this.displaySpeed.Text = "Speed : 40";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 390);
+            this.Controls.Add(this.displaySpeed);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.flowSpeed);
             this.Controls.Add(this.checkDisplayAmount);
             this.Controls.Add(this.buttonEmit);
             this.Controls.Add(this.labelCell);
@@ -175,6 +212,7 @@
             this.Controls.Add(this.pauseAction);
             this.Name = "Form1";
             this.Text = "Cosa Amorfa";
+            ((System.ComponentModel.ISupportInitialize)(this.flowSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -193,6 +231,9 @@
         private System.Windows.Forms.Label labelCell;
         private System.Windows.Forms.Button buttonEmit;
         private System.Windows.Forms.CheckBox checkDisplayAmount;
+        private System.Windows.Forms.TrackBar flowSpeed;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label displaySpeed;
 
     }
 }

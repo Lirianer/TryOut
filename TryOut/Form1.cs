@@ -41,6 +41,7 @@ namespace TryOut
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             //this.ClientSize = new Size(400, 400);
             this.blankSelector.Checked = true;
+            
 
             clientWidth = this.ClientRectangle.Width;
             clientHeight = this.ClientRectangle.Height;
@@ -183,6 +184,12 @@ namespace TryOut
             }
 
             RenderScene();
+        }
+        
+        private void flowSpeed_Scroll(object sender, EventArgs e)
+        {
+            grid.percentage = flowSpeed.Value / 8;
+            displaySpeed.Text = "Speed: " + flowSpeed.Value;
         }
 
 
