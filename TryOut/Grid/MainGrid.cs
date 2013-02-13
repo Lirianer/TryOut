@@ -202,7 +202,7 @@ namespace TryOut.Grid
                             cell.newAmount += amount;
                         }
 
-                        grid[x, y].newAmount = grid[x, y].oldAmount / 3;
+                        grid[x, y].newAmount += grid[x, y].oldAmount / 3;
                         neighbours.Clear();
                         
                     }
