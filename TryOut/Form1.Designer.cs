@@ -37,6 +37,7 @@
             this.mapSelector = new System.Windows.Forms.RadioButton();
             this.randomSelector = new System.Windows.Forms.RadioButton();
             this.labelCell = new System.Windows.Forms.Label();
+            this.checkAmountDisplay = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // pauseAction
@@ -132,11 +133,23 @@
             this.labelCell.TabIndex = 9;
             this.labelCell.Text = "Cell:   X={0},  Y={1}\r\n           Creeper= \r\n";
             // 
+            // checkAmountDisplay
+            // 
+            this.checkAmountDisplay.AutoSize = true;
+            this.checkAmountDisplay.Location = new System.Drawing.Point(347, 52);
+            this.checkAmountDisplay.Name = "checkAmountDisplay";
+            this.checkAmountDisplay.Size = new System.Drawing.Size(124, 17);
+            this.checkAmountDisplay.TabIndex = 10;
+            this.checkAmountDisplay.Text = "Display Cells Amount";
+            this.checkAmountDisplay.UseVisualStyleBackColor = true;
+            this.checkAmountDisplay.CheckedChanged += new System.EventHandler(this.checkAmountDisplay_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 390);
+            this.Controls.Add(this.checkAmountDisplay);
             this.Controls.Add(this.labelCell);
             this.Controls.Add(this.randomSelector);
             this.Controls.Add(this.mapSelector);
@@ -164,6 +177,7 @@
         private System.Windows.Forms.RadioButton mapSelector;
         private System.Windows.Forms.RadioButton randomSelector;
         private System.Windows.Forms.Label labelCell;
+        private System.Windows.Forms.CheckBox checkAmountDisplay;
 
     }
 }

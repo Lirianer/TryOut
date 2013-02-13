@@ -13,6 +13,7 @@ namespace TryOut.Grid
        public Rectangle rectangle;
        public float oldAmount, newAmount;
        public bool isWall;
+       public bool displayAmount = false;
        float red = 0;//(255 - color.R) * this.oldAmount + color.R;
        float blue = 255F;//(255 - color.R) * this.oldAmount + color.B;
        public int X, Y;
@@ -55,13 +56,16 @@ namespace TryOut.Grid
             stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
 
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
-            if (this.oldAmount > 0.8F)
-            {
+            //if (this.oldAmount > 0.8F)
+            //{
                 
                 g.FillRectangle(new SolidBrush(color), rectangle);
-                
-                g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 8), new SolidBrush(Color.Black), rectangle, stringFormat);
-            }
+
+                if (displayAmount)
+                {
+                    g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 8), new SolidBrush(Color.Black), rectangle, stringFormat);
+                }
+          //  }
             else
             {
                // g.FillRectangle(new SolidBrush(Color.White), rectangle);

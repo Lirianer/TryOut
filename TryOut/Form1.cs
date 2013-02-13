@@ -156,5 +156,25 @@ namespace TryOut
 
 
         }
+
+        private void checkAmountDisplay_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkAmountDisplay.Checked)
+            {
+                foreach (GridCell cell in grid.grid)
+                {
+                    cell.displayAmount = true;
+                    RenderScene();
+                }
+            }
+            else if (!checkAmountDisplay.Checked)
+            {
+                foreach (GridCell cell in grid.grid)
+                {
+                    cell.displayAmount = false;
+                    RenderScene();
+                }
+            }
+        }
     }
 }
