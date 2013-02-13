@@ -118,6 +118,11 @@ namespace TryOut.Grid
             EmitRandom(emitAmount);
         }
 
+        public void Emit(int x, int y, double emitAmount)
+        {
+
+        }
+
         private void EmitRandom(double amount)
         {
             Point emitter = GetRandomFreeCell();

@@ -160,6 +160,23 @@ namespace TryOut
 
         }
 
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            foreach (GridCell cell in grid.grid)
+            {
+                if ((cell.rectangle.X < e.X && cell.rectangle.X + cell.rectangle.Width > e.X) && (cell.rectangle.Y < e.Y && cell.rectangle.Y + cell.rectangle.Width > e.Y))
+                {
+                    grid.grid[cell.X, cell.Y].isSelected = true;
+                }
+                else if (grid.grid[cell.X, cell.Y].isSelected)
+                {
+                    grid.grid[cell.X, cell.Y].isSelected = false;
+                }
+            }
+
+            RenderScene();
+        }
+
         private void buttonEmit_Click(object sender, EventArgs e)
         {
             grid.Emit();

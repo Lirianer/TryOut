@@ -17,6 +17,7 @@ namespace TryOut.Grid
        double blue = 255;//(255 - color.R) * this.oldAmount + color.B;
        public int X, Y;
        public bool displayAmount = true;
+       public bool isSelected = false;
 
         public GridCell(int side,int x, int y, int locationX, int locationY)
         {
@@ -67,8 +68,14 @@ namespace TryOut.Grid
                     g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 7), new SolidBrush(Color.Black), rectangle, stringFormat);
                 }
             }
-
-            g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
+            if (!isSelected)
+            {
+                g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
+            }
+            else if (isSelected)
+            {
+                g.DrawRectangle(new Pen(new SolidBrush(Color.Green)), rectangle);
+            }
         }
     }
 }
