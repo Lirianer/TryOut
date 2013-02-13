@@ -192,7 +192,7 @@ namespace TryOut.Grid
                             }
 
                         }
-                        amount = grid[x, y].oldAmount / neighbours.Count;
+                        amount = grid[x, y].oldAmount / neighbours.Count /2;
                         //Console.WriteLine(amount.ToString("0.###") + " " + neighbours.Count.ToString());
                         foreach (GridCell cell in neighbours)
                         {
@@ -201,6 +201,8 @@ namespace TryOut.Grid
 
                         neighbours.Clear();
                     }
+
+                    grid[x, y].newAmount = grid[x, y].oldAmount / 2;
                 }
             }
 
