@@ -21,7 +21,7 @@ namespace TryOut.Grid
 
         bool isEmitterCreated = false;
 
-        GridCell[,] grid;
+        public GridCell[,] grid;
 
         Random random;
 
@@ -193,11 +193,13 @@ namespace TryOut.Grid
 
                         }
                         amount = grid[x, y].oldAmount / neighbours.Count;
-
+                        //Console.WriteLine(amount.ToString("0.###") + " " + neighbours.Count.ToString());
                         foreach (GridCell cell in neighbours)
                         {
                             cell.newAmount += amount;
                         }
+
+                        neighbours.Clear();
                     }
                 }
             }

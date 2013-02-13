@@ -36,6 +36,7 @@
             this.blankSelector = new System.Windows.Forms.RadioButton();
             this.mapSelector = new System.Windows.Forms.RadioButton();
             this.randomSelector = new System.Windows.Forms.RadioButton();
+            this.labelCell = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // pauseAction
@@ -119,11 +120,24 @@
             this.randomSelector.Text = "Random";
             this.randomSelector.UseVisualStyleBackColor = true;
             // 
+            // labelCell
+            // 
+            this.labelCell.AutoSize = true;
+            this.labelCell.CausesValidation = false;
+            this.labelCell.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelCell.Location = new System.Drawing.Point(344, 9);
+            this.labelCell.Name = "labelCell";
+            this.labelCell.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.labelCell.Size = new System.Drawing.Size(99, 39);
+            this.labelCell.TabIndex = 9;
+            this.labelCell.Text = "Cell:   X={0},  Y={1}\r\n           Creeper= \r\n";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 390);
+            this.Controls.Add(this.labelCell);
             this.Controls.Add(this.randomSelector);
             this.Controls.Add(this.mapSelector);
             this.Controls.Add(this.blankSelector);
@@ -149,6 +163,7 @@
         private System.Windows.Forms.RadioButton blankSelector;
         private System.Windows.Forms.RadioButton mapSelector;
         private System.Windows.Forms.RadioButton randomSelector;
+        private System.Windows.Forms.Label labelCell;
 
     }
 }

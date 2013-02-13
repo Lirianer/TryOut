@@ -77,7 +77,8 @@ namespace TryOut
 
         private void GameLogic()
         {
-            grid.ProcessFlow();   
+            grid.ProcessFlow();
+            
 
         }
 
@@ -136,6 +137,23 @@ namespace TryOut
 
             GameLogic();
             RenderScene();
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            float x, y;
+
+            foreach (GridCell cell in grid.grid)
+            {
+                if ((cell.rectangle.X < e.X && cell.rectangle.X + cell.rectangle.Width > e.X) && (cell.rectangle.Y < e.Y && cell.rectangle.Y + cell.rectangle.Width > e.Y))
+                {
+                    string info = @"Cell: X= "+cell.X+"  Y= "+cell.Y+@"
+       Creeper= "+cell.oldAmount;
+
+                    labelCell.Text = info;
+
+                }
+            }
         }
     }
 }
