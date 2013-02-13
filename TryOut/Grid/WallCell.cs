@@ -16,6 +16,7 @@ namespace TryOut.Grid
        TextureBrush textureBrush ;
 
        int size;
+
         public WallCell(int side, int x, int y, int locationX, int locationY) : base(side, x, y, locationX, locationY)
         {
             base.X = locationX;
@@ -24,13 +25,25 @@ namespace TryOut.Grid
 
             base.isWall = true;
             size = side;
-                texture = new Bitmap(Resources.wall);
-                textureBrush = new TextureBrush(texture);
+            texture = new Bitmap(Resources.wall);
+            textureBrush = new TextureBrush(texture);
 
             rect = new Rectangle(x, y, size+1, size);
             imageRectangle = new Rectangle(x, y , size +1, size +1);
         }
-        
+
+        public WallCell(GridCell gridCell) : base(gridCell.rectangle.Width, gridCell.rectangle.X, gridCell.rectangle.Y, gridCell.X, gridCell.Y)
+        {
+            base.X = gridCell.X;
+            base.Y = gridCell.Y;
+            base.isWall = true;
+            size = gridCell.rectangle.Width;
+            texture = new Bitmap(Resources.wall);
+            textureBrush = new TextureBrush(texture);
+
+            rect = new Rectangle(gridCell.rectangle.X, gridCell.rectangle.Y, size + 1, size);
+            imageRectangle = new Rectangle(gridCell.rectangle.X, gridCell.rectangle.Y, size + 1, size + 1);
+        }        
 
         public override void DrawCell(Graphics g)
         {

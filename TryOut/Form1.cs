@@ -124,7 +124,6 @@ namespace TryOut
                 grid = new MainGrid(imageGraphics, 3);
             }
 
-            checkAmountDisplay.Checked = false;
             pause = true;
             pauseAction.Text = "Unpause";
 
@@ -158,24 +157,12 @@ namespace TryOut
 
         }
 
-        private void checkAmountDisplay_CheckedChanged(object sender, EventArgs e)
+        private void buttonEmit_Click(object sender, EventArgs e)
         {
-            if (checkAmountDisplay.Checked)
-            {
-                foreach (GridCell cell in grid.grid)
-                {
-                    cell.displayAmount = true;
-                    RenderScene();
-                }
-            }
-            else if (!checkAmountDisplay.Checked)
-            {
-                foreach (GridCell cell in grid.grid)
-                {
-                    cell.displayAmount = false;
-                    RenderScene();
-                }
-            }
+            grid.Emit();
+            RenderScene();
         }
+
+
     }
 }

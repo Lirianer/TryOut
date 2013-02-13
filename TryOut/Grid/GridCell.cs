@@ -11,11 +11,10 @@ namespace TryOut.Grid
     {
         private Color color;
        public Rectangle rectangle;
-       public float oldAmount, newAmount;
+       public double oldAmount, newAmount;
        public bool isWall;
-       public bool displayAmount;
-       float red = 0;//(255 - color.R) * this.oldAmount + color.R;
-       float blue = 255F;//(255 - color.R) * this.oldAmount + color.B;
+       double shade = 0;//(255 - color.R) * this.oldAmount + color.R;
+       double blue = 255;//(255 - color.R) * this.oldAmount + color.B;
        public int X, Y;
 
         public GridCell(int side,int x, int y, int locationX, int locationY)
@@ -42,35 +41,29 @@ namespace TryOut.Grid
 
         public virtual void DrawCell(Graphics g)
         {
-            red = 255-(this.oldAmount*2.55F);
+            if (oldAmount >= 0.1)
+            {
+                shade = 255 - ((Math.Log10(oldAmount)+1)/4 * 255);
+                if (shade > 255)
+                {
+                    shade = 255;
+                }
+                if (shade < 0)
+                {
+                    shade = 0;
+                }
 
+                color = Color.FromArgb((int)shade, (int)shade, (int)blue);
 
-            if (red > 255F) { red = 255F; }
-            if (red < 0F) { red = 0F; }
-            //if(green>255F){green = 255F;}
-                
-            color = Color.FromArgb((int)red, (int)red, (int)blue);
+                StringFormat stringFormat = new StringFormat();
+                stringFormat.Alignment = StringAlignment.Center;      // Horizontal Alignment
+                stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
 
-            StringFormat stringFormat = new StringFormat();
-            stringFormat.Alignment = StringAlignment.Center;      // Horizontal Alignment
-            stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
+                g.FillRectangle(new SolidBrush(color), rectangle);
+                g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 7), new SolidBrush(Color.Black), rectangle, stringFormat);
+            }
 
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
-            //if (this.oldAmount > 0.8F)
-            //{
-                
-                g.FillRectangle(new SolidBrush(color), rectangle);
-
-                if (displayAmount)
-                {
-                    g.DrawString(this.oldAmount.ToString("0.#"), new Font("Arial", 8), new SolidBrush(Color.Black), rectangle, stringFormat);
-                }
-          //  }
-            else
-            {
-               // g.FillRectangle(new SolidBrush(Color.White), rectangle);
-            }
         }
-        
     }
 }
