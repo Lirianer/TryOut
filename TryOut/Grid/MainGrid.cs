@@ -186,7 +186,7 @@ namespace TryOut.Grid
                                 {
                                     if (neighBourY >= 0 && neighBourY < yCells && !grid[neighBourX, neighBourY].isWall) 
                                     {
-                                        if((neighBourX != x ) && (neighBourY != y))
+                                        if(!((neighBourX == x ) && (neighBourY == y)))
                                         {
                                         neighbours.Add(grid[neighBourX, neighBourY]);
                                         }
