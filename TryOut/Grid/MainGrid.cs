@@ -16,7 +16,7 @@ namespace TryOut.Grid
         int gridCellX, gridCellY;
         int xCells, yCells;
         public decimal amountMultiplier = 1;
-        public float percentage = 5; // max: 100/max neighbors = 12.5
+        public double percentage = 5; // max: 100/max neighbors = 12.5
         public double Total;
 
         public GridCell[,] grid;
