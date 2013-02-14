@@ -161,6 +161,7 @@ namespace TryOut.Grid
                     }
                     else if (!grid[cell.X, cell.Y].isWall)
                     {
+                        ProcessNeighbours(cell.X, cell.Y, true); // move all Creeper to neighbours first
                         grid[cell.X, cell.Y] = new WallCell(grid[cell.X, cell.Y]);
                     }
                 }
