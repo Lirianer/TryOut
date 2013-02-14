@@ -9,7 +9,7 @@ namespace TryOut.Grid
 {
     class GridCell
     {
-        // comment line adding by UpperKEES
+        // comment line added by UpperKEES
         private Color color;
        public Rectangle rectangle;
        public double oldAmount, newAmount;
@@ -19,6 +19,7 @@ namespace TryOut.Grid
        public bool displayAmount = true;
        public bool isSelected = false;
 
+        // line 2 added by UpperKEES
         public GridCell(int side,int x, int y, int locationX, int locationY)
         {
             X = locationX;
