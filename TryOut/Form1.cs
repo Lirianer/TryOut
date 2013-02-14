@@ -167,39 +167,18 @@ namespace TryOut
         {
             Console.WriteLine(e.Button);
 
+            Point mousePos = new Point();
+            mousePos.X = e.X;
+            mousePos.Y = e.Y;
+
             switch (e.Button.ToString())
             {
                 case "Left":
-                    foreach (GridCell cell in grid.grid)
-                    {
-                        if ((cell.rectangle.X < e.X && cell.rectangle.X + cell.rectangle.Width > e.X) && (cell.rectangle.Y < e.Y && cell.rectangle.Y + cell.rectangle.Width > e.Y))
-                        {
-                            
-                            if (grid.grid[cell.X, cell.Y].isWall)
-                            {
-                                grid.grid[cell.X, cell.Y] = new GridCell(grid.grid[cell.X, cell.Y]);
-                            }
-                            else if (!grid.grid[cell.X, cell.Y].isWall)
-                            {
-                                grid.grid[cell.X, cell.Y] = new WallCell(grid.grid[cell.X, cell.Y]);
-                            }
-                        }
-                        
-                    }
+                        grid.SwitchWall(mousePos);
                     break;
                      
                 case "Right":
-                    foreach (GridCell cell in grid.grid)
-                    {
-                        if ((cell.rectangle.X < e.X && cell.rectangle.X + cell.rectangle.Width > e.X) && (cell.rectangle.Y < e.Y && cell.rectangle.Y + cell.rectangle.Width > e.Y))
-                        {
-                            if (!grid.grid[cell.X, cell.Y].isWall)
-                            {
-                                grid.Emit(cell.X, cell.Y);
-                            }
-                        }
-                        
-                    }
+                        grid.Emit(mousePos);
                     break;
                     
             }

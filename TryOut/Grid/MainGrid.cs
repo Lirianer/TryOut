@@ -148,6 +148,40 @@ namespace TryOut.Grid
             return freeCell;
         }
 
+        public void SwitchWall(Point mousePos)
+        {
+            foreach (GridCell cell in grid)
+            {
+                if ((cell.rectangle.X < mousePos.X && cell.rectangle.X + cell.rectangle.Width > mousePos.X) && (cell.rectangle.Y < mousePos.Y && cell.rectangle.Y + cell.rectangle.Width > mousePos.Y))
+                {
+
+                    if (grid[cell.X, cell.Y].isWall)
+                    {
+                        grid[cell.X, cell.Y] = new GridCell(grid[cell.X, cell.Y]);
+                    }
+                    else if (!grid[cell.X, cell.Y].isWall)
+                    {
+                        grid[cell.X, cell.Y] = new WallCell(grid[cell.X, cell.Y]);
+                    }
+                }
+            }
+        }
+
+        public void Emit(Point mousePos)
+        {
+
+            foreach (GridCell cell in grid)
+            {
+                if ((cell.rectangle.X < mousePos.X && cell.rectangle.X + cell.rectangle.Width > mousePos.X) && (cell.rectangle.Y < mousePos.Y && cell.rectangle.Y + cell.rectangle.Width > mousePos.Y))
+                {
+                    if (!grid[cell.X, cell.Y].isWall)
+                    {
+                        Emit(cell.X, cell.Y);
+                    }
+                }
+            }
+        }
+
         public void Draw()
         {
             //int i = 0;
