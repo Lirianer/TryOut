@@ -179,7 +179,7 @@ namespace TryOut
                             {
                                 grid.grid[cell.X, cell.Y] = new GridCell(grid.grid[cell.X, cell.Y]);
                             }
-                            if (!grid.grid[cell.X, cell.Y].isWall)
+                            else if (!grid.grid[cell.X, cell.Y].isWall)
                             {
                                 grid.grid[cell.X, cell.Y] = new WallCell(grid.grid[cell.X, cell.Y]);
                             }

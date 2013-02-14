@@ -39,18 +39,19 @@ namespace TryOut.Grid
             color = new Color();
         }
 
-        public GridCell(GridCell cell)
+        public GridCell(GridCell gridCell)
         {
-            X = cell.X;
-            Y = cell.Y;
+            X = gridCell.X;
+            Y = gridCell.Y;
 
             isWall = false;
             oldAmount = 0;
             newAmount = 0;
-            rectangle = cell.rectangle;
+
+            rectangle = gridCell.rectangle;
             color = new Color();
-            
         }
+
 
         public virtual void DrawCell(Graphics g)
         {
