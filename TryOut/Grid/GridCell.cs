@@ -9,7 +9,6 @@ namespace TryOut.Grid
 {
     class GridCell
     {
-        // comment line added by UpperKEES
         private Color color;
        public Rectangle rectangle;
        public double oldAmount, newAmount;
@@ -19,7 +18,6 @@ namespace TryOut.Grid
        public bool displayAmount = true;
        public bool isSelected = false;
 
-        // line 2 added by UpperKEES
         public GridCell(int side,int x, int y, int locationX, int locationY)
         {
             X = locationX;
@@ -95,7 +93,7 @@ namespace TryOut.Grid
             }
             if (!isSelected)
             {
-                g.DrawRectangle(new Pen(new SolidBrush(Color.Red)), rectangle);
+                g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
             }
             else if (isSelected)
             {
@@ -104,5 +102,3 @@ namespace TryOut.Grid
         }
     }
 }
-
-//LOOK A COMMET Lirianer
