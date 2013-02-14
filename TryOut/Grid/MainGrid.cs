@@ -161,8 +161,10 @@ namespace TryOut.Grid
                     }
                     else if (!grid[cell.X, cell.Y].isWall)
                     {
-                        ProcessNeighbours(cell.X, cell.Y, true); // move all Creeper to neighbours first
-                        grid[cell.X, cell.Y] = new WallCell(grid[cell.X, cell.Y]);
+                        if (ProcessNeighbours(cell.X, cell.Y, true))
+                        {  // moved all Creeper to neighbours
+                            grid[cell.X, cell.Y] = new WallCell(grid[cell.X, cell.Y]);
+                        }
                     }
                 }
             }
@@ -218,9 +220,9 @@ namespace TryOut.Grid
             Console.WriteLine(Total.ToString("0.##"));     
         }
 
-        public void ProcessNeighbours(int X, int Y, bool moveAll)
+        public bool ProcessNeighbours(int X, int Y, bool moveAll)
         {
-            int neighBourCount = 0;
+            bool hasMoved = true;
             List<GridCell> neighbours = new List<GridCell>();
 
             for (int neighBourX = X - 1; neighBourX <= X + 1; neighBourX++)
@@ -234,35 +236,44 @@ namespace TryOut.Grid
                             !grid[neighBourX, neighBourY].isWall &&
                             !((neighBourX == X) && (neighBourY == Y)))
                         {
-                            if (moveAll)
-                            {   // only collect neighbours
                                 neighbours.Add(grid[neighBourX, neighBourY]);
-                            }
-                            else
-                            {   // move a percentage to each neighbour
-                                grid[neighBourX, neighBourY].newAmount += grid[X, Y].oldAmount * percentage / 100;
-                                neighBourCount++;
-                            }
-                            
                         }
                     }
                 }
             }
 
-            if (moveAll)
-            {
-                double amount = grid[X, Y].oldAmount / neighbours.Count; // give each neighbour their full share
-                grid[X, Y].oldAmount = 0; // Empty this cell
+           int neighbourCount = neighbours.Count;
 
-                foreach (GridCell neighbour in neighbours)
-                {
-                    neighbour.oldAmount += amount;
-                }
+           if (moveAll)
+           {
+               if (neighbourCount > 0)
+               {
+                   double amount = grid[X, Y].oldAmount / neighbours.Count; // give each neighbour their full share
+
+                   foreach (GridCell neighbour in neighbours)
+                   {
+                       neighbour.oldAmount += amount;
+                   }
+
+                   grid[X, Y].oldAmount = 0; // Empty this cell
+               }
+               else
+               {   // No neighbours!!!
+                   hasMoved = false;
+               }
+
             }
             else
             {   // give remainder back to center cell
-                grid[X, Y].newAmount += grid[X, Y].oldAmount * (100 - neighBourCount * percentage) / 100;
+                foreach (GridCell neighbour in neighbours)
+                {
+                    neighbour.newAmount += grid[X, Y].oldAmount * percentage / 100;
+                }
+
+                grid[X, Y].newAmount += grid[X, Y].oldAmount * (100 - neighbourCount * percentage) / 100;
             }
+
+            return hasMoved;
         }
 
         internal void UpdateEmitAmount()
