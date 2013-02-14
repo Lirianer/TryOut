@@ -9,6 +9,7 @@ namespace TryOut.Grid
 {
     class GridCell
     {
+        // comment line adding by UpperKEES
         private Color color;
        public Rectangle rectangle;
        public double oldAmount, newAmount;
