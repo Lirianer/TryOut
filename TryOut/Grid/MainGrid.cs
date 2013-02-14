@@ -252,11 +252,11 @@ namespace TryOut.Grid
             if (moveAll)
             {
                 double amount = grid[X, Y].oldAmount / neighbours.Count; // give each neighbour their full share
-                grid[X, Y].newAmount = 0; // Empty this cell
+                grid[X, Y].oldAmount = 0; // Empty this cell
 
                 foreach (GridCell neighbour in neighbours)
                 {
-                    neighbour.newAmount += amount;
+                    neighbour.oldAmount += amount;
                 }
             }
             else
