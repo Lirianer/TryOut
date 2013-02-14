@@ -174,12 +174,17 @@ namespace TryOut
                     {
                         if ((cell.rectangle.X < e.X && cell.rectangle.X + cell.rectangle.Width > e.X) && (cell.rectangle.Y < e.Y && cell.rectangle.Y + cell.rectangle.Width > e.Y))
                         {
-                            grid.grid[cell.X, cell.Y].isSelected = true;
+                            
+                            if (grid.grid[cell.X, cell.Y].isWall)
+                            {
+                                grid.grid[cell.X, cell.Y] = new GridCell(grid.grid[cell.X, cell.Y]);
+                            }
+                            if (!grid.grid[cell.X, cell.Y].isWall)
+                            {
+                                grid.grid[cell.X, cell.Y] = new WallCell(grid.grid[cell.X, cell.Y]);
+                            }
                         }
-                        else if (grid.grid[cell.X, cell.Y].isSelected)
-                        {
-                            grid.grid[cell.X, cell.Y].isSelected = false;
-                        }
+                        
                     }
                     break;
                      
