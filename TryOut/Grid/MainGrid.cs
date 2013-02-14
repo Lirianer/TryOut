@@ -225,51 +225,54 @@ namespace TryOut.Grid
             bool hasMoved = true;
             List<GridCell> neighbours = new List<GridCell>();
 
-            for (int neighBourX = X - 1; neighBourX <= X + 1; neighBourX++)
+            if (Math.Abs(grid[X, Y].oldAmount) != 0)
             {
-                if (neighBourX >= 0 && neighBourX < xCells)
+                for (int neighBourX = X - 1; neighBourX <= X + 1; neighBourX++)
                 {
-                    for (int neighBourY = Y - 1; neighBourY <= Y + 1; neighBourY++)
+                    if (neighBourX >= 0 && neighBourX < xCells)
                     {
-                        if (neighBourY >= 0 &&
-                            neighBourY < yCells &&
-                            !grid[neighBourX, neighBourY].isWall &&
-                            !((neighBourX == X) && (neighBourY == Y)))
+                        for (int neighBourY = Y - 1; neighBourY <= Y + 1; neighBourY++)
                         {
+                            if (neighBourY >= 0 &&
+                                neighBourY < yCells &&
+                                !grid[neighBourX, neighBourY].isWall &&
+                                !((neighBourX == X) && (neighBourY == Y)))
+                            {
                                 neighbours.Add(grid[neighBourX, neighBourY]);
+                            }
                         }
                     }
                 }
-            }
 
-           int neighbourCount = neighbours.Count;
+                int neighbourCount = neighbours.Count;
 
-           if (moveAll)
-           {
-               if (neighbourCount > 0)
-               {
-                   double amount = grid[X, Y].oldAmount / neighbours.Count; // give each neighbour their full share
+                if (moveAll)
+                {
+                    if (neighbourCount > 0)
+                    {
+                        double amount = grid[X, Y].oldAmount / neighbours.Count; // give each neighbour their full share
 
-                   foreach (GridCell neighbour in neighbours)
-                   {
-                       neighbour.oldAmount += amount;
-                   }
+                        foreach (GridCell neighbour in neighbours)
+                        {
+                            neighbour.oldAmount += amount;
+                        }
 
-                   grid[X, Y].oldAmount = 0; // Empty this cell
-               }
-               else
-               {   // No neighbours!!!
-                   hasMoved = false;
-               }
-            }
-            else
-            {   
-                foreach (GridCell neighbour in neighbours)
-                {   // move a percentage to the neighbours
-                    neighbour.newAmount += grid[X, Y].oldAmount * percentage / 100;
+                        grid[X, Y].oldAmount = 0; // Empty this cell
+                    }
+                    else
+                    {   // No neighbours!!!
+                        hasMoved = false;
+                    }
                 }
-                // give remainder back to center cell
-                grid[X, Y].newAmount += grid[X, Y].oldAmount * (100 - neighbourCount * percentage) / 100;
+                else
+                {
+                    foreach (GridCell neighbour in neighbours)
+                    {   // move a percentage to the neighbours
+                        neighbour.newAmount += grid[X, Y].oldAmount * percentage / 100;
+                    }
+                    // give remainder back to center cell
+                    grid[X, Y].newAmount += grid[X, Y].oldAmount * (100 - neighbourCount * percentage) / 100;
+                }
             }
 
             return hasMoved;
