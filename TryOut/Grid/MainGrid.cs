@@ -15,9 +15,9 @@ namespace TryOut.Grid
         int gridCellSide;
         int gridCellX, gridCellY;
         int xCells, yCells;
-        private decimal amountMultiplier = 1;
-        private double percentage = 5; // max: 100/max neighbors = 12.5
-        private double Total { get; set; }
+        public decimal amountMultiplier = 1;
+        public double percentage = 5; // max: 100/max neighbors = 12.5
+        public double Total { get; set; }
 
         public GridCell[,] grid;
 
@@ -196,36 +196,13 @@ namespace TryOut.Grid
 
         public void ProcessFlow()
         {
-            int neighBourCount;
-
             for (int x = 0; x < xCells; x++)
             {
                 for (int y = 0; y < yCells; y++)
                 {
                     if (!grid[x, y].isWall && grid[x,y].oldAmount != 0)
                     {
-                        neighBourCount = 0;
-
-                        for (int neighBourX = x - 1; neighBourX < x + 2; neighBourX++)
-                        {
-                            if (neighBourX >= 0 && neighBourX < xCells)
-                            {
-                                for (int neighBourY = y - 1; neighBourY < y + 2; neighBourY++)
-                                {
-                                    if (neighBourY >= 0 && 
-                                        neighBourY < yCells &&
-                                        !grid[neighBourX, neighBourY].isWall &&
-                                        !((neighBourX == x ) && (neighBourY == y))) 
-                                    {
-                                        grid[neighBourX, neighBourY].newAmount += grid[x, y].oldAmount * percentage/100;
-                                        neighBourCount++;
-                                    }
-                                }
-                            }
-
-                        }
-
-                        grid[x, y].newAmount += grid[x, y].oldAmount * (100 - neighBourCount * percentage) / 100;
+                        ProcessNeighbours(x, y, false);
                     }
                 }
             }
@@ -238,7 +215,54 @@ namespace TryOut.Grid
                         cell.newAmount = 0;
                     }     
             Console.WriteLine(Total.ToString("0.##"));     
+        }
+
+        public void ProcessNeighbours(int X, int Y, bool moveAll)
+        {
+            int neighBourCount = 0;
+            List<GridCell> neighbours = new List<GridCell>();
+
+            for (int neighBourX = X - 1; neighBourX <= X + 1; neighBourX++)
+            {
+                if (neighBourX >= 0 && neighBourX < xCells)
+                {
+                    for (int neighBourY = Y - 1; neighBourY <= Y + 1; neighBourY++)
+                    {
+                        if (neighBourY >= 0 &&
+                            neighBourY < yCells &&
+                            !grid[neighBourX, neighBourY].isWall &&
+                            !((neighBourX == X) && (neighBourY == Y)))
+                        {
+                            if (moveAll)
+                            {   // only collect neighbours
+                                neighbours.Add(grid[neighBourX, neighBourY]);
+                            }
+                            else
+                            {   // move a percentage to each neighbour
+                                grid[neighBourX, neighBourY].newAmount += grid[X, Y].oldAmount * percentage / 100;
+                                neighBourCount++;
+                            }
+                            
+                        }
+                    }
+                }
             }
+
+            if (moveAll)
+            {
+                double amount = grid[X, Y].oldAmount / neighbours.Count; // give each neighbour their full share
+                grid[X, Y].newAmount = 0; // Empty this cell
+
+                foreach (GridCell neighbour in neighbours)
+                {
+                    neighbour.newAmount += amount;
+                }
+            }
+            else
+            {   // give remainder back to center cell
+                grid[X, Y].newAmount += grid[X, Y].oldAmount * (100 - neighBourCount * percentage) / 100;
+            }
+        }
 
         internal void UpdateEmitAmount()
         {
