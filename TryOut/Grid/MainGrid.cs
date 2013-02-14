@@ -15,9 +15,9 @@ namespace TryOut.Grid
         int gridCellSide;
         int gridCellX, gridCellY;
         int xCells, yCells;
-        public decimal amountMultiplier = 1;
-        public double percentage = 5; // max: 100/max neighbors = 12.5
-        public double Total;
+        private decimal amountMultiplier = 1;
+        private double percentage = 5; // max: 100/max neighbors = 12.5
+        private double Total { get; set; }
 
         public GridCell[,] grid;
 
@@ -248,7 +248,21 @@ namespace TryOut.Grid
             
 
         }
+
+        //Properties!
+        public double Percentage
+        {
+            get { return percentage; }
+            set { percentage = value; }
+        }
+
+        public decimal AmountMultiplier
+        {
+            get { return amountMultiplier; }
+            set { amountMultiplier = value; }
+        }
+
     }
-    }
+}
 
 
