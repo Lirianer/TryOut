@@ -261,15 +261,14 @@ namespace TryOut.Grid
                {   // No neighbours!!!
                    hasMoved = false;
                }
-
             }
             else
-            {   // give remainder back to center cell
+            {   
                 foreach (GridCell neighbour in neighbours)
-                {
+                {   // move a percentage to the neighbours
                     neighbour.newAmount += grid[X, Y].oldAmount * percentage / 100;
                 }
-
+                // give remainder back to center cell
                 grid[X, Y].newAmount += grid[X, Y].oldAmount * (100 - neighbourCount * percentage) / 100;
             }
 
@@ -278,11 +277,7 @@ namespace TryOut.Grid
 
         internal void UpdateEmitAmount()
         {
-            
-
             tempEmitAmount = (emitAmount * (double) amountMultiplier);
-            
-
         }
 
         //Properties!
