@@ -59,9 +59,9 @@ namespace TryOut.Grid
             bool isAC = oldAmount < 0;
             double absAmount = Math.Abs(oldAmount);
 
-            if (absAmount > 0.001)
+            if (absAmount > 0.01) // display blank cell for very tiny amounts
             {
-                shade = maxColor - ((Math.Log10(absAmount) + 1) / 4 * maxColor);
+                shade = maxColor - ((Math.Log10(absAmount) + 1) / 3 * maxColor);
                 if (shade > maxColor)
                 {
                     shade = maxColor;

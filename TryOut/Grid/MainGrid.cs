@@ -113,7 +113,8 @@ namespace TryOut.Grid
             }
 
             tempEmitAmount = (emitAmount * (double) amountMultiplier);
-            Emit();
+            EmitRandomEdge(tempEmitAmount);         // emit Creeper in edge cell
+            EmitRandomEdge(tempEmitAmount * -1);    // emit Anti-Creeper in different edge cell
         }
 
         public void Emit()
@@ -132,6 +133,24 @@ namespace TryOut.Grid
             Point emitter = GetRandomFreeCell();
 
             grid[emitter.X, emitter.Y].oldAmount += amount;
+        }
+
+        private void EmitRandomEdge(double amount)
+        {
+            Point emitter;
+
+            do
+            {   // keep looking until a free spot at the edge is found
+                emitter = GetRandomFreeCell();
+            }
+            while (!((emitter.X == 0  ||                            // left edge
+                      emitter.X == 9  ||                            // right edge
+                      emitter.Y == 0  ||                            // top edge
+                      emitter.Y == 9) &&                            // bottom edge
+                      grid[emitter.X, emitter.Y].oldAmount == 0));  // no other Creeper
+            {
+                grid[emitter.X, emitter.Y].oldAmount = amount;
+            }
         }
 
         private Point GetRandomFreeCell()
