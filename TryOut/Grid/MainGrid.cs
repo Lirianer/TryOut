@@ -113,8 +113,9 @@ namespace TryOut.Grid
             }
 
             tempEmitAmount = (emitAmount * (double) amountMultiplier);
-            EmitRandomEdge(tempEmitAmount);         // emit Creeper in edge cell
-            EmitRandomEdge(tempEmitAmount * -1);    // emit Anti-Creeper in different edge cell
+            Point emitterLocation = new Point(0,0);
+            emitterLocation = EmitRandomEdge(tempEmitAmount, 0, emitterLocation);  // emit Creeper in random edge cell
+            EmitRandomEdge(tempEmitAmount * -1, 8, emitterLocation);               // emit Anti-Creeper in different edge cell at minimum distance
         }
 
         public void Emit()
@@ -135,22 +136,28 @@ namespace TryOut.Grid
             grid[emitter.X, emitter.Y].oldAmount += amount;
         }
 
-        private void EmitRandomEdge(double amount)
-        {
+        private Point EmitRandomEdge(double amount, double minDistance, Point compareLocation)
+        {   // Emit an amount at the edge, or close to it. Also use a minimum distance compared to point parameter.
             Point emitter;
+            double distance = 0;
 
             do
             {   // keep looking until a free spot at the edge is found
                 emitter = GetRandomFreeCell();
+                distance = GetDistance(emitter, compareLocation);
             }
-            while (!((emitter.X == 0  ||                            // left edge
-                      emitter.X == 9  ||                            // right edge
-                      emitter.Y == 0  ||                            // top edge
-                      emitter.Y == 9) &&                            // bottom edge
-                      grid[emitter.X, emitter.Y].oldAmount == 0));  // no other Creeper
-            {
-                grid[emitter.X, emitter.Y].oldAmount = amount;
-            }
+            while (!((emitter.X <= 1  ||                             // (close to) left edge
+                      emitter.X >= 8  ||                             // (close to) right edge
+                      emitter.Y <= 1  ||                             // (close to) top edge
+                      emitter.Y >= 8) &&                             // (close to) bottom edge
+                      grid[emitter.X, emitter.Y].oldAmount == 0 &&   // no other Creeper
+                     (minDistance == 0 ||                            // no minimal distance required
+                      compareLocation.IsEmpty ||                     // no location to compare to
+                      distance >= minDistance)));                    // located at minimal distance
+
+            grid[emitter.X, emitter.Y].oldAmount = amount;
+
+            return emitter; // return the location of the new emitter
         }
 
         private Point GetRandomFreeCell()
@@ -315,6 +322,13 @@ namespace TryOut.Grid
             set { amountMultiplier = value; }
         }
 
+        private double GetDistance(Point point1, Point point2)
+        {
+            // For now I just use Pythagoras, but Dijkstra's algorithm could also be implemented here.
+            double distance = Math.Sqrt(Math.Pow(point1.X - point2.X, 2) + Math.Pow(point1.Y - point2.Y, 2));
+
+            return distance;
+        }
     }
 }
 

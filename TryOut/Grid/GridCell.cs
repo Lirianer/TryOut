@@ -100,5 +100,13 @@ namespace TryOut.Grid
                 g.DrawRectangle(new Pen(new SolidBrush(Color.Green)), rectangle);
             }
         }
+
+        public double DistanceTo(GridCell gridCell)
+        {
+            // For now I just use Pythagoras, but Dijkstra's algorithm could also be implemented here.
+            double distance = Math.Sqrt((this.X - gridCell.X) ^ 2 + (this.Y - gridCell.Y) ^ 2);
+
+            return distance;
+        }
     }
 }
