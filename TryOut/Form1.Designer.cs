@@ -45,6 +45,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.multiplierSelector = new System.Windows.Forms.NumericUpDown();
             this.labelDisplayMultiplier = new System.Windows.Forms.Label();
+            this.isAC = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.flowSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.multiplierSelector)).BeginInit();
             this.SuspendLayout();
@@ -226,11 +227,23 @@
             this.labelDisplayMultiplier.TabIndex = 17;
             this.labelDisplayMultiplier.Text = "* 100";
             // 
+            // isAC
+            // 
+            this.isAC.AutoSize = true;
+            this.isAC.Location = new System.Drawing.Point(344, 221);
+            this.isAC.Name = "isAC";
+            this.isAC.Size = new System.Drawing.Size(114, 17);
+            this.isAC.TabIndex = 18;
+            this.isAC.Text = "Make Anti-Creeper";
+            this.isAC.UseVisualStyleBackColor = true;
+            this.isAC.CheckedChanged += new System.EventHandler(this.isAC_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 390);
+            this.Controls.Add(this.isAC);
             this.Controls.Add(this.labelDisplayMultiplier);
             this.Controls.Add(this.multiplierSelector);
             this.Controls.Add(this.label4);
@@ -276,6 +289,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown multiplierSelector;
         private System.Windows.Forms.Label labelDisplayMultiplier;
+        private System.Windows.Forms.CheckBox isAC;
 
     }
 }

@@ -220,8 +220,22 @@ namespace TryOut
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            grid.amountMultiplier = multiplierSelector.Value;
-            grid.UpdateEmitAmount();
+            if (isAC.Checked)
+            {
+                grid.amountMultiplier = multiplierSelector.Value * -1;
+                grid.UpdateEmitAmount();
+            }
+            else if (!isAC.Checked)
+            {
+                grid.amountMultiplier = multiplierSelector.Value;
+                grid.UpdateEmitAmount();
+            }
+            
+        }
+
+        private void isAC_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDown1_ValueChanged(sender, e);
         }
 
 
