@@ -114,7 +114,6 @@ namespace TryOut.Grid
 
             tempEmitAmount = (emitAmount * (double) amountMultiplier);
 
-            Emit();
         }
 
         public void Emit()
