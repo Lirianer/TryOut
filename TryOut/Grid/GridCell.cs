@@ -95,7 +95,7 @@ namespace TryOut.Grid
             }
             if (!isSelected)
             {
-                g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rectangle);
+                g.DrawRectangle(new Pen(new SolidBrush(Color.Red)), rectangle);
             }
             else if (isSelected)
             {
