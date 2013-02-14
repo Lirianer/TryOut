@@ -125,7 +125,7 @@ namespace TryOut
                 grid = new MainGrid(imageGraphics, 3);
             }
 
-            grid.percentage = flowSpeed.Value/8;
+            grid.percentage = (double)flowSpeed.Value / 8;
 
             multiplierSelector.Value = 1;
             pause = true;
@@ -230,7 +230,7 @@ namespace TryOut
         
         private void flowSpeed_Scroll(object sender, EventArgs e)
         {
-            grid.percentage = flowSpeed.Value / 8;
+            grid.percentage = (double)flowSpeed.Value / 8;
             displaySpeed.Text = "Speed: " + flowSpeed.Value;
         }
 
