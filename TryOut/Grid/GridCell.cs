@@ -17,13 +17,14 @@ namespace TryOut.Grid
        public int X, Y;
        public bool displayAmount = true;
        public bool isSelected = false;
-       public bool isDestination;
+       public bool isDestination, cellCompleted;
 
         public GridCell(int side,int x, int y, int locationX, int locationY)
         {
             X = locationX;
             Y = locationY;
 
+            cellCompleted = false;
             isWall = false;
             isDestination = false;
             oldAmount = 0;
@@ -110,6 +111,11 @@ namespace TryOut.Grid
             {
                 g.DrawRectangle(new Pen(new SolidBrush(Color.Green)), rectangle);
             }
+        }
+
+        public virtual bool CellCompleted
+        {
+            get { return false; }
         }
 
         public double DistanceTo(GridCell gridCell)

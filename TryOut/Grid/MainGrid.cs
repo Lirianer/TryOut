@@ -16,7 +16,7 @@ namespace TryOut.Grid
         public decimal amountMultiplier = 1;
         public double percentage = 5; // max: 100/max neighbors = 12.5
         public double Total { get; set; }
-        private bool gridWon;
+        private bool gridWon, hasDestination;
         public GridCell[,] grid;
 
         Random random;
@@ -234,11 +234,48 @@ namespace TryOut.Grid
             Total = 0;
             foreach (GridCell cell in grid)
                     {
+                        if (cell.isDestination)
+                        {
+                            hasDestination = true;
+                        }
                         cell.oldAmount = cell.newAmount; 
                         Total+= cell.newAmount;
                         cell.newAmount = 0;
-                    }     
+                    }
+            if (hasDestination)
+            {
+                CheckForGridWon();
+            }
             Console.WriteLine(Total.ToString("0.##"));     
+        }
+
+        private void CheckForGridWon()
+        {
+            List<bool> destinationCells = new List<bool>();
+
+            foreach (GridCell cell in grid)
+            {
+                if (cell.isDestination)
+                {
+                    destinationCells.Add(cell.CellCompleted);
+                }
+            }
+            if (destinationCells.TrueForAll(isTrue))
+            {
+                gridWon = true;
+            }
+            else
+            {
+                gridWon = false;    
+            }
+
+
+            Console.WriteLine("\nTrueForAll (isTrue): {0}", destinationCells.TrueForAll(isTrue));
+        }
+
+        private bool isTrue(bool obj)
+        {
+            return obj;
         }
 
         private List<GridCell> GetNeighbours(int X, int Y)
@@ -324,11 +361,10 @@ namespace TryOut.Grid
             set { amountMultiplier = value; }
         }
 
-       /* public bool GridWon
+       public bool GridWon
         {
             get { return gridWon; }
-            set { gridWon = value; }
-        }*/
+        }
         
 
         private double GetDistance(Point point1, Point point2)

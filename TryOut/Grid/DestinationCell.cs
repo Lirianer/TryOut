@@ -16,12 +16,14 @@ namespace TryOut.Grid
         Bitmap texture;
         TextureBrush textureBrush;
         double amountToWin;
+
         public DestinationCell (GridCell cell, double amountToWin) : base(cell)
         {
             base.X = cell.X;
             base.Y = cell.Y;
             this.amountToWin = amountToWin;
 
+            base.cellCompleted = false;
             base.isWall = false;
             base.isDestination = true;
             size = cell.rectangle.Width;
@@ -36,6 +38,16 @@ namespace TryOut.Grid
         {
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), base.rectangle);
             g.FillRectangle(textureBrush, imageRectangle);
+            if (this.oldAmount >= amountToWin)
+            {
+                cellCompleted = true;
+            }
+            
+        }
+
+        public override bool CellCompleted
+        {
+            get { return cellCompleted; }
         }
 
     }

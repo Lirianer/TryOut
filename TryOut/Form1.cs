@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TryOut.Grid;
 
+
 namespace TryOut
 {
     partial class Form1 : Form
@@ -79,6 +80,11 @@ namespace TryOut
         private void GameLogic()
         {
             grid.ProcessFlow();
+            if (grid.GridWon)
+            {
+                MessageBox.Show("You have Won this Map!");
+                restartAction.PerformClick();
+            }
             
 
         }
