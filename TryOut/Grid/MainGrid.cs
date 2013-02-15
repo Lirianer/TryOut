@@ -241,30 +241,37 @@ namespace TryOut.Grid
             Console.WriteLine(Total.ToString("0.##"));     
         }
 
-        public bool ProcessNeighbours(int X, int Y, bool moveAll)
+        private List<GridCell> GetNeighbours(int X, int Y)
         {
-            bool hasMoved = true;
             List<GridCell> neighbours = new List<GridCell>();
 
-            if (Math.Abs(grid[X, Y].oldAmount) != 0)
+            for (int neighBourX = X - 1; neighBourX <= X + 1; neighBourX++)
             {
-                for (int neighBourX = X - 1; neighBourX <= X + 1; neighBourX++)
+                if (neighBourX >= 0 && neighBourX < xCells)
                 {
-                    if (neighBourX >= 0 && neighBourX < xCells)
+                    for (int neighBourY = Y - 1; neighBourY <= Y + 1; neighBourY++)
                     {
-                        for (int neighBourY = Y - 1; neighBourY <= Y + 1; neighBourY++)
+                        if (neighBourY >= 0 &&
+                            neighBourY < yCells &&
+                            !grid[neighBourX, neighBourY].isWall &&
+                            !((neighBourX == X) && (neighBourY == Y))) // Don't add itself
                         {
-                            if (neighBourY >= 0 &&
-                                neighBourY < yCells &&
-                                !grid[neighBourX, neighBourY].isWall &&
-                                !((neighBourX == X) && (neighBourY == Y)))
-                            {
-                                neighbours.Add(grid[neighBourX, neighBourY]);
-                            }
+                            neighbours.Add(grid[neighBourX, neighBourY]);
                         }
                     }
                 }
+            }
 
+            return neighbours;
+        }
+
+        public bool ProcessNeighbours(int X, int Y, bool moveAll)
+        {
+            bool hasMoved = true;
+            List<GridCell> neighbours = GetNeighbours(X, Y);
+
+            if (Math.Abs(grid[X, Y].oldAmount) != 0)
+            {
                 int neighbourCount = neighbours.Count;
 
                 if (moveAll)
