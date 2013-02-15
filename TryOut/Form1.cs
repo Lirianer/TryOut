@@ -177,7 +177,7 @@ namespace TryOut
                 case "Left":
                     if (checkMakeDestination.Checked)
                     {
-                        grid.SwtichDestination(mousePos);
+                        grid.SwitchDestination(mousePos);
                     }
                     else
                     {

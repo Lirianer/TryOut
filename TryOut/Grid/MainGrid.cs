@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace TryOut.Grid
 {
-
-
     class MainGrid
     {
         //int gridWidth, gridHeigth;
@@ -37,9 +35,6 @@ namespace TryOut.Grid
             gridCellSide = 30;
             gridCellX = 0;
             gridCellY = 0;
-
-            //gridWidth = 311; //width;
-            //gridHeigth = 3; //heigth;
 
             xCells = 10;
             yCells = 10;
@@ -213,14 +208,14 @@ namespace TryOut.Grid
 
         public void Draw()
         {
-            //int i = 0;
-            //Console.WriteLine("Drawing Grid");
             foreach (GridCell cell in grid)
             {
-                //Console.WriteLine("Drawing Cell" + i);
                 cell.DrawCell(graphics);
-              //  i++;
             }
+
+            // Indicate cell with highest density
+            Point location = GetHighestDensity();
+            grid[location.X, location.Y].DrawCircle(graphics);
         }
 
         public void ProcessFlow()
@@ -337,7 +332,7 @@ namespace TryOut.Grid
             return distance;
         }
 
-        internal void SwtichDestination(Point mousePos)
+        internal void SwitchDestination(Point mousePos)
         {
             foreach (GridCell cell in grid)
             {
@@ -356,6 +351,24 @@ namespace TryOut.Grid
                     }
                 }
             }
+        }
+
+        private Point GetHighestDensity()
+        {
+            double highestAmount = 0;
+            Point cellLocation = new Point();
+
+            foreach (GridCell cell in grid)
+            {
+                if (cell.oldAmount > highestAmount)
+                {
+                    highestAmount = cell.oldAmount;
+                    cellLocation.X = cell.X;
+                    cellLocation.Y = cell.Y;
+                }
+            }
+
+            return cellLocation;
         }
     }
 }

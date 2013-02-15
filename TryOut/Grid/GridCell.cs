@@ -54,6 +54,15 @@ namespace TryOut.Grid
             color = new Color();
         }
 
+        public virtual void DrawCircle(Graphics g)
+        {
+            if (oldAmount > 0.01)
+            {
+                Rectangle rect = Rectangle.Inflate(rectangle, -2, -2); // slightly smaller than the cell
+                Color orangeRed = Color.FromArgb(192, Color.OrangeRed);    // 25% transparent
+                g.DrawEllipse(new Pen(new SolidBrush(orangeRed), 3), rect); // Circle with line width 3
+            }
+        }
 
         public virtual void DrawCell(Graphics g)
         {
