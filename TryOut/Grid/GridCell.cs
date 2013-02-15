@@ -17,6 +17,7 @@ namespace TryOut.Grid
        public int X, Y;
        public bool displayAmount = true;
        public bool isSelected = false;
+       public bool isDestination;
 
         public GridCell(int side,int x, int y, int locationX, int locationY)
         {
@@ -24,6 +25,7 @@ namespace TryOut.Grid
             Y = locationY;
 
             isWall = false;
+            isDestination = false;
             oldAmount = 0;
             newAmount = 0;
             rectangle = new Rectangle(x, y, side, side);

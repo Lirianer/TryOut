@@ -18,7 +18,7 @@ namespace TryOut.Grid
         public decimal amountMultiplier = 1;
         public double percentage = 5; // max: 100/max neighbors = 12.5
         public double Total { get; set; }
-
+        private bool gridWon;
         public GridCell[,] grid;
 
         Random random;
@@ -322,12 +322,40 @@ namespace TryOut.Grid
             set { amountMultiplier = value; }
         }
 
+       /* public bool GridWon
+        {
+            get { return gridWon; }
+            set { gridWon = value; }
+        }*/
+        
+
         private double GetDistance(Point point1, Point point2)
         {
             // For now I just use Pythagoras, but Dijkstra's algorithm could also be implemented here.
             double distance = Math.Sqrt(Math.Pow(point1.X - point2.X, 2) + Math.Pow(point1.Y - point2.Y, 2));
 
             return distance;
+        }
+
+        internal void SwtichDestination(Point mousePos)
+        {
+            foreach (GridCell cell in grid)
+            {
+                if ((cell.rectangle.X < mousePos.X && cell.rectangle.X + cell.rectangle.Width > mousePos.X) && (cell.rectangle.Y < mousePos.Y && cell.rectangle.Y + cell.rectangle.Width > mousePos.Y))
+                {
+
+                    if (grid[cell.X, cell.Y].isDestination)
+                    {
+                        grid[cell.X, cell.Y] = new GridCell(grid[cell.X, cell.Y]);
+                    }
+                    else if (!grid[cell.X, cell.Y].isDestination)
+                    {
+                        // moved all Creeper to neighbours
+                        grid[cell.X, cell.Y] = new DestinationCell(grid[cell.X, cell.Y], -100);
+                        
+                    }
+                }
+            }
         }
     }
 }

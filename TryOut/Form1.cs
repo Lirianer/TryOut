@@ -127,6 +127,7 @@ namespace TryOut
 
             grid.percentage = (double)flowSpeed.Value / 8;
 
+            isAC.Checked = false;
             multiplierSelector.Value = 1;
             pause = true;
             checkDisplayAmount.Checked = true;
@@ -174,7 +175,14 @@ namespace TryOut
             switch (e.Button.ToString())
             {
                 case "Left":
+                    if (checkMakeDestination.Checked)
+                    {
+                        grid.SwtichDestination(mousePos);
+                    }
+                    else
+                    {
                         grid.SwitchWall(mousePos);
+                    }
                     break;
                      
                 case "Right":

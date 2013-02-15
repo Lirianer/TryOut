@@ -24,6 +24,7 @@ namespace TryOut.Grid
 
 
             base.isWall = true;
+            base.isDestination = false;
             size = side;
             texture = new Bitmap(Resources.wall);
             textureBrush = new TextureBrush(texture);

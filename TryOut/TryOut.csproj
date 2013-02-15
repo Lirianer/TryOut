@@ -50,6 +50,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grid\DestinationCell.cs" />
     <Compile Include="Grid\GridHelper.cs" />
     <Compile Include="Grid\MainGrid.cs" />
     <Compile Include="Grid\GridCell.cs" />
@@ -85,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="resources\wall.bmp" />
+    <None Include="resources\destination.bmp" />
     <Content Include="To-Do.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

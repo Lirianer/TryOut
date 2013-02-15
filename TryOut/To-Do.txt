@@ -1,9 +1,9 @@
 ﻿To-Do list:	
 
 IMPORTANT POINTS:
-	1- Add Anti Creeper.
+	1- Add Anti Creeper. Done ( May have some additions?)
 	
-	2- Able to Add/Remove walls.
+	2- Able to Add/Remove walls. Done ( May have some additions?)
 
 	3-Define destination and amount of AC that needs to arrive there to win.
 	
