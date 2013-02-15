@@ -85,7 +85,8 @@ namespace TryOut
 
         private void RenderScene()
         {
-            imageGraphics.FillRectangle(new SolidBrush(Color.White),2,2,2+(31*10),2+(31*10)/*this.ClientRectangle*/);
+            imageGraphics.FillRectangle(new SolidBrush(Color.White),
+                this.ClientRectangle);
 
             grid.Draw();
             label1.Text = grid.Total.ToString("0.###");
