@@ -12,47 +12,59 @@ using TryOut.Grid;
 
 namespace TryOut
 {
-    partial class Form1 : Form
+    partial class MainForm : Form
     {
-        Timer timer = new Timer();
+        private Timer timer = new Timer();
 
-        long startTime;
-        long interval = (long)TimeSpan.FromSeconds(1 / 120).TotalMilliseconds;
+        private long startTime;
+        private long interval = (long)TimeSpan.FromSeconds(1 / 120).TotalMilliseconds;
 
-        MainGrid grid;
+        private int gridSize = 10;
+        private MainGrid mainGrid;
 
-        Graphics graphics;
-        Graphics imageGraphics;
+        private Graphics graphics;
 
-        Image backBuffer;
+        private Image backBuffer;
 
-        int clientWidth, clientHeight;
+        private bool pause = true;
 
-        bool pause = true;
-
-        //Rectangle image = new Rectangle(0, 0, 40, 50);
-        //Point direction = new Point(1, 2);
-
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
+            blankSelector.Checked = true;
 
-            this.DoubleBuffered = true;
-            this.MaximizeBox = false;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            //this.ClientSize = new Size(400, 400);
-            this.blankSelector.Checked = true;
-            
+            // Set GridPane to DoubleBuffered instead of the entire form
+            System.Reflection.PropertyInfo aProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            aProp.SetValue(GridPane, true, null);
+ 
+            InitGraphics();
 
-            clientWidth = this.ClientRectangle.Width;
-            clientHeight = this.ClientRectangle.Height;
+            Init();
+        }
 
-            backBuffer = (Image)new Bitmap(clientWidth, clientHeight);
+        private void InitGraphics()
+        {
+            // Create the backBuffer for the GridPane to prevent flickering while drawing
+            backBuffer = (Image)new Bitmap(GridPane.ClientRectangle.Width, GridPane.ClientRectangle.Height);
 
-            graphics = this.CreateGraphics();
-            imageGraphics = Graphics.FromImage(backBuffer);
+            // Create the GridPane graphics object
+            graphics = Graphics.FromImage(backBuffer);
+        }
 
-            grid = new MainGrid(imageGraphics, 1);
+        private void Init()
+        {
+            // Create the grid with specified size within the pane area
+            mainGrid = new MainGrid(gridSize, GridPane.ClientRectangle);
+
+            mainGrid.Percentage = (double)flowSpeed.Value / 8;
+
+            isAC.Checked = false;
+            multiplierSelector.Value = 1;
+            pause = true;
+            checkDisplayAmount.Checked = true;
+            pauseAction.Text = "Unpause";
+            labelDisplayMultiplier.Text = "* " + mainGrid.emitAmount;
         }
 
         public void GameLoop()
@@ -62,9 +74,7 @@ namespace TryOut
 
             while (this.Created)
             {
-
                 startTime = timer.ElapsedMilliseconds;
-
                 
                 if (!pause)
                 {
@@ -72,33 +82,32 @@ namespace TryOut
                     RenderScene();
                     while (timer.ElapsedMilliseconds - startTime < interval) ;
                 }
+
                 Application.DoEvents();
-                
             }
         }
 
         private void GameLogic()
         {
-            grid.ProcessFlow();
-            if (grid.GridWon)
+            mainGrid.ProcessFlow();
+            if (mainGrid.GridWon)
             {
                 MessageBox.Show("You have Won this Map!");
                 restartAction.PerformClick();
             }
-            
-
         }
 
         private void RenderScene()
         {
-            imageGraphics.FillRectangle(new SolidBrush(Color.White), 2, 2, 2 + (31 * 10), 2 + (31 * 10)/*this.ClientRectangle*/);
+            graphics.Clear(Color.Ivory);
 
-            grid.Draw();
-            label1.Text = grid.Total.ToString("0.###");
+            mainGrid.Draw(graphics);
 
-           
-            this.BackgroundImage = backBuffer;
-            this.Invalidate();
+            GridPane.BackgroundImage = backBuffer;
+
+            totalLabel.Text = mainGrid.Total.ToString("0.###");
+
+            Invalidate(true);
         }
 
         private void pauseAction_Click(object sender, EventArgs e)
@@ -108,38 +117,31 @@ namespace TryOut
                 pause = false;
                 pauseAction.Text = "Pause";
             }
-            else if (!pause)
+            else
             {
                 pause = true;
                 pauseAction.Text = "Unpause";
             }
         }
 
-        private void restartAction_Click(object sender, EventArgs e)
+        private void Restart()
         {
+            Init();
+            RenderScene();
+        }
+
+        private void restartAction_Click(object sender, EventArgs e)
+        {   // TO DO
             if (blankSelector.Checked)
             {
-                grid = new MainGrid(imageGraphics, 1);
-            }
-            else if (mapSelector.Checked)
-            {
-                grid = new MainGrid(imageGraphics, 2);
+                //grid = new MainGrid(graphics, gridSize, 1);
             }
             else if (randomSelector.Checked)
             {
-                grid = new MainGrid(imageGraphics, 3);
+                //grid = new MainGrid(graphics, gridSize, 3);
             }
 
-            grid.percentage = (double)flowSpeed.Value / 8;
-
-            isAC.Checked = false;
-            multiplierSelector.Value = 1;
-            pause = true;
-            checkDisplayAmount.Checked = true;
-            pauseAction.Text = "Unpause";
-            labelDisplayMultiplier.Text = "* "+grid.emitAmount;
-
-            RenderScene();
+            Restart();
         }
 
         private void oneStepAction_Click(object sender, EventArgs e)
@@ -151,56 +153,9 @@ namespace TryOut
             RenderScene();
         }
 
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            string info;
-
-            foreach (GridCell cell in grid.grid)
-            {
-                if ((cell.rectangle.X < e.X && cell.rectangle.X + cell.rectangle.Width > e.X) && (cell.rectangle.Y < e.Y && cell.rectangle.Y + cell.rectangle.Width > e.Y))
-                {
-                    info = @"Cell: X= " + cell.X + "  Y= " + cell.Y + @"
-       Creeper= " + cell.oldAmount;
-
-                    labelCell.Text = info;
-                }
-            }
-
-
-        }
-
-        protected override void OnMouseClick(MouseEventArgs e)
-        {
-            Console.WriteLine(e.Button);
-
-            Point mousePos = new Point();
-            mousePos.X = e.X;
-            mousePos.Y = e.Y;
-
-            switch (e.Button.ToString())
-            {
-                case "Left":
-                    if (checkMakeDestination.Checked)
-                    {
-                        grid.SwitchDestination(mousePos);
-                    }
-                    else
-                    {
-                        grid.SwitchWall(mousePos);
-                    }
-                    break;
-                     
-                case "Right":
-                        grid.Emit(mousePos);
-                    break;
-                    
-            }
-            RenderScene();
-        }
-
         private void buttonEmit_Click(object sender, EventArgs e)
         {
-            grid.Emit();
+            mainGrid.Emit();
             RenderScene();
         }
 
@@ -208,7 +163,7 @@ namespace TryOut
         {
             if (checkDisplayAmount.Checked)
             {
-                foreach (GridCell cell in grid.grid)
+                foreach (GridCell cell in mainGrid.Grid)
                 {
                     cell.displayAmount = true;
                 }
@@ -216,7 +171,7 @@ namespace TryOut
 
             if (!checkDisplayAmount.Checked)
             {
-                foreach (GridCell cell in grid.grid)
+                foreach (GridCell cell in mainGrid.Grid)
                 {
                     cell.displayAmount = false;
                 }
@@ -227,7 +182,7 @@ namespace TryOut
         
         private void flowSpeed_Scroll(object sender, EventArgs e)
         {
-            grid.percentage = (double)flowSpeed.Value / 8;
+            mainGrid.Percentage = (double)flowSpeed.Value / 8;
             displaySpeed.Text = "Speed: " + flowSpeed.Value;
         }
 
@@ -235,15 +190,14 @@ namespace TryOut
         {
             if (isAC.Checked)
             {
-                grid.amountMultiplier = multiplierSelector.Value * -1;
-                grid.UpdateEmitAmount();
+                mainGrid.AmountMultiplier = multiplierSelector.Value * -1;
+                mainGrid.UpdateEmitAmount();
             }
             else if (!isAC.Checked)
             {
-                grid.amountMultiplier = multiplierSelector.Value;
-                grid.UpdateEmitAmount();
+                mainGrid.AmountMultiplier = multiplierSelector.Value;
+                mainGrid.UpdateEmitAmount();
             }
-            
         }
 
         private void isAC_CheckedChanged(object sender, EventArgs e)
@@ -251,6 +205,78 @@ namespace TryOut
             numericUpDown1_ValueChanged(sender, e);
         }
 
+        private void quitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
+        private void gridSizeSelector_ValueChanged(object sender, EventArgs e)
+        {
+            gridSize = (int) gridSizeSelector.Value;
+            Restart();
+        }
+
+        private void MainForm_ResizeBegin(object sender, EventArgs e)
+        {
+            SuspendLayout();
+        }
+
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            int divWidth = Width - MinimumSize.Width;
+            int divHeight = Height - MinimumSize.Height;
+
+            // Snap back to full pizels per cell
+            divWidth -= divWidth % gridSize;
+            divHeight -= divHeight % gridSize;
+
+            // Maintain aspect ratio
+            if (divWidth > divHeight)
+            {
+                Height = MinimumSize.Height + divWidth;
+            }
+            else
+            {
+                Width = MinimumSize.Width + divHeight;
+            }
+
+            InitGraphics();
+            ResumeLayout(true);
+        }
+
+        private void GridPane_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point mousePos = new Point(e.X, e.Y);
+            GridCell cell = mainGrid.CellAtMousePos(mousePos);
+
+            cellLabel.Text = "Cell: X=" + cell.X.ToString() + " Y=" + cell.Y.ToString();
+            densityLabel.Text = "Density: " + cell.OldAmount.ToString(); 
+
+        }
+
+        private void GridPane_MouseClick(object sender, MouseEventArgs e)
+        {
+            Point mousePos = new Point(e.X, e.Y);
+
+            switch (e.Button.ToString())
+            {
+                case "Left":
+                    if (checkMakeDestination.Checked)
+                    {
+                        mainGrid.SwitchDestination(mousePos);
+                    }
+                    else
+                    {
+                        mainGrid.SwitchWall(mousePos);
+                    }
+                    break;
+
+                case "Right":
+                    mainGrid.Emit(mousePos);
+                    break;
+
+            }
+            RenderScene();
+        }
     }
 }

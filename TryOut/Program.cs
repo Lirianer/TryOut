@@ -17,7 +17,7 @@ namespace TryOut
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            using (Form1 myForm = new Form1())
+            using (MainForm myForm = new MainForm())
             {
                 myForm.Show();
                 myForm.GameLoop();

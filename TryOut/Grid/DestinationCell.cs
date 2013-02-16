@@ -8,11 +8,12 @@ using TryOut.Properties;
 
 namespace TryOut.Grid
 {
+/*
     class DestinationCell : GridCell
     {
         int size;
 
-        Rectangle rect, imageRectangle;
+        Rectangle imageRectangle;
         Bitmap texture;
         TextureBrush textureBrush;
         double amountToWin;
@@ -23,32 +24,32 @@ namespace TryOut.Grid
             base.Y = cell.Y;
             this.amountToWin = amountToWin;
 
-            base.cellCompleted = false;
-            base.isWall = false;
-            base.isDestination = true;
-            size = cell.rectangle.Width;
+            isCompleted = false;
+            isWall = false;
+            isDestination = true;
+            size = cell.Rect.Width;
             texture = new Bitmap(Resources.destination);
             textureBrush = new TextureBrush(texture);
 
-            rect = new Rectangle(cell.rectangle.X, cell.rectangle.Y, size + 1, size);
-            imageRectangle = new Rectangle(cell.rectangle.X, cell.rectangle.Y, size + 1, size + 1);
+            rect = new Rectangle(cell.Rect.X, cell.Rect.Y, size + 1, size);
+            imageRectangle = new Rectangle(cell.Rect.X, cell.Rect.Y, size + 1, size + 1);
         }
 
         public override void DrawCell(Graphics g)
         {
-            g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), base.rectangle);
+            g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), base.rect);
             g.FillRectangle(textureBrush, imageRectangle);
             if (this.oldAmount <= amountToWin)
             {
-                cellCompleted = true;
+                isCompleted = true;
             }
-            
         }
 
         public override bool CellCompleted
         {
-            get { return cellCompleted; }
+            get { return isCompleted; }
         }
 
-    }
+   }
+*/
 }
