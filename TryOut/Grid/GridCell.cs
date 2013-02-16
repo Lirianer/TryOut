@@ -48,6 +48,7 @@ namespace TryOut.Grid
             Y = gridCell.Y;
 
             isWall = false;
+            cellCompleted = false;
             oldAmount = 0;
             newAmount = 0;
 
