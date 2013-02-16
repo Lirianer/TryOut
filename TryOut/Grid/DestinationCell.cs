@@ -38,7 +38,7 @@ namespace TryOut.Grid
         {
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), base.rectangle);
             g.FillRectangle(textureBrush, imageRectangle);
-            if (this.oldAmount >= amountToWin)
+            if (this.oldAmount <= amountToWin)
             {
                 cellCompleted = true;
             }
