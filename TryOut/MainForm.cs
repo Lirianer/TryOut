@@ -22,6 +22,9 @@ namespace TryOut
         private int gridSize = 10;
         private MainGrid mainGrid;
 
+        private int originalWidth = 0;
+        private int originalHeight = 0;
+
         private Graphics graphics;
 
         private Image backBuffer;
@@ -38,9 +41,12 @@ namespace TryOut
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             aProp.SetValue(GridPane, true, null);
  
+            Init();
+
             InitGraphics();
 
-            Init();
+            originalWidth = Width;
+            originalHeight = Height;
         }
 
         private void InitGraphics()
@@ -50,12 +56,15 @@ namespace TryOut
 
             // Create the GridPane graphics object
             graphics = Graphics.FromImage(backBuffer);
+
+            mainGrid.GridRect = GridPane.ClientRectangle;
         }
 
         private void Init()
         {
             // Create the grid with specified size within the pane area
-            mainGrid = new MainGrid(gridSize, GridPane.ClientRectangle);
+            mainGrid = new MainGrid(gridSize);
+            mainGrid.GridRect = GridPane.ClientRectangle;
 
             mainGrid.Percentage = (double)flowSpeed.Value / 8;
 
@@ -127,6 +136,7 @@ namespace TryOut
         private void Restart()
         {
             Init();
+            InitGraphics();
             RenderScene();
         }
 
@@ -213,7 +223,37 @@ namespace TryOut
         private void gridSizeSelector_ValueChanged(object sender, EventArgs e)
         {
             gridSize = (int) gridSizeSelector.Value;
+
+            SnapFormToGrid();
+            Invalidate(true);
+
             Restart();
+        }
+
+        private void SnapFormToGrid()
+        {
+            // Snap back to full pizels per cell
+            int excessPixels;
+
+            excessPixels = GridPane.Width % gridSize;
+            if (excessPixels > gridSize / 2)
+            {   // Make form slightly wider
+                Width += (gridSize - excessPixels);
+            }
+            else
+            {   // Make form slightly narrower
+                Width -= excessPixels;
+            }
+
+            excessPixels = GridPane.Height % gridSize;
+            if (excessPixels > gridSize / 2)
+            {   // Make form slightly higher
+                Height += (gridSize - excessPixels);
+            }
+            else
+            {   // Make form slightly smaller
+                Height -= excessPixels;
+            }
         }
 
         private void MainForm_ResizeBegin(object sender, EventArgs e)
@@ -223,25 +263,32 @@ namespace TryOut
 
         private void MainForm_ResizeEnd(object sender, EventArgs e)
         {
-            int divWidth = Width - MinimumSize.Width;
-            int divHeight = Height - MinimumSize.Height;
-
-            // Snap back to full pizels per cell
-            divWidth -= divWidth % gridSize;
-            divHeight -= divHeight % gridSize;
+            int divWidth = Width - originalWidth;
+            int divHeight = Height - originalHeight;
 
             // Maintain aspect ratio
-            if (divWidth > divHeight)
+            if (Math.Abs(divWidth) > Math.Abs(divHeight))
             {
-                Height = MinimumSize.Height + divWidth;
+                Height = originalHeight + divWidth;
+                Width = originalWidth + divWidth;
             }
             else
             {
-                Width = MinimumSize.Width + divHeight;
+                Height = originalHeight + divHeight;
+                Width = originalWidth + divHeight;
             }
 
-            InitGraphics();
+
             ResumeLayout(true);
+
+            SnapFormToGrid();
+
+            originalWidth = Width;
+            originalHeight = Height;
+
+            InitGraphics();
+            
+            RenderScene();
         }
 
         private void GridPane_MouseMove(object sender, MouseEventArgs e)
@@ -249,9 +296,8 @@ namespace TryOut
             Point mousePos = new Point(e.X, e.Y);
             GridCell cell = mainGrid.CellAtMousePos(mousePos);
 
-            cellLabel.Text = "Cell: X=" + cell.X.ToString() + " Y=" + cell.Y.ToString();
+            cellLabel.Text = "Cell: X=" + cell.X.ToString() + ", Y=" + cell.Y.ToString();
             densityLabel.Text = "Density: " + cell.OldAmount.ToString(); 
-
         }
 
         private void GridPane_MouseClick(object sender, MouseEventArgs e)

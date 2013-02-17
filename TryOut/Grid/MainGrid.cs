@@ -9,9 +9,19 @@ namespace TryOut.Grid
 {
     class MainGrid
     {
-        private Rectangle gridRect; // rectangle of grid in pane
         private int gridSize;       // dimension of grid (from 10x10 to 20x20)
         private int cellWidth;      // width of cell in pizels (gridRect/gridSize)
+
+        private Rectangle gridRect; // rectangle of grid in pane
+        public Rectangle GridRect
+        {
+            get { return gridRect; }
+            set 
+            { 
+                gridRect = value;
+                cellWidth = gridRect.Width / gridSize; 
+            }
+        }
 
         public double Total { get; set; }
         private bool hasDestination;
@@ -46,12 +56,11 @@ namespace TryOut.Grid
             get { return gridWon; }
         }
 
-        public MainGrid(int size, Rectangle rect)
+        public MainGrid(int size)
         {
             emitAmount = 100;
 
             // Create grid
-            gridRect = rect;
             gridSize = size;
             cellWidth = gridRect.Width / gridSize; 
             grid = new GridCell[gridSize, gridSize];

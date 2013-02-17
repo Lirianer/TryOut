@@ -58,7 +58,7 @@
             // 
             // pauseAction
             // 
-            this.pauseAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pauseAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pauseAction.Location = new System.Drawing.Point(494, 108);
             this.pauseAction.Name = "pauseAction";
             this.pauseAction.Size = new System.Drawing.Size(75, 23);
@@ -69,7 +69,7 @@
             // 
             // totalLabel
             // 
-            this.totalLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.totalLabel.AutoSize = true;
             this.totalLabel.Location = new System.Drawing.Point(527, 446);
             this.totalLabel.Name = "totalLabel";
@@ -79,7 +79,7 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(487, 446);
             this.label2.Name = "label2";
@@ -89,7 +89,7 @@
             // 
             // restartAction
             // 
-            this.restartAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.restartAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.restartAction.Location = new System.Drawing.Point(634, 393);
             this.restartAction.Name = "restartAction";
             this.restartAction.Size = new System.Drawing.Size(75, 23);
@@ -100,7 +100,7 @@
             // 
             // oneStepAction
             // 
-            this.oneStepAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.oneStepAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.oneStepAction.Location = new System.Drawing.Point(494, 137);
             this.oneStepAction.Name = "oneStepAction";
             this.oneStepAction.Size = new System.Drawing.Size(75, 23);
@@ -111,7 +111,7 @@
             // 
             // blankSelector
             // 
-            this.blankSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.blankSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.blankSelector.AutoSize = true;
             this.blankSelector.Location = new System.Drawing.Point(634, 345);
             this.blankSelector.Name = "blankSelector";
@@ -123,7 +123,7 @@
             // 
             // randomSelector
             // 
-            this.randomSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.randomSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.randomSelector.AutoSize = true;
             this.randomSelector.Location = new System.Drawing.Point(634, 370);
             this.randomSelector.Name = "randomSelector";
@@ -135,7 +135,7 @@
             // 
             // cellLabel
             // 
-            this.cellLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cellLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cellLabel.AutoSize = true;
             this.cellLabel.CausesValidation = false;
             this.cellLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -148,7 +148,7 @@
             // 
             // buttonEmit
             // 
-            this.buttonEmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEmit.Location = new System.Drawing.Point(490, 296);
             this.buttonEmit.Name = "buttonEmit";
             this.buttonEmit.Size = new System.Drawing.Size(75, 23);
@@ -159,7 +159,7 @@
             // 
             // checkDisplayAmount
             // 
-            this.checkDisplayAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkDisplayAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkDisplayAmount.AutoSize = true;
             this.checkDisplayAmount.Checked = true;
             this.checkDisplayAmount.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -173,7 +173,7 @@
             // 
             // flowSpeed
             // 
-            this.flowSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.flowSpeed.LargeChange = 20;
             this.flowSpeed.Location = new System.Drawing.Point(654, 31);
             this.flowSpeed.Maximum = 100;
@@ -187,7 +187,7 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(631, 19);
             this.label3.Name = "label3";
@@ -197,7 +197,7 @@
             // 
             // displaySpeed
             // 
-            this.displaySpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.displaySpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.displaySpeed.AutoSize = true;
             this.displaySpeed.Location = new System.Drawing.Point(640, 187);
             this.displaySpeed.Name = "displaySpeed";
@@ -207,7 +207,7 @@
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(486, 221);
             this.label4.Name = "label4";
@@ -217,7 +217,7 @@
             // 
             // multiplierSelector
             // 
-            this.multiplierSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.multiplierSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.multiplierSelector.Location = new System.Drawing.Point(561, 219);
             this.multiplierSelector.Name = "multiplierSelector";
             this.multiplierSelector.Size = new System.Drawing.Size(46, 20);
@@ -231,7 +231,7 @@
             // 
             // labelDisplayMultiplier
             // 
-            this.labelDisplayMultiplier.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDisplayMultiplier.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDisplayMultiplier.AutoSize = true;
             this.labelDisplayMultiplier.Location = new System.Drawing.Point(613, 221);
             this.labelDisplayMultiplier.Name = "labelDisplayMultiplier";
@@ -241,7 +241,7 @@
             // 
             // isAC
             // 
-            this.isAC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.isAC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.isAC.AutoSize = true;
             this.isAC.Location = new System.Drawing.Point(490, 250);
             this.isAC.Name = "isAC";
@@ -253,7 +253,7 @@
             // 
             // checkMakeDestination
             // 
-            this.checkMakeDestination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkMakeDestination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkMakeDestination.AutoSize = true;
             this.checkMakeDestination.Location = new System.Drawing.Point(490, 273);
             this.checkMakeDestination.Name = "checkMakeDestination";
@@ -277,7 +277,7 @@
             // 
             // gridSizeSelector
             // 
-            this.gridSizeSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridSizeSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gridSizeSelector.Location = new System.Drawing.Point(549, 19);
             this.gridSizeSelector.Maximum = new decimal(new int[] {
             20,
@@ -301,7 +301,7 @@
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(491, 21);
             this.label5.Name = "label5";
@@ -311,7 +311,7 @@
             // 
             // densityLabel
             // 
-            this.densityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.densityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.densityLabel.AutoSize = true;
             this.densityLabel.CausesValidation = false;
             this.densityLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -324,7 +324,7 @@
             // 
             // quitButton
             // 
-            this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.quitButton.Location = new System.Drawing.Point(634, 446);
             this.quitButton.Name = "quitButton";
             this.quitButton.Size = new System.Drawing.Size(75, 23);
