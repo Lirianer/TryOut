@@ -12,6 +12,8 @@ namespace TryOut.Grid
         private int gridSize;       // dimension of grid (from 10x10 to 20x20)
         private int cellWidth;      // width of cell in pizels (gridRect/gridSize)
 
+        private int wallPercentage; // percentage of random walls
+
         private Rectangle gridRect; // rectangle of grid in pane
         public Rectangle GridRect
         {
@@ -67,21 +69,25 @@ namespace TryOut.Grid
             set { displayGrid = value; }
         }
         
-        public double Total { get; set; }
+        private double total;
+        public double Total
+        {
+            get { return total; }
+            set { total = value; }
+        }
 
-        public double emitAmount;
-        double tempEmitAmount;
+        private double emitBaseAmount;
+        public double EmitBaseAmount
+        {
+            get { return emitBaseAmount; }
+        }
 
         public MainGrid(int size)
         {
-            emitAmount = 100;
-
             // Create grid
             gridSize = size;
             cellWidth = gridRect.Width / gridSize; 
             grid = new GridCell[gridSize, gridSize];
-
-            destinationCells = new List<GridCell>();
 
             // Create cells
             for (int x = 0; x < gridSize; x++)
@@ -91,37 +97,47 @@ namespace TryOut.Grid
                     grid[x, y] = new GridCell(x, y);
                 }
             }
+ 
+            destinationCells = new List<GridCell>();
+
+            wallPercentage = 25;
+            emitBaseAmount = 10 * gridSize * gridSize * (100 - wallPercentage) / 100;
         }
 
         public void CreateRandomWalls()
         {
-            // Create 25% random walls
+            // Create random walls
             Point wall;
+            int wallCount = gridSize * gridSize * wallPercentage / 100;
 
-            for (int i = 0; i < gridSize * gridSize / 4; i++)
+            for (int i = 0; i < wallCount; i++)
             {
                 wall = GetRandomFreeCell();
                 grid[wall.X, wall.Y].IsWall = true;
             }
         }
 
+        private double GetEmitAmount()
+        {
+            return emitBaseAmount * (double)amountMultiplier;
+        }
+
         public void CreateEmitters()
         {
-            tempEmitAmount = (emitAmount * (double)amountMultiplier);
+            double emitAmount = GetEmitAmount();
             Point emitterLocation = new Point(0, 0);
-            emitterLocation = EmitRandomEdge(tempEmitAmount, 0, emitterLocation);  // emit Creeper in random edge cell
-            EmitRandomEdge(tempEmitAmount * -1, gridSize - 3, emitterLocation);      // emit Anti-Creeper in different edge cell at minimum distance
+            emitterLocation = EmitRandomEdge(emitAmount, 0, emitterLocation);  // emit Creeper in random edge cell
+            EmitRandomEdge(emitAmount * -1, gridSize - 3, emitterLocation);    // emit Anti-Creeper in different edge cell at minimum distance
         }
 
         public void Emit()
         {
-            EmitRandom(tempEmitAmount);
+            EmitRandom(GetEmitAmount());
         }
 
         public void Emit(int x, int y)
         {
-            UpdateEmitAmount();
-            grid[x, y].OldAmount += tempEmitAmount;
+            grid[x, y].OldAmount += GetEmitAmount();
         }
 
         private void EmitRandom(double amount)
@@ -168,6 +184,7 @@ namespace TryOut.Grid
 
         private Point GetRandomFreeCell()
         {
+            GridCell cell;
             Point freeCell = new Point();
             Random random = new Random();
 
@@ -175,8 +192,10 @@ namespace TryOut.Grid
             {
                 freeCell.X = random.Next(0, gridSize-1);
                 freeCell.Y = random.Next(0, gridSize-1);
+                cell = grid[freeCell.X, freeCell.Y];
+                
             }
-            while (grid[freeCell.X, freeCell.Y].IsWall);
+            while (cell.IsWall || cell.OldAmount != 0);
 
             return freeCell;
         }
@@ -307,11 +326,6 @@ namespace TryOut.Grid
             }
 
             return hasMoved;
-        }
-
-        internal void UpdateEmitAmount()
-        {
-            tempEmitAmount = (emitAmount * (double) amountMultiplier);
         }
 
         private double GetDistance(Point point1, Point point2)

@@ -34,6 +34,8 @@ namespace TryOut
         public MainForm()
         {
             InitializeComponent();
+            ResizeRedraw = false;
+
             randomSelector.Checked = true;
             checkDisplayDensity.Checked = true;
 
@@ -56,12 +58,13 @@ namespace TryOut
             mainGrid = new MainGrid(gridSize);
             mainGrid.GridRect = GridPane.ClientRectangle;
 
+            mainGrid.CreateEmitters();
+
             if (randomSelector.Checked)
             {
                 mainGrid.CreateRandomWalls();
             }
 
-            mainGrid.CreateEmitters();
             mainGrid.DestinationAmount = 1;
             mainGrid.Percentage = (double)flowSpeed.Value / 8;
 
@@ -69,7 +72,7 @@ namespace TryOut
             multiplierSelector.Value = 1;
             pause = true;
             pauseAction.Text = "Unpause";
-            labelDisplayMultiplier.Text = "x " + mainGrid.emitAmount;
+            labelDisplayMultiplier.Text = "x " + mainGrid.EmitBaseAmount;
         }
 
         private void InitGraphics()
@@ -193,12 +196,10 @@ namespace TryOut
             if (isAC.Checked)
             {
                 mainGrid.AmountMultiplier = multiplierSelector.Value * -1;
-                mainGrid.UpdateEmitAmount();
             }
-            else if (!isAC.Checked)
+            else
             {
                 mainGrid.AmountMultiplier = multiplierSelector.Value;
-                mainGrid.UpdateEmitAmount();
             }
         }
 
@@ -288,7 +289,7 @@ namespace TryOut
             GridCell cell = mainGrid.CellAtMousePos(mousePos);
 
             cellLabel.Text = "Cell: X=" + cell.X.ToString() + ", Y=" + cell.Y.ToString();
-            densityLabel.Text = "Density: " + cell.OldAmount.ToString(); 
+            densityLabel.Text = "Density: " + cell.OldAmount.ToString("0.#######"); 
         }
 
         private void GridPane_MouseClick(object sender, MouseEventArgs e)
@@ -313,8 +314,8 @@ namespace TryOut
                     break;
 
             }
+
             RenderScene();
         }
-
     }
 }

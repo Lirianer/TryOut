@@ -102,7 +102,7 @@ namespace TryOut.Grid
 
         public void DrawCircle(Graphics g, int cellWidth)
         {
-            if (oldAmount > 0.01)
+            if (oldAmount >= 0.05)
             {
                 Rectangle circleRect = Rectangle.Inflate(Rect(cellWidth), -2, -2); // slightly smaller than the cell
                 Color orangeRed = Color.FromArgb(192, Color.OrangeRed);            // 25% transparent
@@ -123,7 +123,7 @@ namespace TryOut.Grid
 
             Rectangle rect = ImageRect(cellWidth);
 
-            if (absAmount > 0.01) // display blank cell for very tiny amounts
+            if (absAmount >= 0.05) // display blank cell for very tiny amounts
             {
                 shade = maxColor - (int)((Math.Log10(absAmount) + 1) / 3 * maxColor);
                 if (shade > maxColor)
@@ -144,15 +144,16 @@ namespace TryOut.Grid
                     color = Color.FromArgb(alpha, (int)shade, (int)shade, maxColor);
                 }
 
-                StringFormat stringFormat = new StringFormat();
-                stringFormat.Alignment = StringAlignment.Center;      // Horizontal Alignment
-                stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
-
                 graphics.FillRectangle(new SolidBrush(color), rect);
 
                 if (displayDensity)
                 {
-                    graphics.DrawString(absAmount.ToString("0.#"), new Font("Arial", 7), new SolidBrush(Color.Black), rect, stringFormat);
+                    StringFormat stringFormat = new StringFormat();
+                    stringFormat.Alignment = StringAlignment.Center;      // Horizontal Alignment
+                    stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
+                    int fontSize = (int)(cellWidth + 1) / 7;
+
+                    graphics.DrawString(absAmount.ToString("0.#"), new Font("Arial", fontSize), new SolidBrush(Color.Black), rect, stringFormat);
                 }
             }
         }
