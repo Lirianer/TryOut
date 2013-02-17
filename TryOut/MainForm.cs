@@ -278,7 +278,6 @@ namespace TryOut
                 Width = originalWidth + divHeight;
             }
 
-
             ResumeLayout(true);
 
             SnapFormToGrid();

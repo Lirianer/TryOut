@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using TryOut.Properties;
 
 namespace TryOut.Grid
 {
@@ -79,30 +79,7 @@ namespace TryOut.Grid
             oldAmount = 0;
             newAmount = 0;
         }
-/*
-        public GridCell(int side, int x, int y, float amount)
-        {
-            isWall = false;
-            this.oldAmount = amount;
-            newAmount = 0;
-            rectangle = new Rectangle(x, y, side, side);
-            color = new Color();
-        }
 
-        public GridCell(GridCell gridCell)
-        {
-            X = gridCell.X;
-            Y = gridCell.Y;
-
-            isWall = false;
-            cellCompleted = false;
-            oldAmount = 0;
-            newAmount = 0;
-
-            rectangle = gridCell.rectangle;
-            color = new Color();
-        }
-*/
         public Rectangle Rect(int cellWidth)
         {
             Rectangle rect;
@@ -124,7 +101,7 @@ namespace TryOut.Grid
             }
         }
 
-        public void Draw(Graphics graphics, int cellWidth)
+        private void DrawFluid(Graphics graphics, int cellWidth)
         {
             const int maxColor = 255;
             Color color = new Color();
@@ -167,6 +144,33 @@ namespace TryOut.Grid
                     graphics.DrawString(absAmount.ToString("0.#"), new Font("Arial", 7), new SolidBrush(Color.Black), rect, stringFormat);
                 }
             }
+        }
+
+        private void DrawDestination(Graphics graphics, int cellWidth)
+        {
+        }
+
+        private void DrawWall(Graphics graphics, int cellWidth)
+        {
+            Bitmap texture = new Bitmap(Resources.wall);
+            TextureBrush textureBrush = new TextureBrush(texture);
+
+            graphics.FillRectangle(textureBrush, Rect(cellWidth));
+        }
+
+        public void Draw(Graphics graphics, int cellWidth, bool drawGrid = false)
+        {
+            if (isWall)
+            {
+                DrawWall(graphics, cellWidth);
+            }
+            else
+            {
+                DrawFluid(graphics, cellWidth);
+            }
+
+            Rectangle rect = Rect(cellWidth);
+
             if (!isSelected)
             {
                 graphics.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rect);
