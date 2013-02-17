@@ -28,11 +28,6 @@ namespace TryOut.Grid
             isWall = false;
             isDestination = true;
             size = cell.Rect.Width;
-            texture = new Bitmap(Resources.destination);
-            textureBrush = new TextureBrush(texture);
-
-            rect = new Rectangle(cell.Rect.X, cell.Rect.Y, size + 1, size);
-            imageRectangle = new Rectangle(cell.Rect.X, cell.Rect.Y, size + 1, size + 1);
         }
 
         public override void DrawCell(Graphics g)

@@ -37,7 +37,7 @@
             this.randomSelector = new System.Windows.Forms.RadioButton();
             this.cellLabel = new System.Windows.Forms.Label();
             this.buttonEmit = new System.Windows.Forms.Button();
-            this.checkDisplayAmount = new System.Windows.Forms.CheckBox();
+            this.checkDisplayDensity = new System.Windows.Forms.CheckBox();
             this.flowSpeed = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
             this.displaySpeed = new System.Windows.Forms.Label();
@@ -51,6 +51,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.densityLabel = new System.Windows.Forms.Label();
             this.quitButton = new System.Windows.Forms.Button();
+            this.checkDisplayGrid = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.flowSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.multiplierSelector)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSizeSelector)).BeginInit();
@@ -117,7 +118,6 @@
             this.blankSelector.Name = "blankSelector";
             this.blankSelector.Size = new System.Drawing.Size(52, 17);
             this.blankSelector.TabIndex = 5;
-            this.blankSelector.TabStop = true;
             this.blankSelector.Text = "Blank";
             this.blankSelector.UseVisualStyleBackColor = true;
             // 
@@ -125,6 +125,7 @@
             // 
             this.randomSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.randomSelector.AutoSize = true;
+            this.randomSelector.Checked = true;
             this.randomSelector.Location = new System.Drawing.Point(634, 370);
             this.randomSelector.Name = "randomSelector";
             this.randomSelector.Size = new System.Drawing.Size(65, 17);
@@ -139,7 +140,7 @@
             this.cellLabel.AutoSize = true;
             this.cellLabel.CausesValidation = false;
             this.cellLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cellLabel.Location = new System.Drawing.Point(491, 372);
+            this.cellLabel.Location = new System.Drawing.Point(491, 398);
             this.cellLabel.Name = "cellLabel";
             this.cellLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cellLabel.Size = new System.Drawing.Size(99, 13);
@@ -157,19 +158,19 @@
             this.buttonEmit.UseVisualStyleBackColor = true;
             this.buttonEmit.Click += new System.EventHandler(this.buttonEmit_Click);
             // 
-            // checkDisplayAmount
+            // checkDisplayDensity
             // 
-            this.checkDisplayAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkDisplayAmount.AutoSize = true;
-            this.checkDisplayAmount.Checked = true;
-            this.checkDisplayAmount.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkDisplayAmount.Location = new System.Drawing.Point(490, 416);
-            this.checkDisplayAmount.Name = "checkDisplayAmount";
-            this.checkDisplayAmount.Size = new System.Drawing.Size(124, 17);
-            this.checkDisplayAmount.TabIndex = 11;
-            this.checkDisplayAmount.Text = "Display Cells Amount";
-            this.checkDisplayAmount.UseVisualStyleBackColor = true;
-            this.checkDisplayAmount.CheckedChanged += new System.EventHandler(this.checkDisplayAmount_CheckedChanged);
+            this.checkDisplayDensity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkDisplayDensity.AutoSize = true;
+            this.checkDisplayDensity.Checked = true;
+            this.checkDisplayDensity.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkDisplayDensity.Location = new System.Drawing.Point(490, 346);
+            this.checkDisplayDensity.Name = "checkDisplayDensity";
+            this.checkDisplayDensity.Size = new System.Drawing.Size(133, 17);
+            this.checkDisplayDensity.TabIndex = 11;
+            this.checkDisplayDensity.Text = "Display density per cell";
+            this.checkDisplayDensity.UseVisualStyleBackColor = true;
+            this.checkDisplayDensity.CheckedChanged += new System.EventHandler(this.checkDisplayAmount_CheckedChanged);
             // 
             // flowSpeed
             // 
@@ -315,7 +316,7 @@
             this.densityLabel.AutoSize = true;
             this.densityLabel.CausesValidation = false;
             this.densityLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.densityLabel.Location = new System.Drawing.Point(491, 395);
+            this.densityLabel.Location = new System.Drawing.Point(491, 421);
             this.densityLabel.Name = "densityLabel";
             this.densityLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.densityLabel.Size = new System.Drawing.Size(45, 13);
@@ -333,11 +334,26 @@
             this.quitButton.UseVisualStyleBackColor = true;
             this.quitButton.Click += new System.EventHandler(this.quitButton_Click);
             // 
+            // checkDisplayGrid
+            // 
+            this.checkDisplayGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkDisplayGrid.AutoSize = true;
+            this.checkDisplayGrid.Checked = true;
+            this.checkDisplayGrid.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkDisplayGrid.Location = new System.Drawing.Point(489, 371);
+            this.checkDisplayGrid.Name = "checkDisplayGrid";
+            this.checkDisplayGrid.Size = new System.Drawing.Size(80, 17);
+            this.checkDisplayGrid.TabIndex = 25;
+            this.checkDisplayGrid.Text = "Display grid";
+            this.checkDisplayGrid.UseVisualStyleBackColor = true;
+            this.checkDisplayGrid.CheckedChanged += new System.EventHandler(this.checkDisplayGrid_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 480);
+            this.Controls.Add(this.checkDisplayGrid);
             this.Controls.Add(this.quitButton);
             this.Controls.Add(this.densityLabel);
             this.Controls.Add(this.label5);
@@ -351,7 +367,7 @@
             this.Controls.Add(this.displaySpeed);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.flowSpeed);
-            this.Controls.Add(this.checkDisplayAmount);
+            this.Controls.Add(this.checkDisplayDensity);
             this.Controls.Add(this.buttonEmit);
             this.Controls.Add(this.cellLabel);
             this.Controls.Add(this.randomSelector);
@@ -361,6 +377,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.pauseAction);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(733, 516);
             this.Name = "MainForm";
             this.Text = "Cosa Amorfa";
@@ -371,6 +388,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridSizeSelector)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -384,7 +402,7 @@
         private System.Windows.Forms.RadioButton randomSelector;
         private System.Windows.Forms.Label cellLabel;
         private System.Windows.Forms.Button buttonEmit;
-        private System.Windows.Forms.CheckBox checkDisplayAmount;
+        private System.Windows.Forms.CheckBox checkDisplayDensity;
         private System.Windows.Forms.TrackBar flowSpeed;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label displaySpeed;
@@ -398,6 +416,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label densityLabel;
         private System.Windows.Forms.Button quitButton;
+        private System.Windows.Forms.CheckBox checkDisplayGrid;
 
     }
 }

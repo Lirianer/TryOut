@@ -65,8 +65,6 @@ namespace TryOut.Grid
             set { isCompleted = value; }
         }
 
-        public bool displayAmount = true;
-
         public GridCell(int xCoord, int yCoord)
         {
             x = xCoord;
@@ -91,6 +89,17 @@ namespace TryOut.Grid
             return rect;
         }
 
+        public Rectangle ImageRect(int cellWidth)
+        {
+            Rectangle rect;
+            int xPos = x * cellWidth;
+            int yPos = y * cellWidth;
+
+            rect = new Rectangle(xPos, yPos, cellWidth, cellWidth);
+
+            return rect;
+        }
+
         public void DrawCircle(Graphics g, int cellWidth)
         {
             if (oldAmount > 0.01)
@@ -101,16 +110,18 @@ namespace TryOut.Grid
             }
         }
 
-        private void DrawFluid(Graphics graphics, int cellWidth)
+        private void DrawFluid(Graphics graphics, int cellWidth, bool displayDensity)
         {
             const int maxColor = 255;
-            Color color = new Color();
+            const int transparency = 25; // percentage
+            int alpha = maxColor * (100 - transparency) / 100;
             int shade = 0;
+            Color color = new Color();
 
             bool isAC = oldAmount < 0;
             double absAmount = Math.Abs(oldAmount);
 
-            Rectangle rect = Rect(cellWidth);
+            Rectangle rect = ImageRect(cellWidth);
 
             if (absAmount > 0.01) // display blank cell for very tiny amounts
             {
@@ -126,11 +137,11 @@ namespace TryOut.Grid
 
                 if (isAC)
                 {   // green
-                    color = Color.FromArgb((int)shade, maxColor, (int)shade);
+                    color = Color.FromArgb(alpha, (int)shade, maxColor, (int)shade);
                 }
                 else
                 {   // blue
-                    color = Color.FromArgb((int)shade, (int)shade, maxColor);
+                    color = Color.FromArgb(alpha, (int)shade, (int)shade, maxColor);
                 }
 
                 StringFormat stringFormat = new StringFormat();
@@ -139,7 +150,7 @@ namespace TryOut.Grid
 
                 graphics.FillRectangle(new SolidBrush(color), rect);
 
-                if (displayAmount)
+                if (displayDensity)
                 {
                     graphics.DrawString(absAmount.ToString("0.#"), new Font("Arial", 7), new SolidBrush(Color.Black), rect, stringFormat);
                 }
@@ -148,6 +159,10 @@ namespace TryOut.Grid
 
         private void DrawDestination(Graphics graphics, int cellWidth)
         {
+            Bitmap texture = new Bitmap(Resources.destination);
+            TextureBrush textureBrush = new TextureBrush(texture);
+
+            graphics.FillRectangle(textureBrush, ImageRect(cellWidth));
         }
 
         private void DrawWall(Graphics graphics, int cellWidth)
@@ -155,35 +170,30 @@ namespace TryOut.Grid
             Bitmap texture = new Bitmap(Resources.wall);
             TextureBrush textureBrush = new TextureBrush(texture);
 
-            graphics.FillRectangle(textureBrush, Rect(cellWidth));
+            graphics.FillRectangle(textureBrush, ImageRect(cellWidth));
         }
 
-        public void Draw(Graphics graphics, int cellWidth, bool drawGrid = false)
+        public void Draw(Graphics graphics, int cellWidth, bool displayGrid = true, bool displayDensity = true)
         {
+
             if (isWall)
             {
                 DrawWall(graphics, cellWidth);
             }
             else
             {
-                DrawFluid(graphics, cellWidth);
+                if (isDestination)
+                {
+                    DrawDestination(graphics, cellWidth);
+                }
+
+                DrawFluid(graphics, cellWidth, displayDensity);
             }
 
-            Rectangle rect = Rect(cellWidth);
-
-            if (!isSelected)
+            if (displayGrid)
             {
-                graphics.DrawRectangle(new Pen(new SolidBrush(Color.Black)), rect);
+                graphics.DrawRectangle(new Pen(new SolidBrush(Color.Black)), Rect(cellWidth));
             }
-            else if (isSelected)
-            {
-                graphics.DrawRectangle(new Pen(new SolidBrush(Color.Green)), rect);
-            }
-        }
-
-        public bool CellCompleted
-        { // ???
-            get { return false; }
         }
 
         public double DistanceTo(GridCell gridCell)

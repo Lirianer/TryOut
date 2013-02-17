@@ -34,7 +34,8 @@ namespace TryOut
         public MainForm()
         {
             InitializeComponent();
-            blankSelector.Checked = true;
+            randomSelector.Checked = true;
+            checkDisplayDensity.Checked = true;
 
             // Set GridPane to DoubleBuffered instead of the entire form
             System.Reflection.PropertyInfo aProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered",
@@ -49,6 +50,28 @@ namespace TryOut
             originalHeight = Height;
         }
 
+        private void Init()
+        {
+            // Create the grid with specified size within the pane area
+            mainGrid = new MainGrid(gridSize);
+            mainGrid.GridRect = GridPane.ClientRectangle;
+
+            if (randomSelector.Checked)
+            {
+                mainGrid.CreateRandomWalls();
+            }
+
+            mainGrid.CreateEmitters();
+            mainGrid.DestinationAmount = 1;
+            mainGrid.Percentage = (double)flowSpeed.Value / 8;
+
+            isAC.Checked = false;
+            multiplierSelector.Value = 1;
+            pause = true;
+            pauseAction.Text = "Unpause";
+            labelDisplayMultiplier.Text = "x " + mainGrid.emitAmount;
+        }
+
         private void InitGraphics()
         {
             // Create the backBuffer for the GridPane to prevent flickering while drawing
@@ -58,22 +81,6 @@ namespace TryOut
             graphics = Graphics.FromImage(backBuffer);
 
             mainGrid.GridRect = GridPane.ClientRectangle;
-        }
-
-        private void Init()
-        {
-            // Create the grid with specified size within the pane area
-            mainGrid = new MainGrid(gridSize);
-            mainGrid.GridRect = GridPane.ClientRectangle;
-
-            mainGrid.Percentage = (double)flowSpeed.Value / 8;
-
-            isAC.Checked = false;
-            multiplierSelector.Value = 1;
-            pause = true;
-            checkDisplayAmount.Checked = true;
-            pauseAction.Text = "Unpause";
-            labelDisplayMultiplier.Text = "* " + mainGrid.emitAmount;
         }
 
         public void GameLoop()
@@ -99,7 +106,7 @@ namespace TryOut
         private void GameLogic()
         {
             mainGrid.ProcessFlow();
-            if (mainGrid.GridWon)
+            if (mainGrid.HasWon())
             {
                 MessageBox.Show("You have Won this Map!");
                 restartAction.PerformClick();
@@ -141,16 +148,7 @@ namespace TryOut
         }
 
         private void restartAction_Click(object sender, EventArgs e)
-        {   // TO DO
-            if (blankSelector.Checked)
-            {
-                //grid = new MainGrid(graphics, gridSize, 1);
-            }
-            else if (randomSelector.Checked)
-            {
-                //grid = new MainGrid(graphics, gridSize, 3);
-            }
-
+        {
             Restart();
         }
 
@@ -166,26 +164,20 @@ namespace TryOut
         private void buttonEmit_Click(object sender, EventArgs e)
         {
             mainGrid.Emit();
+
             RenderScene();
         }
 
         private void checkDisplayAmount_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkDisplayAmount.Checked)
-            {
-                foreach (GridCell cell in mainGrid.Grid)
-                {
-                    cell.displayAmount = true;
-                }
-            }
+            mainGrid.DisplayDensity = checkDisplayDensity.Checked;
 
-            if (!checkDisplayAmount.Checked)
-            {
-                foreach (GridCell cell in mainGrid.Grid)
-                {
-                    cell.displayAmount = false;
-                }
-            }
+            RenderScene();
+        }
+
+        private void checkDisplayGrid_CheckedChanged(object sender, EventArgs e)
+        {
+            mainGrid.DisplayGrid = checkDisplayGrid.Checked;
 
             RenderScene();
         }
@@ -323,5 +315,6 @@ namespace TryOut
             }
             RenderScene();
         }
+
     }
 }

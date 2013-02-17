@@ -23,12 +23,6 @@ namespace TryOut.Grid
             }
         }
 
-        public double Total { get; set; }
-        private bool hasDestination;
-        
-        public double emitAmount;
-        double tempEmitAmount;
-
         private GridCell[,] grid;
         public GridCell[,] Grid
         {
@@ -50,11 +44,33 @@ namespace TryOut.Grid
             set { amountMultiplier = value; }
         }
 
-        private bool gridWon;
-        public bool GridWon
+        private double destinationAmount;
+        public double DestinationAmount
         {
-            get { return gridWon; }
+            get { return destinationAmount; }
+            set { destinationAmount = value; }
         }
+
+        private List<GridCell> destinationCells;
+
+        private bool displayDensity = true;
+        public bool DisplayDensity
+        {
+            get { return displayDensity; }
+            set { displayDensity = value; }
+        }
+
+        private bool displayGrid = true;
+        public bool DisplayGrid
+        {
+            get { return displayGrid; }
+            set { displayGrid = value; }
+        }
+        
+        public double Total { get; set; }
+
+        public double emitAmount;
+        double tempEmitAmount;
 
         public MainGrid(int size)
         {
@@ -65,6 +81,8 @@ namespace TryOut.Grid
             cellWidth = gridRect.Width / gridSize; 
             grid = new GridCell[gridSize, gridSize];
 
+            destinationCells = new List<GridCell>();
+
             // Create cells
             for (int x = 0; x < gridSize; x++)
             {
@@ -73,52 +91,26 @@ namespace TryOut.Grid
                     grid[x, y] = new GridCell(x, y);
                 }
             }
+        }
 
-            /*  Move later
-            {   // Create 10 random walls
+        public void CreateRandomWalls()
+        {
+            // Create 25% random walls
+            Point wall;
 
-                Point wall;
-
-                for (int i = 0; i < 25; i++)
-                {
-                    wall = GetRandomFreeCell();
-                    grid[wall.X, wall.Y] = new WallCell(grid[wall.X, wall.Y]); // convert gridCell into wallcell
-                }
+            for (int i = 0; i < gridSize * gridSize / 4; i++)
+            {
+                wall = GetRandomFreeCell();
+                grid[wall.X, wall.Y].IsWall = true;
             }
-            */
+        }
 
-
-            /*  MapGrid now obsolete because of flexible grid size. Commented for reference.
-             
-                for (int i = 0; i < xCells; i++)
-                {
-                    for (int j = 0; j < yCells; j++)
-                    {
-                        if ((i == 1 && j != 0) && (i == 1 && j != 9) || (j == 1 && i != 0) && (j == 1 && i != 9) || (j == 8 && i != 0) && (j == 8 && i != 9))
-                        {
-                            grid[i, j] = new WallCell(cellWidth, gridCellX + 2, gridCellY + 2, i, j);
-                        }
-                        else if ((i == 8 && j != 0) && (i == 8 && j != 9) && (i == 8 && j != yCells / 2))
-                        {
-                            grid[i, j] = new WallCell(cellWidth, gridCellX + 2, gridCellY + 2, i, j);
-                        }
-                        else
-                        {
-                            grid[i, j] = new GridCell(cellWidth, gridCellX + 2, gridCellY + 2, i, j);
-                        }
-                        gridCellY += cellWidth + 1;
-                    }
-                    gridCellX += cellWidth + 1;
-                    gridCellY = 0;
-
-               }
-               emitAmount = 73; 
-            */
-
-            tempEmitAmount = (emitAmount * (double) amountMultiplier);
-            Point emitterLocation = new Point(0,0);
+        public void CreateEmitters()
+        {
+            tempEmitAmount = (emitAmount * (double)amountMultiplier);
+            Point emitterLocation = new Point(0, 0);
             emitterLocation = EmitRandomEdge(tempEmitAmount, 0, emitterLocation);  // emit Creeper in random edge cell
-            EmitRandomEdge(tempEmitAmount * -1, 8, emitterLocation);               // emit Anti-Creeper in different edge cell at minimum distance
+            EmitRandomEdge(tempEmitAmount * -1, gridSize - 3, emitterLocation);      // emit Anti-Creeper in different edge cell at minimum distance
         }
 
         public void Emit()
@@ -143,24 +135,35 @@ namespace TryOut.Grid
         {   // Emit an amount at the edge, or close to it. Also use a minimum distance compared to point parameter.
             Point emitter;
             double distance = 0;
+            int margin = (int)(gridSize / 5);
 
             do
             {   // keep looking until a free spot at the edge is found
                 emitter = GetRandomFreeCell();
                 distance = GetDistance(emitter, compareLocation);
             }
-            while (!((emitter.X <= 1  ||                             // (close to) left edge
-                      emitter.X >= gridSize-2  ||                    // (close to) right edge
-                      emitter.Y <= 1  ||                             // (close to) top edge
-                      emitter.Y >= gridSize-2) &&                    // (close to) bottom edge
-                      grid[emitter.X, emitter.Y].OldAmount == 0 &&   // no other Creeper
-                     (minDistance == 0 ||                            // no minimal distance required
-                      compareLocation.IsEmpty ||                     // no location to compare to
-                      distance >= minDistance)));                    // located at minimal distance
+            while (!((emitter.X <= margin-1                     || // (close to) left edge
+                      emitter.X >= gridSize-margin              || // (close to) right edge
+                      emitter.Y <= margin-1                     || // (close to) top edge
+                      emitter.Y >= gridSize-margin)             && // (close to) bottom edge
+                      grid[emitter.X, emitter.Y].OldAmount == 0 && // no other Creeper
+                     (minDistance == 0                          || // no minimal distance required
+                      compareLocation.IsEmpty                   || // no location to compare to
+                      distance >= minDistance)));                  // located at minimal distance
 
             grid[emitter.X, emitter.Y].OldAmount = amount;
 
             return emitter; // return the location of the new emitter
+        }
+
+        public void Emit(Point mousePos)
+        {
+            GridCell cell = CellAtMousePos(mousePos);
+
+            if (!cell.IsWall)
+            {
+                Emit(cell.X, cell.Y);
+            }
         }
 
         private Point GetRandomFreeCell()
@@ -195,16 +198,6 @@ namespace TryOut.Grid
             }
         }
 
-        public void Emit(Point mousePos)
-        {
-            GridCell cell = CellAtMousePos(mousePos);
-
-            if (!cell.IsWall)
-            {
-                Emit(cell.X, cell.Y);
-            }
-        }
-
         public GridCell CellAtMousePos(Point mousePos)
         {
             int x = (int) mousePos.X / cellWidth;
@@ -219,7 +212,7 @@ namespace TryOut.Grid
         {
             foreach (GridCell cell in grid)
             {
-                cell.Draw(graphics, cellWidth);
+                cell.Draw(graphics, cellWidth, displayGrid, displayDensity);
             }
 
             // Indicate cell with highest density
@@ -242,49 +235,13 @@ namespace TryOut.Grid
 
             Total = 0;
             foreach (GridCell cell in grid)
-                    {
-                        if (cell.IsDestination)
-                        {
-                            hasDestination = true;
-                        }
-                        cell.OldAmount = cell.NewAmount; 
-                        Total+= cell.NewAmount;
-                        cell.NewAmount = 0;
-                    }
-            if (hasDestination)
             {
-                CheckForGridWon();
+                cell.OldAmount = cell.NewAmount; 
+                Total += cell.NewAmount;
+                cell.NewAmount = 0;
             }
+
             Console.WriteLine(Total.ToString("0.##"));     
-        }
-
-        private void CheckForGridWon()
-        {
-            List<bool> destinationCells = new List<bool>();
-
-            foreach (GridCell cell in grid)
-            {
-                if (cell.IsDestination)
-                {
-                    destinationCells.Add(cell.CellCompleted);
-                }
-            }
-            if (destinationCells.TrueForAll(isTrue))
-            {
-                gridWon = true;
-            }
-            else
-            {
-                gridWon = false;    
-            }
-
-
-            Console.WriteLine("\nTrueForAll (isTrue): {0}", destinationCells.TrueForAll(isTrue));
-        }
-
-        private bool isTrue(bool obj)
-        {
-            return obj;
         }
 
         private List<GridCell> GetNeighbours(int X, int Y)
@@ -369,7 +326,33 @@ namespace TryOut.Grid
         {
             GridCell cell = CellAtMousePos(mousePos);
 
-            cell.IsDestination = !cell.IsDestination;
+            if (cell.IsDestination)
+            {
+                if (destinationCells.Remove(cell))
+                {
+                    cell.IsDestination = false;
+                }
+            }
+            else
+            {
+                destinationCells.Add(cell);
+                cell.IsDestination = true;
+            }
+        }
+
+        public bool HasWon()
+        {
+            bool hasWon = (destinationCells.Count > 0);
+
+            if (hasWon)
+            {
+                foreach (GridCell cell in destinationCells)
+                {   // Check if amount in each destination cell is above required amount
+                    hasWon = (Math.Abs(cell.OldAmount) >= destinationAmount) && hasWon;
+                }
+            }
+
+            return hasWon;
         }
 
         private Point GetHighestDensity()
