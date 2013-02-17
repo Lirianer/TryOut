@@ -101,14 +101,14 @@ namespace TryOut.Grid
             destinationCells = new List<GridCell>();
 
             wallPercentage = 25;
-            emitBaseAmount = 10 * gridSize * gridSize * (100 - wallPercentage) / 100;
+            emitBaseAmount = 10 * Math.Ceiling((double) gridSize * gridSize * (100 - wallPercentage) / 100);
         }
 
         public void CreateRandomWalls()
         {
             // Create random walls
             Point wall;
-            int wallCount = gridSize * gridSize * wallPercentage / 100;
+            int wallCount = (int) Math.Floor((double) gridSize * gridSize * wallPercentage / 100);
 
             for (int i = 0; i < wallCount; i++)
             {

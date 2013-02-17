@@ -26,7 +26,6 @@ namespace TryOut
         private int originalHeight = 0;
 
         private Graphics graphics;
-
         private Image backBuffer;
 
         private bool pause = true;
@@ -76,6 +75,7 @@ namespace TryOut
 
             pause = true;
             pauseAction.Text = "Unpause";
+            cellLabel.Text = "Cell:";
             densityLabel.Text = "";
             SetMuliplierText();
         }
@@ -117,7 +117,7 @@ namespace TryOut
             if (mainGrid.HasWon())
             {
                 MessageBox.Show("You have Won this Map!");
-                restartAction.PerformClick();
+                Restart();
             }
         }
 

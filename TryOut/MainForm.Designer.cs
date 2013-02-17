@@ -49,10 +49,10 @@
             this.GridPane = new System.Windows.Forms.Panel();
             this.gridSizeSelector = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.densityLabel = new System.Windows.Forms.Label();
             this.quitButton = new System.Windows.Forms.Button();
             this.checkDisplayGrid = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.densityLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.flowSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.multiplierSelector)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSizeSelector)).BeginInit();
@@ -73,11 +73,13 @@
             // 
             this.totalLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(535, 446);
+            this.totalLabel.Location = new System.Drawing.Point(535, 441);
+            this.totalLabel.MinimumSize = new System.Drawing.Size(0, 20);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(53, 13);
+            this.totalLabel.Size = new System.Drawing.Size(53, 20);
             this.totalLabel.TabIndex = 1;
             this.totalLabel.Text = "totalLabel";
+            this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
@@ -241,11 +243,13 @@
             // 
             this.labelDisplayMultiplier.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDisplayMultiplier.AutoSize = true;
-            this.labelDisplayMultiplier.Location = new System.Drawing.Point(613, 221);
+            this.labelDisplayMultiplier.Location = new System.Drawing.Point(613, 219);
+            this.labelDisplayMultiplier.MinimumSize = new System.Drawing.Size(0, 20);
             this.labelDisplayMultiplier.Name = "labelDisplayMultiplier";
-            this.labelDisplayMultiplier.Size = new System.Drawing.Size(52, 13);
+            this.labelDisplayMultiplier.Size = new System.Drawing.Size(52, 20);
             this.labelDisplayMultiplier.TabIndex = 17;
             this.labelDisplayMultiplier.Text = "multLabel";
+            this.labelDisplayMultiplier.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // isAC
             // 
@@ -318,19 +322,6 @@
             this.label5.TabIndex = 22;
             this.label5.Text = "Grid Size:";
             // 
-            // densityLabel
-            // 
-            this.densityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.densityLabel.AutoSize = true;
-            this.densityLabel.CausesValidation = false;
-            this.densityLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.densityLabel.Location = new System.Drawing.Point(538, 422);
-            this.densityLabel.Name = "densityLabel";
-            this.densityLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.densityLabel.Size = new System.Drawing.Size(66, 13);
-            this.densityLabel.TabIndex = 23;
-            this.densityLabel.Text = "densityLabel";
-            // 
             // quitButton
             // 
             this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -369,14 +360,26 @@
             this.label1.TabIndex = 26;
             this.label1.Text = "Density:";
             // 
+            // densityLabel
+            // 
+            this.densityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.densityLabel.AutoSize = true;
+            this.densityLabel.Location = new System.Drawing.Point(535, 418);
+            this.densityLabel.MinimumSize = new System.Drawing.Size(0, 20);
+            this.densityLabel.Name = "densityLabel";
+            this.densityLabel.Size = new System.Drawing.Size(66, 20);
+            this.densityLabel.TabIndex = 27;
+            this.densityLabel.Text = "densityLabel";
+            this.densityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 480);
+            this.Controls.Add(this.densityLabel);
             this.Controls.Add(this.checkDisplayGrid);
             this.Controls.Add(this.quitButton);
-            this.Controls.Add(this.densityLabel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.gridSizeSelector);
             this.Controls.Add(this.GridPane);
@@ -435,10 +438,10 @@
         private System.Windows.Forms.Panel GridPane;
         private System.Windows.Forms.NumericUpDown gridSizeSelector;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label densityLabel;
         private System.Windows.Forms.Button quitButton;
         private System.Windows.Forms.CheckBox checkDisplayGrid;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label densityLabel;
 
     }
 }
