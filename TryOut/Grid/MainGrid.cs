@@ -210,9 +210,12 @@ namespace TryOut.Grid
             }
             else
             {
-                if (ProcessNeighbours(cell.X, cell.Y, true))
-                {  // moved all Creeper to neighbours
-                    cell.IsWall = true;
+                if (!cell.IsDestination)
+                {
+                    if (ProcessNeighbours(cell.X, cell.Y, true))
+                    {  // moved all Creeper to neighbours
+                        cell.IsWall = true;
+                    }
                 }
             }
         }
@@ -350,8 +353,11 @@ namespace TryOut.Grid
             }
             else
             {
-                destinationCells.Add(cell);
-                cell.IsDestination = true;
+                if (!cell.IsWall)
+                {
+                    destinationCells.Add(cell);
+                    cell.IsDestination = true;
+                }
             }
         }
 
