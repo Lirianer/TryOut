@@ -218,7 +218,6 @@ namespace TryOut
             gridSize = (int) gridSizeSelector.Value;
 
             SnapFormToGrid();
-            Invalidate(true);
 
             Restart();
         }
@@ -226,50 +225,73 @@ namespace TryOut
         private void SnapFormToGrid()
         {
             // Snap back to full pizels per cell
-            int excessPixels;
+            int excessPixels = GridPane.Width % gridSize;
 
-            excessPixels = GridPane.Width % gridSize;
-            if (excessPixels > gridSize / 2)
-            {   // Make form slightly wider
+            if (excessPixels > gridSize / 2 &&
+                (Height + gridSize - excessPixels) <= Screen.PrimaryScreen.WorkingArea.Height)
+            {   // Make form slightly larger
                 Width += (gridSize - excessPixels);
-            }
-            else
-            {   // Make form slightly narrower
-                Width -= excessPixels;
-            }
-
-            excessPixels = GridPane.Height % gridSize;
-            if (excessPixels > gridSize / 2)
-            {   // Make form slightly higher
                 Height += (gridSize - excessPixels);
             }
             else
             {   // Make form slightly smaller
+                Width -= excessPixels;
                 Height -= excessPixels;
             }
         }
 
-        private void MainForm_ResizeBegin(object sender, EventArgs e)
-        {
-            SuspendLayout();
+        protected override void WndProc(ref Message m)
+        {   // Override maximize event
+            if (m.Msg == 0x0112 &&              // WM_SYSCOMMAND
+                m.WParam == new IntPtr(0xF030)) // Maximize event: SC_MAXIMIZE from Winuser.h
+            {
+                SuspendLayout();
+                Height = Screen.PrimaryScreen.WorkingArea.Height;
+                AdjustSize();
+            }
+            else
+            {   // Continue processing
+                base.WndProc(ref m);
+            }
         }
 
-        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        private void FitToScreen()
         {
+            int divSize;
             int divWidth = Width - originalWidth;
             int divHeight = Height - originalHeight;
 
             // Maintain aspect ratio
-            if (Math.Abs(divWidth) > Math.Abs(divHeight))
+            if (Math.Abs(divHeight) > Math.Abs(divWidth))
             {
-                Height = originalHeight + divWidth;
-                Width = originalWidth + divWidth;
+                divSize = divHeight;
             }
             else
             {
-                Height = originalHeight + divHeight;
-                Width = originalWidth + divHeight;
+                divSize = divWidth;
             }
+
+            // Adjust size to fit the working area (desktop minus taskbar)
+            Rectangle screenSize = new Rectangle(new Point(0,0), Screen.PrimaryScreen.WorkingArea.Size);
+            int screenHeight = screenSize.Height;
+            int screenWidth = screenSize.Width;
+
+            divSize = Math.Min(divSize, screenSize.Height - originalHeight);
+
+            // Set new form size
+            Height = originalHeight + divSize;
+            Width = originalWidth + divSize;
+
+            // Reposition the form to make it entirely visible
+            Point pos = new Point();
+            pos.X = Math.Min(Location.X, screenWidth - Width);
+            pos.Y = Math.Min(Location.Y, screenHeight - Height);
+            Location = pos;
+        }
+
+        private void AdjustSize()
+        {
+            FitToScreen();
 
             ResumeLayout(true);
 
@@ -279,8 +301,18 @@ namespace TryOut
             originalHeight = Height;
 
             InitGraphics();
-            
+
             RenderScene();
+        }
+
+        private void MainForm_ResizeBegin(object sender, EventArgs e)
+        {
+            SuspendLayout();
+        }
+
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            AdjustSize();
         }
 
         private void GridPane_MouseMove(object sender, MouseEventArgs e)

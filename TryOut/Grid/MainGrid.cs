@@ -259,8 +259,6 @@ namespace TryOut.Grid
                 Total += cell.NewAmount;
                 cell.NewAmount = 0;
             }
-
-            Console.WriteLine(Total.ToString("0.##"));     
         }
 
         private List<GridCell> GetNeighbours(int X, int Y)

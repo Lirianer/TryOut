@@ -377,7 +377,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.pauseAction);
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(733, 516);
             this.Name = "MainForm";
             this.Text = "Cosa Amorfa";

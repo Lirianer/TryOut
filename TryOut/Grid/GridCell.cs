@@ -44,13 +44,6 @@ namespace TryOut.Grid
             set { isWall = value; }
         }
 
-        private bool isSelected = false;
-        public bool IsSelected
-        {
-            get { return isSelected; }
-            set { isSelected = value; }
-        }
-
         private bool isDestination;
         public bool IsDestination
         {
@@ -58,19 +51,11 @@ namespace TryOut.Grid
             set { isDestination = value; }
         }
 
-        private bool isCompleted;
-        public bool IsCompleted
-        {
-            get { return isCompleted; }
-            set { isCompleted = value; }
-        }
-
         public GridCell(int xCoord, int yCoord)
         {
             x = xCoord;
             y = yCoord;
 
-            isCompleted = false;
             isWall = false;
             isDestination = false;
 
@@ -110,7 +95,7 @@ namespace TryOut.Grid
             }
         }
 
-        private void DrawFluid(Graphics graphics, int cellWidth, bool displayDensity)
+        private void DrawFluid(Graphics graphics, int cellWidth, bool displayDensity = true)
         {
             const int maxColor = 255;
             const int transparency = 25; // percentage
@@ -126,14 +111,8 @@ namespace TryOut.Grid
             if (absAmount >= 0.05) // display blank cell for very tiny amounts
             {
                 shade = maxColor - (int)((Math.Log10(absAmount) + 1) / 3 * maxColor);
-                if (shade > maxColor)
-                {
-                    shade = maxColor;
-                }
-                if (shade < 0)
-                {
-                    shade = 0;
-                }
+                shade = Math.Min(shade, maxColor);
+                shade = Math.Max(shade, 0);
 
                 if (isAC)
                 {   // green
@@ -151,7 +130,7 @@ namespace TryOut.Grid
                     StringFormat stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Center;      // Horizontal Alignment
                     stringFormat.LineAlignment = StringAlignment.Center;  // Vertical Alignment
-                    int fontSize = (int)(cellWidth + 1) / 7;
+                    int fontSize = (int) Math.Max((cellWidth)/6, 6);      // Scaling fontsize, minimum = 6 pt
 
                     graphics.DrawString(absAmount.ToString("0.#"), new Font("Arial", fontSize), new SolidBrush(Color.Black), rect, stringFormat);
                 }
