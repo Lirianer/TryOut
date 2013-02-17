@@ -229,9 +229,12 @@ namespace TryOut.Grid
 
         public void Draw(Graphics graphics)
         {
+            total = 0;
+
             foreach (GridCell cell in grid)
             {
                 cell.Draw(graphics, cellWidth, displayGrid, displayDensity);
+                total += cell.OldAmount;
             }
 
             // Indicate cell with highest density
@@ -241,6 +244,7 @@ namespace TryOut.Grid
 
         public void ProcessFlow()
         {
+            // Set the new values
             for (int x = 0; x < gridSize; x++)
             {
                 for (int y = 0; y < gridSize; y++)
@@ -252,11 +256,10 @@ namespace TryOut.Grid
                 }
             }
 
-            Total = 0;
+            // Set the old values
             foreach (GridCell cell in grid)
             {
                 cell.OldAmount = cell.NewAmount; 
-                Total += cell.NewAmount;
                 cell.NewAmount = 0;
             }
         }

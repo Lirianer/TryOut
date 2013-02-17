@@ -36,8 +36,11 @@ namespace TryOut
             InitializeComponent();
             ResizeRedraw = false;
 
+            // Set control defaults
+            isAC.Checked = false;
             randomSelector.Checked = true;
             checkDisplayDensity.Checked = true;
+            multiplierSelector.Value = 1;
 
             // Set GridPane to DoubleBuffered instead of the entire form
             System.Reflection.PropertyInfo aProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered",
@@ -65,14 +68,16 @@ namespace TryOut
                 mainGrid.CreateRandomWalls();
             }
 
-            mainGrid.DestinationAmount = 1;
+            mainGrid.DestinationAmount = 5;
             mainGrid.Percentage = (double)flowSpeed.Value / 8;
+            mainGrid.DisplayDensity = checkDisplayDensity.Checked;
+            mainGrid.DisplayGrid = checkDisplayGrid.Checked;
+            mainGrid.AmountMultiplier = GetMultiplier();
 
-            isAC.Checked = false;
-            multiplierSelector.Value = 1;
             pause = true;
             pauseAction.Text = "Unpause";
-            labelDisplayMultiplier.Text = "x " + mainGrid.EmitBaseAmount;
+            densityLabel.Text = "";
+            SetMuliplierText();
         }
 
         private void InitGraphics()
@@ -125,6 +130,21 @@ namespace TryOut
             GridPane.BackgroundImage = backBuffer;
 
             totalLabel.Text = mainGrid.Total.ToString("0.###");
+            if (mainGrid.Total < -0.001)
+            {
+                totalLabel.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                if (mainGrid.Total > 0.001)
+                {
+                    totalLabel.BackColor = Color.LightBlue;
+                }
+                else
+                {
+                    totalLabel.BackColor = BackColor;
+                }
+            }
 
             Invalidate(true);
         }
@@ -193,13 +213,34 @@ namespace TryOut
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
+            mainGrid.AmountMultiplier = GetMultiplier();
+            SetMuliplierText();
+        }
+
+        private decimal GetMultiplier()
+        {
+            decimal amountMultiplier = multiplierSelector.Value;
+
             if (isAC.Checked)
             {
-                mainGrid.AmountMultiplier = multiplierSelector.Value * -1;
+                amountMultiplier *= -1;
+            }
+
+            return amountMultiplier;
+        }
+
+        private void SetMuliplierText()
+        {
+            labelDisplayMultiplier.Text = "x " + mainGrid.EmitBaseAmount + " = " +
+                (mainGrid.EmitBaseAmount * (double)multiplierSelector.Value).ToString("0.#");
+
+            if (isAC.Checked)
+            {
+                labelDisplayMultiplier.BackColor = Color.LightGreen;
             }
             else
             {
-                mainGrid.AmountMultiplier = multiplierSelector.Value;
+                labelDisplayMultiplier.BackColor = Color.LightBlue;
             }
         }
 
@@ -321,16 +362,31 @@ namespace TryOut
             GridCell cell = mainGrid.CellAtMousePos(mousePos);
 
             cellLabel.Text = "Cell: X=" + cell.X.ToString() + ", Y=" + cell.Y.ToString();
-            densityLabel.Text = "Density: " + cell.OldAmount.ToString("0.#######"); 
+            densityLabel.Text = Math.Abs(cell.OldAmount).ToString("0.#######");
+            if (cell.OldAmount < -0.0000001)
+            {
+                densityLabel.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                if (cell.OldAmount > 0.0000001)
+                {
+                    densityLabel.BackColor = Color.LightBlue;
+                }
+                else
+                {
+                    densityLabel.BackColor = BackColor;
+                }
+            }
         }
 
         private void GridPane_MouseClick(object sender, MouseEventArgs e)
         {
             Point mousePos = new Point(e.X, e.Y);
 
-            switch (e.Button.ToString())
+            switch (e.Button)
             {
-                case "Left":
+                case MouseButtons.Left:
                     if (checkMakeDestination.Checked)
                     {
                         mainGrid.SwitchDestination(mousePos);
@@ -339,12 +395,11 @@ namespace TryOut
                     {
                         mainGrid.SwitchWall(mousePos);
                     }
-                    break;
+                break;
 
-                case "Right":
+                case MouseButtons.Right:
                     mainGrid.Emit(mousePos);
-                    break;
-
+                break;
             }
 
             RenderScene();
